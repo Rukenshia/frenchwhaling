@@ -3,7 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import autoPreprocess from 'svelte-preprocess';
+import { postcss, globalStyle } from 'svelte-preprocess';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -17,12 +17,17 @@ export default {
 	},
 	plugins: [
 		svelte({
-			preprocess: autoPreprocess({
-				postcss: {
+			preprocess: [
+				postcss({
 					plugins: [require('tailwindcss')],
-				},
-			}),
+					extract: true,
+				}),
+				globalStyle(),
+			],
 			dev: !production,
+			css: css => {
+				css.write('public/bundle.css');
+			},
 		}),
 
 		resolve({

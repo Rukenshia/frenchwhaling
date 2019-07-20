@@ -15,6 +15,9 @@
     "svelte-preprocess": "^2.14.4"
   },
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
+    "query-string": "^6.8.1",
     "sirv-cli": "^0.4.4",
     "tailwindcss": "^1.0.5"
   },
