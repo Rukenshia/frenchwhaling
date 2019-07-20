@@ -1,0 +1,88 @@
+service: frenchwhaling
+frameworkVersion: ">=1.28.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: go1.x
+  region: eu-central-1
+  deploymentBucket:
+    tags:
+      Application: frenchwhaling
+  stackTags:
+    Application: frenchwhaling
+  tags:
+    Application: frenchwhaling
+  iamRoleStatements:
+    - Effect: Allow
+      Action: "dynamodb:*Item"
+      Resource:
+        Fn::GetAtt: SubscribersTable.Arn
+    - Effect: Allow
+      Action: "s3:GetObject"
+      Resource:
+        Fn::GetAtt: SubscribersBucket.Arn
+    - Effect: Allow
+      Action: "sns:Publish"
+      Resource:
+        Ref: SNSTopic
+
+package:
+ exclude:
+   - ./**
+ include:
+   - ./bin/**
+
+functions:
+  login:
+    handler: bin/login
+    environment:
+      APPLICATION_ID: ${file(.env.live.json):APPLICATION_ID}
+      SIGNING_SECRET: ${file(.env.live.json):SIGNING_SECRET}
+      TOPIC_ARN:
+        Ref: SNSTopic
+    events:
+      - http:
+          cors: true
+          path: /login
+          method: get
+
+  refresh:
+    handler: bin/refresh
+    events:
+    - sns:
+        filterPolicy:
+          Type:
+          - Refresh
+        arn:
+          Fn::Join:
+            - ':'
+            - - 'arn:aws:sns'
+              - Ref: 'AWS::Region'
+              - Ref: 'AWS::AccountId'
+              - 'frenchwhaling-events'
+        topicName: frenchwhaling-events
+
+resources:
+  Resources:
+    SubscribersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: frenchwhaling-subscribers
+        AttributeDefinitions: 
+        - AttributeName: "AccountID"
+          AttributeType: "S"
+        KeySchema: 
+        - AttributeName: "AccountID"
+          KeyType: "HASH"
+        BillingMode: PAY_PER_REQUEST
+    
+    SubscribersBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: frenchwhaling-subscribers
+
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: frenchwhaling-events
+        DisplayName: frenchwhaling-events

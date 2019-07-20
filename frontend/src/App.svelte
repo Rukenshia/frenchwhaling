@@ -1,15 +1,19 @@
 <script>
+	import Frenchwhaling from './Frenchwhaling.svelte';
 	export let name;
 </script>
 
-<style>
+<style global>
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
+
+body {
+	@apply bg-gray-200;
+	margin: 0;
+	padding: 0;
+}
 </style>
 
-
-<h1 class="p-6 text-2xl text-gray-900">Hello {name}!</h1>
-
-<span class="text-red-900">asd</span>
-oof
+<Frenchwhaling />
+  

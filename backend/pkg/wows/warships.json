@@ -1,0 +1,3939 @@
+[
+{
+        "name": "AL Montpelier",
+        "price_gold": 11000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3542005744,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Alaska",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3760109552,
+        "price_credit": 1,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Irian",
+        "price_gold": 11500,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 3762205904,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Smolensk",
+        "price_gold": 99999,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3655251408,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Varyag",
+        "price_gold": 2200,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3756963280,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Asashio B",
+        "price_gold": 9300,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3667801808,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Atago B",
+        "price_gold": 10700,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3667834576,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Yoshino",
+        "price_gold": 35000,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3749623504,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Haruna",
+        "price_gold": 1500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3553572560,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Ark Royal",
+        "price_gold": 99999,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3751786448,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Lenin",
+        "price_gold": 11000,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3751753168,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Takao",
+        "price_gold": 4500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3552491216,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Shinonome",
+        "price_gold": 4000,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3554555600,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Eastern Dragon",
+        "price_gold": 3500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3532568272,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Kii",
+        "price_gold": 12900,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3762239184,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Cossack",
+        "price_gold": 9600,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3752736720,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Musashi",
+        "price_gold": 19200,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3761190608,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "[Zaō]",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3315513040,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Indianapolis",
+        "price_gold": 7500,
+        "nation": "usa",
+        "is_premium": true,
+        "ship_id": 3763255280,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Belfast",
+        "price_gold": 8200,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3763255248,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Jean Bart",
+        "price_gold": 19200,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3751753552,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Z-39",
+        "price_gold": 5900,
+        "nation": "germany",
+        "is_premium": true,
+        "ship_id": 3762173744,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Kaga",
+        "price_gold": 11000,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3751786192,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "[Shimakaze]",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3338548944,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Haguro",
+        "price_gold": 3500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3551442640,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "[Conqueror]",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3340711888,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "HSF Admiral Graf Spee",
+        "price_gold": 5100,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3554588464,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Tirpitz B",
+        "price_gold": 12500,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3667867440,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "[Moskva]",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3340678608,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Admiral Makarov",
+        "price_gold": 5100,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3659445712,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Indomitable",
+        "price_gold": 12000,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3762272208,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "[Großer Kurfürst]",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3340711728,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Kronshtadt",
+        "price_gold": 19200,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3761157584,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Hayate",
+        "price_gold": 99999,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3760076496,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Ashigara",
+        "price_gold": 3500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3553539792,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Missouri",
+        "price_gold": 19200,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3761190896,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Colbert",
+        "price_gold": 99999,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3760109392,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Graf Zeppelin",
+        "price_gold": 13700,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3751786288,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Myōkō",
+        "price_gold": 3500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3555636944,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Mikhail Kutuzov",
+        "price_gold": 10250,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3762206160,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Kirishima",
+        "price_gold": 1500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3554621136,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Alabama",
+        "price_gold": 12200,
+        "nation": "usa",
+        "is_premium": true,
+        "ship_id": 3762239472,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "L'Effronté",
+        "price_gold": 9500,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3447600976,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "AL Yukikaze",
+        "price_gold": 11000,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3541972688,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Duca degli Abruzzi",
+        "price_gold": 8600,
+        "nation": "italy",
+        "is_premium": true,
+        "ship_id": 3763255024,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Stalingrad",
+        "price_gold": 30000,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3760109008,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Boise",
+        "price_gold": 8500,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3668883440,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Nachi",
+        "price_gold": 3500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3522082512,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "[Yamato]",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3332323024,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Kidd",
+        "price_gold": 9100,
+        "nation": "usa",
+        "is_premium": true,
+        "ship_id": 3762173936,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Vanguard",
+        "price_gold": 13000,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3762239440,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Neustrashimy",
+        "price_gold": 19000,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3551409616,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Yūdachi",
+        "price_gold": 6500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3763222224,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Gascogne",
+        "price_gold": 12400,
+        "nation": "france",
+        "is_premium": true,
+        "ship_id": 3762239312,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Siegfried",
+        "price_gold": 99999,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3761157936,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Massachusetts",
+        "price_gold": 12750,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3751753712,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Wichita",
+        "price_gold": 11500,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3762206704,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Hood",
+        "price_gold": 9700,
+        "nation": "uk",
+        "is_premium": true,
+        "ship_id": 3763288016,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Le Terrible",
+        "price_gold": 9500,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3762173776,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "[Hindenburg]",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3340678960,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Slava",
+        "price_gold": 99999,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3760141776,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Hiei",
+        "price_gold": 1500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3552523984,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Georgia",
+        "price_gold": 19000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3530504176,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Texas",
+        "price_gold": 5150,
+        "nation": "usa",
+        "is_premium": true,
+        "ship_id": 3555670000,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Brennus",
+        "price_gold": 99999,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3445536592,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Friesland",
+        "price_gold": 99999,
+        "nation": "poland",
+        "is_premium": false,
+        "ship_id": 3760076080,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Bayard",
+        "price_gold": 99999,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3762206544,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "STALINGRAD #2",
+        "price_gold": 99999,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3749623248,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Prinz Eugen",
+        "price_gold": 11000,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3762206512,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Azuma",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3760109264,
+        "price_credit": 1,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Flint",
+        "price_gold": 10000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3553540080,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "ARP Kongō",
+        "price_gold": 1500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3555669712,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Enterprise",
+        "price_gold": 14000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3751786480,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Bourgogne",
+        "price_gold": 35000,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3760142160,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "[Gearing]",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3337500656,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Haida",
+        "price_gold": 5600,
+        "nation": "commonwealth",
+        "is_premium": false,
+        "ship_id": 3763221872,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Southern Dragon",
+        "price_gold": 3500,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3543054032,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Benham",
+        "price_gold": 19000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3761125360,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Lazo",
+        "price_gold": 8000,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3751720400,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Somers",
+        "price_gold": 99999,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3760076784,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Massachusetts B",
+        "price_gold": 12750,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3667867632,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Salem",
+        "price_gold": 35000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3550394352,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Giunio Bruto",
+        "price_gold": 5200,
+        "nation": "italy",
+        "is_premium": false,
+        "ship_id": 3450812144,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Conqueror",
+        "price_gold": 99999,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3339663312,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Asashio",
+        "price_gold": 9300,
+        "nation": "japan",
+        "is_premium": true,
+        "ship_id": 3751687888,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "[Montana]",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3333371888,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Loyang",
+        "price_gold": 8000,
+        "nation": "pan_asia",
+        "is_premium": true,
+        "ship_id": 3762173136,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Duke of York",
+        "price_gold": 9800,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3742316496,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Roma",
+        "price_gold": 13100,
+        "nation": "italy",
+        "is_premium": true,
+        "ship_id": 3762239216,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Nueve de Julio",
+        "price_gold": 8500,
+        "nation": "pan_america",
+        "is_premium": false,
+        "ship_id": 3763254608,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Alabama ST",
+        "price_gold": 12200,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3552524272,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Black",
+        "price_gold": 20000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3551410160,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Nelson",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3752802256,
+        "price_credit": 1,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Ashitaka",
+        "price_gold": 9200,
+        "nation": "japan",
+        "is_premium": true,
+        "ship_id": 3763287760,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Scharnhorst",
+        "price_gold": 9500,
+        "nation": "germany",
+        "is_premium": true,
+        "ship_id": 3763287856,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Thunderer",
+        "price_gold": 99999,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3760142288,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Saipan",
+        "price_gold": 11000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3741300720,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Leningrad",
+        "price_gold": 5250,
+        "nation": "ussr",
+        "is_premium": true,
+        "ship_id": 3763221968,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "[Grozovoi]",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3340645840,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "HSF Harekaze",
+        "price_gold": 9700,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3552458448,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Dallas",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4078876656,
+        "price_credit": 3100000,
+        "tier": 6,
+        "next_ships": {
+            "4077828080": 75000
+        }
+    },
+{
+        "name": "Huanghe",
+        "price_gold": 5400,
+        "nation": "pan_asia",
+        "is_premium": true,
+        "ship_id": 3764303056,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Molotov",
+        "price_gold": 4550,
+        "nation": "ussr",
+        "is_premium": true,
+        "ship_id": 3764303312,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Moskva",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4179539408,
+        "price_credit": 19500000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Podvoisky",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4079891920,
+        "price_credit": 1400000,
+        "tier": 5,
+        "next_ships": {
+            "4078843344": 34500
+        }
+    },
+{
+        "name": "Harugumo",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4074649296,
+        "price_credit": 19500000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Akizuki",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4181604048,
+        "price_credit": 9000000,
+        "tier": 8,
+        "next_ships": {
+            "4065212112": 154000
+        }
+    },
+{
+        "name": "Chung Mu",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4180554960,
+        "price_credit": 13000000,
+        "tier": 9,
+        "next_ships": {
+            "4179506384": 240000
+        }
+    },
+{
+        "name": "Kléber",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4179507024,
+        "price_credit": 0,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Audacious",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4074747856,
+        "price_credit": 28000000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Oktyabrskaya Revolutsiya",
+        "price_gold": 5050,
+        "nation": "ussr",
+        "is_premium": true,
+        "ship_id": 3765384656,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Yahagi",
+        "price_gold": 3600,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3765352144,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Katori",
+        "price_gold": 2250,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 3767449296,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Baltimore",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4181637104,
+        "price_credit": 8900000,
+        "tier": 8,
+        "next_ships": {
+            "4180588528": 165000
+        }
+    },
+{
+        "name": "Gallant",
+        "price_gold": 4500,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3764271056,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Mogador",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4180555600,
+        "price_credit": 0,
+        "tier": 9,
+        "next_ships": {}
+    },
+{
+        "name": "Neptune",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4180588496,
+        "price_credit": 13600000,
+        "tier": 9,
+        "next_ships": {
+            "4179539920": 238000
+        }
+    },
+{
+        "name": "Z-52",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4179506992,
+        "price_credit": 19500000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Viribus Unitis",
+        "price_gold": 3900,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3766433584,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Mutsu",
+        "price_gold": 6550,
+        "nation": "japan",
+        "is_premium": true,
+        "ship_id": 3764336336,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Minotaur",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4179539920,
+        "price_credit": 20000000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Campbeltown",
+        "price_gold": 1650,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3767416784,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Edinburgh",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4181637072,
+        "price_credit": 8800000,
+        "tier": 8,
+        "next_ships": {
+            "4180588496": 173000
+        }
+    },
+{
+        "name": "T-61",
+        "price_gold": 5400,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3764270896,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Z-46",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4180555568,
+        "price_credit": 12200000,
+        "tier": 9,
+        "next_ships": {
+            "4179506992": 240000
+        }
+    },
+{
+        "name": "Charleston",
+        "price_gold": 2000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3767449584,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Hakuryū",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4179605200,
+        "price_credit": 28000000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Giulio Cesare",
+        "price_gold": 5200,
+        "nation": "italy",
+        "is_premium": false,
+        "ship_id": 3765384944,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Kagerō",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4076746448,
+        "price_credit": 9100000,
+        "tier": 8,
+        "next_ships": {
+            "4075697872": 154000
+        }
+    },
+{
+        "name": "Monarch",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4181669840,
+        "price_credit": 11000000,
+        "tier": 8,
+        "next_ships": {
+            "4180621264": 180000
+        }
+    },
+{
+        "name": "Admiral Graf Spee",
+        "price_gold": 4700,
+        "nation": "germany",
+        "is_premium": true,
+        "ship_id": 3764303664,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Z-23",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4181604144,
+        "price_credit": 8800000,
+        "tier": 8,
+        "next_ships": {
+            "4180555568": 150000
+        }
+    },
+{
+        "name": "Helena",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4077828080,
+        "price_credit": 5800000,
+        "tier": 7,
+        "next_ships": {
+            "4076779504": 110000
+        }
+    },
+{
+        "name": "Okhotnik",
+        "price_gold": 2700,
+        "nation": "ussr",
+        "is_premium": true,
+        "ship_id": 3765319120,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Shiratsuyu",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4077795024,
+        "price_credit": 5100000,
+        "tier": 7,
+        "next_ships": {
+            "4181604048": 115000
+        }
+    },
+{
+        "name": "Perth",
+        "price_gold": 4800,
+        "nation": "commonwealth",
+        "is_premium": true,
+        "ship_id": 3764303216,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Hermes",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4081039312,
+        "price_credit": 1000000,
+        "tier": 4,
+        "next_ships": {
+            "4183799760": 68000
+        }
+    },
+{
+        "name": "Aigle",
+        "price_gold": 4650,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3764270928,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "König Albert",
+        "price_gold": 2200,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3767482160,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Dmitri Donskoi",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4180587984,
+        "price_credit": 13750000,
+        "tier": 9,
+        "next_ships": {
+            "4179539408": 235000
+        }
+    },
+{
+        "name": "Hatsuharu",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4078843600,
+        "price_credit": 2950000,
+        "tier": 6,
+        "next_ships": {
+            "4077795024": 60000
+        }
+    },
+{
+        "name": "Henri IV",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4179539792,
+        "price_credit": 19500000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Exeter",
+        "price_gold": 4000,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3765352400,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Conqueror",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4179572688,
+        "price_credit": 20600000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Yūgumo",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4075697872,
+        "price_credit": 13200000,
+        "tier": 9,
+        "next_ships": {
+            "4282267344": 223000
+        }
+    },
+{
+        "name": "Chapayev",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4181636560,
+        "price_credit": 9000000,
+        "tier": 8,
+        "next_ships": {
+            "4180587984": 167000
+        }
+    },
+{
+        "name": "Lion",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4180621264,
+        "price_credit": 15900000,
+        "tier": 9,
+        "next_ships": {
+            "4179572688": 255000
+        }
+    },
+{
+        "name": "Shōkaku",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4181702352,
+        "price_credit": 11500000,
+        "tier": 8,
+        "next_ships": {
+            "4179605200": 330000
+        }
+    },
+{
+        "name": "Siroco",
+        "price_gold": 99999,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 3766368080,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Saint-Louis",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4180588368,
+        "price_credit": 13600000,
+        "tier": 9,
+        "next_ships": {
+            "4179539792": 238000
+        }
+    },
+{
+        "name": "Hindenburg",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4179539760,
+        "price_credit": 19600000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Duca d'Aosta",
+        "price_gold": 4700,
+        "nation": "italy",
+        "is_premium": true,
+        "ship_id": 3764303600,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Smith",
+        "price_gold": 1050,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3768465392,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Kitakaze",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4065212112,
+        "price_credit": 13200000,
+        "tier": 9,
+        "next_ships": {
+            "4074649296": 223000
+        }
+    },
+{
+        "name": "République",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4179572560,
+        "price_credit": 21000000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Roon",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4180588336,
+        "price_credit": 13700000,
+        "tier": 9,
+        "next_ships": {
+            "4179539760": 238000
+        }
+    },
+{
+        "name": "Seattle",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4075730928,
+        "price_credit": 14100000,
+        "tier": 9,
+        "next_ships": {
+            "4074682352": 242000
+        }
+    },
+{
+        "name": "Admiral Hipper",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4181636912,
+        "price_credit": 9000000,
+        "tier": 8,
+        "next_ships": {
+            "4180588336": 168000
+        }
+    },
+{
+        "name": "Le Fantasque",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4181604176,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Großer Kurfürst",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4179572528,
+        "price_credit": 20600000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Kiev",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3971888592,
+        "price_credit": 8800000,
+        "tier": 8,
+        "next_ships": {
+            "3865982416": 160000
+        }
+    },
+{
+        "name": "Krasny Krym",
+        "price_gold": 2950,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3765351888,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Kremlin",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4179572176,
+        "price_credit": 20600000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "W. Virginia 1941",
+        "price_gold": 7000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3763288048,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "De Grasse",
+        "price_gold": 5500,
+        "nation": "france",
+        "is_premium": true,
+        "ship_id": 3764303696,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Błyskawica",
+        "price_gold": 4800,
+        "nation": "poland",
+        "is_premium": true,
+        "ship_id": 3769513264,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Charles Martel",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4181636944,
+        "price_credit": 8900000,
+        "tier": 8,
+        "next_ships": {
+            "4180588368": 165000
+        }
+    },
+{
+        "name": "Sovetsky Soyuz",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4180620752,
+        "price_credit": 15900000,
+        "tier": 9,
+        "next_ships": {
+            "4179572176": 255000
+        }
+    },
+{
+        "name": "Emden",
+        "price_gold": 1500,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3768497968,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Khabarovsk",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4179506640,
+        "price_credit": 18800000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Midway",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4179605488,
+        "price_credit": 28000000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Richelieu",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4181669712,
+        "price_credit": 10500000,
+        "tier": 8,
+        "next_ships": {
+            "4180621136": 190000
+        }
+    },
+{
+        "name": "Hsienyang",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4181603536,
+        "price_credit": 8800000,
+        "tier": 8,
+        "next_ships": {
+            "4180554960": 160000
+        }
+    },
+{
+        "name": "Vampire",
+        "price_gold": 2300,
+        "nation": "commonwealth",
+        "is_premium": false,
+        "ship_id": 3767416176,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Oleg",
+        "price_gold": 2000,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3767449040,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Vladivostok",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4181669328,
+        "price_credit": 11000000,
+        "tier": 8,
+        "next_ships": {
+            "4180620752": 180000
+        }
+    },
+{
+        "name": "Dunkerque",
+        "price_gold": 5200,
+        "nation": "france",
+        "is_premium": true,
+        "ship_id": 3764336464,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Worcester",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4074682352,
+        "price_credit": 19900000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Daring",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4179507152,
+        "price_credit": 19500000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Arizona",
+        "price_gold": 6600,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3764336624,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Jutland",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4180555728,
+        "price_credit": 13250000,
+        "tier": 9,
+        "next_ships": {
+            "4179507152": 240000
+        }
+    },
+{
+        "name": "Dreadnought",
+        "price_gold": 3500,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 3767482320,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Friedrich der Große",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4180621104,
+        "price_credit": 15900000,
+        "tier": 9,
+        "next_ships": {
+            "4179572528": 255000
+        }
+    },
+{
+        "name": "Anshan",
+        "price_gold": 3700,
+        "nation": "pan_asia",
+        "is_premium": true,
+        "ship_id": 3764270288,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Ognevoi",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4076746192,
+        "price_credit": 9000000,
+        "tier": 8,
+        "next_ships": {
+            "4182652368": 160000
+        }
+    },
+{
+        "name": "Prinz Eitel Friedrich",
+        "price_gold": 6800,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 3764336432,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Cleveland",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4076779504,
+        "price_credit": 8900000,
+        "tier": 8,
+        "next_ships": {
+            "4075730928": 169000
+        }
+    },
+{
+        "name": "Lightning",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4181604304,
+        "price_credit": 8900000,
+        "tier": 8,
+        "next_ships": {
+            "4180555728": 165000
+        }
+    },
+{
+        "name": "Yueyang",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4179506384,
+        "price_credit": 19500000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Monarch",
+        "price_gold": 99999,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4076812240,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Bismarck",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4181669680,
+        "price_credit": 11000000,
+        "tier": 8,
+        "next_ships": {
+            "4180621104": 180000
+        }
+    },
+{
+        "name": "Grozovoi",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4074649040,
+        "price_credit": 18000000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Minsk",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4077794768,
+        "price_credit": 5500000,
+        "tier": 7,
+        "next_ships": {
+            "3971888592": 109000,
+            "4076746192": 105000
+        }
+    },
+{
+        "name": "Leone",
+        "price_gold": 4800,
+        "nation": "italy",
+        "is_premium": false,
+        "ship_id": 3764270832,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Monaghan",
+        "price_gold": 4600,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3764271088,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Alsace",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4180621136,
+        "price_credit": 16900000,
+        "tier": 9,
+        "next_ships": {
+            "4179572560": 260000
+        }
+    },
+{
+        "name": "Buffalo",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4180588528,
+        "price_credit": 13600000,
+        "tier": 9,
+        "next_ships": {
+            "4273911792": 237500
+        }
+    },
+{
+        "name": "Hill",
+        "price_gold": 3500,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 3765319664,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Tashkent",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 3865982416,
+        "price_credit": 13200000,
+        "tier": 9,
+        "next_ships": {
+            "4179506640": 226000
+        }
+    },
+{
+        "name": "Gnevny",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4078843344,
+        "price_credit": 2990000,
+        "tier": 6,
+        "next_ships": {
+            "4077794768": 68000
+        }
+    },
+{
+        "name": "Langley",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4185896944,
+        "price_credit": 1000000,
+        "tier": 4,
+        "next_ships": {
+            "4183799792": 68000
+        }
+    },
+{
+        "name": "Bretagne",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4184815440,
+        "price_credit": 1680000,
+        "tier": 5,
+        "next_ships": {
+            "4183766864": 42500
+        }
+    },
+{
+        "name": "Chengan",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4188976336,
+        "price_credit": 0,
+        "tier": 1,
+        "next_ships": {
+            "4187894992": 450
+        }
+    },
+{
+        "name": "Phra Ruang",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4186846416,
+        "price_credit": 252000,
+        "tier": 3,
+        "next_ships": {
+            "4185797840": 5600
+        }
+    },
+{
+        "name": "Shchors",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4182685136,
+        "price_credit": 5600000,
+        "tier": 7,
+        "next_ships": {
+            "4181636560": 112000
+        }
+    },
+{
+        "name": "Budyonny",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4183733712,
+        "price_credit": 2850000,
+        "tier": 6,
+        "next_ships": {
+            "4182685136": 69500
+        }
+    },
+{
+        "name": "Knyaz Suvorov",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4186912208,
+        "price_credit": 314000,
+        "tier": 3,
+        "next_ships": {
+            "4185863632": 6700
+        }
+    },
+{
+        "name": "Akatsuki",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4182652624,
+        "price_credit": 5100000,
+        "tier": 7,
+        "next_ships": {
+            "4076746448": 115000
+        }
+    },
+{
+        "name": "Fubuki",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4183701200,
+        "price_credit": 2950000,
+        "tier": 6,
+        "next_ships": {
+            "4182652624": 63000
+        }
+    },
+{
+        "name": "Marblehead Lima",
+        "price_gold": 3100,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4247697392,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Fiji",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4182685648,
+        "price_credit": 5500000,
+        "tier": 7,
+        "next_ships": {
+            "4181637072": 108000
+        }
+    },
+{
+        "name": "Courbet",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4185864016,
+        "price_credit": 774000,
+        "tier": 4,
+        "next_ships": {
+            "4184815440": 12500
+        }
+    },
+{
+        "name": "Acasta",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4184750032,
+        "price_credit": 1350000,
+        "tier": 5,
+        "next_ships": {
+            "4183701456": 36000
+        }
+    },
+{
+        "name": "Sinop",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4182717904,
+        "price_credit": 6700000,
+        "tier": 7,
+        "next_ships": {
+            "4181669328": 135000
+        }
+    },
+{
+        "name": "Atago",
+        "price_gold": 10700,
+        "nation": "japan",
+        "is_premium": true,
+        "ship_id": 4255037136,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Valkyrie",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4186847184,
+        "price_credit": 255000,
+        "tier": 3,
+        "next_ships": {
+            "4185798608": 6000
+        }
+    },
+{
+        "name": "Turenne",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4186912592,
+        "price_credit": 314000,
+        "tier": 3,
+        "next_ships": {
+            "4185864016": 6600
+        }
+    },
+{
+        "name": "Wakeful",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4185798608,
+        "price_credit": 725000,
+        "tier": 4,
+        "next_ships": {
+            "4184750032": 11500,
+            "4081039312": 11000
+        }
+    },
+{
+        "name": "Udaloi",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4182652368,
+        "price_credit": 13000000,
+        "tier": 9,
+        "next_ships": {
+            "4074649040": 225000
+        }
+    },
+{
+        "name": "Leander",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4183734224,
+        "price_credit": 3040000,
+        "tier": 6,
+        "next_ships": {
+            "4182685648": 70000
+        }
+    },
+{
+        "name": "Ernst Gaede",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4183701296,
+        "price_credit": 2990000,
+        "tier": 6,
+        "next_ships": {
+            "4182652720": 64000
+        }
+    },
+{
+        "name": "Nassau",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4186912560,
+        "price_credit": 318000,
+        "tier": 3,
+        "next_ships": {
+            "4185863984": 6700
+        }
+    },
+{
+        "name": "Mutsuki",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4184749776,
+        "price_credit": 1380000,
+        "tier": 5,
+        "next_ships": {
+            "4183701200": 34000
+        }
+    },
+{
+        "name": "Hōshō",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4185896656,
+        "price_credit": 1000000,
+        "tier": 4,
+        "next_ships": {
+            "4183799504": 68000
+        }
+    },
+{
+        "name": "Hashidate",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4256085712,
+        "price_credit": 0,
+        "tier": 1,
+        "next_ships": {
+            "4258182864": 350
+        }
+    },
+{
+        "name": "Pensacola",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4183734256,
+        "price_credit": 2800000,
+        "tier": 6,
+        "next_ships": {
+            "4182685680": 70000
+        }
+    },
+{
+        "name": "Queen Elizabeth",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4183766992,
+        "price_credit": 3660000,
+        "tier": 6,
+        "next_ships": {
+            "4182718416": 80500
+        }
+    },
+{
+        "name": "Medea",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4187895760,
+        "price_credit": 65000,
+        "tier": 2,
+        "next_ships": {
+            "4186847184": 2150
+        }
+    },
+{
+        "name": "Karlsruhe",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4185831216,
+        "price_credit": 684000,
+        "tier": 4,
+        "next_ships": {
+            "4184782640": 11000
+        }
+    },
+{
+        "name": "Implacable",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4181702608,
+        "price_credit": 11500000,
+        "tier": 8,
+        "next_ships": {
+            "4074747856": 330000
+        }
+    },
+{
+        "name": "Guépard",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4183701328,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "König",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4184815408,
+        "price_credit": 1600000,
+        "tier": 5,
+        "next_ships": {
+            "4183766832": 40500
+        }
+    },
+{
+        "name": "Leberecht Maass",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4182652720,
+        "price_credit": 5100000,
+        "tier": 7,
+        "next_ships": {
+            "4181604144": 109000
+        }
+    },
+{
+        "name": "Izyaslav",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4185798096,
+        "price_credit": 711000,
+        "tier": 4,
+        "next_ships": {
+            "4079891920": 11000
+        }
+    },
+{
+        "name": "Chikuma",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4258182864,
+        "price_credit": 69000,
+        "tier": 2,
+        "next_ships": {
+            "4292753104": 720,
+            "4279154384": 1900
+        }
+    },
+{
+        "name": "Kamikaze",
+        "price_gold": 2350,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4268635856,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Jaguar",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4184749904,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Emerald",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4184782800,
+        "price_credit": 1250000,
+        "tier": 5,
+        "next_ships": {
+            "4183734224": 33000
+        }
+    },
+{
+        "name": "Longjiang",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4187894992,
+        "price_credit": 60000,
+        "tier": 2,
+        "next_ships": {
+            "4186846416": 2100
+        }
+    },
+{
+        "name": "Zaō",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4259231440,
+        "price_credit": 20000000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Icarus",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4183701456,
+        "price_credit": 3200000,
+        "tier": 6,
+        "next_ships": {
+            "4182652880": 65000
+        }
+    },
+{
+        "name": "Bourrasque",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4185798480,
+        "price_credit": 0,
+        "tier": 4,
+        "next_ships": {}
+    },
+{
+        "name": "Danae",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4185831376,
+        "price_credit": 698000,
+        "tier": 4,
+        "next_ships": {
+            "4184782800": 11000
+        }
+    },
+{
+        "name": "T-22",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4184749872,
+        "price_credit": 1320000,
+        "tier": 5,
+        "next_ships": {
+            "4183701296": 35000
+        }
+    },
+{
+        "name": "Storozhevoi",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4187895248,
+        "price_credit": 75300,
+        "tier": 2,
+        "next_ships": {
+            "4186846672": 2350
+        }
+    },
+{
+        "name": "Sims",
+        "price_gold": 5000,
+        "nation": "usa",
+        "is_premium": true,
+        "ship_id": 4264441840,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Caledon",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4186879952,
+        "price_credit": 256000,
+        "tier": 3,
+        "next_ships": {
+            "4186912720": 2700,
+            "4185831376": 5600
+        }
+    },
+{
+        "name": "Normandie",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4183766864,
+        "price_credit": 3470000,
+        "tier": 6,
+        "next_ships": {
+            "4182718288": 72500
+        }
+    },
+{
+        "name": "Duguay-Trouin",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4185831248,
+        "price_credit": 661000,
+        "tier": 4,
+        "next_ships": {
+            "4184782672": 10500
+        }
+    },
+{
+        "name": "Königsberg",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4184782640,
+        "price_credit": 1280000,
+        "tier": 5,
+        "next_ships": {
+            "4183734064": 34000
+        }
+    },
+{
+        "name": "Ryūjō",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4183799504,
+        "price_credit": 4500000,
+        "tier": 6,
+        "next_ships": {
+            "4181702352": 158000
+        }
+    },
+{
+        "name": "Enseigne Gabolde",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4187895632,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Algérie",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4182685520,
+        "price_credit": 5600000,
+        "tier": 7,
+        "next_ships": {
+            "4181636944": 110000
+        }
+    },
+{
+        "name": "Marblehead",
+        "price_gold": 3100,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4248745968,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Weymouth",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4187928528,
+        "price_credit": 70000,
+        "tier": 2,
+        "next_ships": {
+            "4186879952": 1900,
+            "4187895760": 650
+        }
+    },
+{
+        "name": "King George V",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4182718416,
+        "price_credit": 6700000,
+        "tier": 7,
+        "next_ships": {
+            "4181669840": 135000
+        }
+    },
+{
+        "name": "G-101",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4186847024,
+        "price_credit": 249000,
+        "tier": 3,
+        "next_ships": {
+            "4185798448": 6100
+        }
+    },
+{
+        "name": "Vauquelin",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4182652752,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "V-170",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4185798448,
+        "price_credit": 710000,
+        "tier": 4,
+        "next_ships": {
+            "4184749872": 11000
+        }
+    },
+{
+        "name": "Kirov",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4184782288,
+        "price_credit": 1320000,
+        "tier": 5,
+        "next_ships": {
+            "4183733712": 34000
+        }
+    },
+{
+        "name": "Kamikaze R",
+        "price_gold": 4000,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4267587280,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "La Galissonnière",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4183734096,
+        "price_credit": 2850000,
+        "tier": 6,
+        "next_ships": {
+            "4182685520": 70000
+        }
+    },
+{
+        "name": "New Mexico",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4259264496,
+        "price_credit": 3450000,
+        "tier": 6,
+        "next_ships": {
+            "4286527472": 72500
+        }
+    },
+{
+        "name": "Black Swan",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4188977104,
+        "price_credit": 0,
+        "tier": 1,
+        "next_ships": {
+            "4187928528": 350
+        }
+    },
+{
+        "name": "V-25",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4187895600,
+        "price_credit": 75000,
+        "tier": 2,
+        "next_ships": {
+            "4186847024": 2000
+        }
+    },
+{
+        "name": "Yorck",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4182685488,
+        "price_credit": 5650000,
+        "tier": 7,
+        "next_ships": {
+            "4181636912": 114000
+        }
+    },
+{
+        "name": "Bougainville",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4188976976,
+        "price_credit": 0,
+        "tier": 1,
+        "next_ships": {
+            "4187928400": 350
+        }
+    },
+{
+        "name": "Jurien de la Gravière",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4187928400,
+        "price_credit": 70000,
+        "tier": 2,
+        "next_ships": {
+            "4186879824": 2150
+        }
+    },
+{
+        "name": "Svietlana",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4185830864,
+        "price_credit": 666000,
+        "tier": 4,
+        "next_ships": {
+            "4184782288": 11000
+        }
+    },
+{
+        "name": "Kaiser",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4185863984,
+        "price_credit": 774000,
+        "tier": 4,
+        "next_ships": {
+            "4184815408": 13000
+        }
+    },
+{
+        "name": "Émile Bertin",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4184782672,
+        "price_credit": 1200000,
+        "tier": 5,
+        "next_ships": {
+            "4183734096": 33500
+        }
+    },
+{
+        "name": "Ranger",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4183799792,
+        "price_credit": 4500000,
+        "tier": 6,
+        "next_ships": {
+            "4181702640": 158000
+        }
+    },
+{
+        "name": "Nürnberg",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4183734064,
+        "price_credit": 3040000,
+        "tier": 6,
+        "next_ships": {
+            "4182685488": 70500
+        }
+    },
+{
+        "name": "Lyon",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4182718288,
+        "price_credit": 6000000,
+        "tier": 7,
+        "next_ships": {
+            "4181669712": 136000
+        }
+    },
+{
+        "name": "Bogatyr",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4186879440,
+        "price_credit": 254000,
+        "tier": 3,
+        "next_ships": {
+            "4186912208": 2700,
+            "4185830864": 5700
+        }
+    },
+{
+        "name": "Wakatake",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4269684432,
+        "price_credit": 256000,
+        "tier": 3,
+        "next_ships": {
+            "4291704528": 5100
+        }
+    },
+{
+        "name": "Orion",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4185864144,
+        "price_credit": 765000,
+        "tier": 4,
+        "next_ships": {
+            "4184815568": 13000
+        }
+    },
+{
+        "name": "Novik",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4187928016,
+        "price_credit": 69300,
+        "tier": 2,
+        "next_ships": {
+            "4187895248": 500,
+            "4186879440": 2150
+        }
+    },
+{
+        "name": "Lexington",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4181702640,
+        "price_credit": 11500000,
+        "tier": 8,
+        "next_ships": {
+            "4179605488": 330000
+        }
+    },
+{
+        "name": "Friant",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4186879824,
+        "price_credit": 247000,
+        "tier": 3,
+        "next_ships": {
+            "4186912592": 2850,
+            "4185831248": 5600
+        }
+    },
+{
+        "name": "Bellerophon",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4186912720,
+        "price_credit": 314000,
+        "tier": 3,
+        "next_ships": {
+            "4185864144": 6700
+        }
+    },
+{
+        "name": "Fushun",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4183700688,
+        "price_credit": 2990000,
+        "tier": 6,
+        "next_ships": {
+            "4182652112": 64000
+        }
+    },
+{
+        "name": "Orlan",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4188976592,
+        "price_credit": 0,
+        "tier": 1,
+        "next_ships": {
+            "4187928016": 350
+        }
+    },
+{
+        "name": "Izmail",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4183766480,
+        "price_credit": 3660000,
+        "tier": 6,
+        "next_ships": {
+            "4182717904": 80500
+        }
+    },
+{
+        "name": "Gadjah Mada",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4182652112,
+        "price_credit": 5100000,
+        "tier": 7,
+        "next_ships": {
+            "4181603536": 110000
+        }
+    },
+{
+        "name": "Kolberg",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4186879792,
+        "price_credit": 255000,
+        "tier": 3,
+        "next_ships": {
+            "4185831216": 5800,
+            "4186912560": 2700
+        }
+    },
+{
+        "name": "Jianwei",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4184749264,
+        "price_credit": 1320000,
+        "tier": 5,
+        "next_ships": {
+            "4183700688": 34500
+        }
+    },
+{
+        "name": "Iron Duke",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4184815568,
+        "price_credit": 1600000,
+        "tier": 5,
+        "next_ships": {
+            "4183766992": 45000
+        }
+    },
+{
+        "name": "Bayern",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4183766832,
+        "price_credit": 3470000,
+        "tier": 6,
+        "next_ships": {
+            "4182718256": 80500
+        }
+    },
+{
+        "name": "Pyotr Velikiy",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4184815056,
+        "price_credit": 1600000,
+        "tier": 5,
+        "next_ships": {
+            "4183766480": 45000
+        }
+    },
+{
+        "name": "Iwaki Alpha",
+        "price_gold": 2650,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4267620048,
+        "price_credit": 0,
+        "tier": 4,
+        "next_ships": {}
+    },
+{
+        "name": "Fusilier",
+        "price_gold": 0,
+        "nation": "france",
+        "is_premium": false,
+        "ship_id": 4186847056,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "New Orleans",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4182685680,
+        "price_credit": 5570000,
+        "tier": 7,
+        "next_ships": {
+            "4181637104": 110000
+        }
+    },
+{
+        "name": "Jervis",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4182652880,
+        "price_credit": 5150000,
+        "tier": 7,
+        "next_ships": {
+            "4181604304": 112000
+        }
+    },
+{
+        "name": "Furious",
+        "price_gold": 0,
+        "nation": "uk",
+        "is_premium": false,
+        "ship_id": 4183799760,
+        "price_credit": 4500000,
+        "tier": 6,
+        "next_ships": {
+            "4181702608": 158000
+        }
+    },
+{
+        "name": "Gneisenau",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4182718256,
+        "price_credit": 6700000,
+        "tier": 7,
+        "next_ships": {
+            "4181669680": 135000
+        }
+    },
+{
+        "name": "Shenyang",
+        "price_gold": 0,
+        "nation": "pan_asia",
+        "is_premium": false,
+        "ship_id": 4185797840,
+        "price_credit": 706000,
+        "tier": 4,
+        "next_ships": {
+            "4184749264": 11000
+        }
+    },
+{
+        "name": "Wickes",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4266538992,
+        "price_credit": 250000,
+        "tier": 3,
+        "next_ships": {
+            "4274927600": 6000
+        }
+    },
+{
+        "name": "Derzki",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4186846672,
+        "price_credit": 268000,
+        "tier": 3,
+        "next_ships": {
+            "4185798096": 6100
+        }
+    },
+{
+        "name": "Gangut",
+        "price_gold": 0,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4185863632,
+        "price_credit": 765000,
+        "tier": 4,
+        "next_ships": {
+            "4184815056": 13000
+        }
+    },
+{
+        "name": "Furutaka",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4289640144,
+        "price_credit": 1370000,
+        "tier": 5,
+        "next_ships": {
+            "4287542992": 30000
+        }
+    },
+{
+        "name": "Fusō",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4288624336,
+        "price_credit": 3490000,
+        "tier": 6,
+        "next_ships": {
+            "4284430032": 78500
+        }
+    },
+{
+        "name": "Gearing",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4281219056,
+        "price_credit": 19500000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Erie",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4293834736,
+        "price_credit": 0,
+        "tier": 1,
+        "next_ships": {
+            "4292786160": 350
+        }
+    },
+{
+        "name": "Dresden",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4292785968,
+        "price_credit": 67300,
+        "tier": 2,
+        "next_ships": {
+            "4187895600": 500,
+            "4186879792": 2200
+        }
+    },
+{
+        "name": "Izumo",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4272895696,
+        "price_credit": 15900000,
+        "tier": 9,
+        "next_ships": {
+            "4276041424": 249000
+        }
+    },
+{
+        "name": "Murmansk",
+        "price_gold": 3000,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4291737040,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Diana",
+        "price_gold": 1650,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4292785616,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Myōgi",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4291770064,
+        "price_credit": 775000,
+        "tier": 4,
+        "next_ships": {
+            "4287575760": 12000
+        }
+    },
+{
+        "name": "Diana Lima",
+        "price_gold": 1650,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4284397008,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Isokaze",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4291704528,
+        "price_credit": 705000,
+        "tier": 4,
+        "next_ships": {
+            "4184749776": 11000,
+            "4185896656": 11000,
+            "4290655952": 11500
+        }
+    },
+{
+        "name": "Tachibana Lima",
+        "price_gold": 950,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4280170192,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Benson",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4286461936,
+        "price_credit": 9040000,
+        "tier": 8,
+        "next_ships": {
+            "4272830448": 158000
+        }
+    },
+{
+        "name": "Chester",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4292786160,
+        "price_credit": 69300,
+        "tier": 2,
+        "next_ships": {
+            "4292753392": 720,
+            "4290689008": 2200
+        }
+    },
+{
+        "name": "Iowa",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4276041712,
+        "price_credit": 15500000,
+        "tier": 9,
+        "next_ships": {
+            "4277090288": 247000
+        }
+    },
+{
+        "name": "Warspite",
+        "price_gold": 6500,
+        "nation": "uk",
+        "is_premium": true,
+        "ship_id": 4292818896,
+        "price_credit": 0,
+        "tier": 6,
+        "next_ships": {}
+    },
+{
+        "name": "Phoenix",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4269717488,
+        "price_credit": 660000,
+        "tier": 4,
+        "next_ships": {
+            "4289640432": 10500
+        }
+    },
+{
+        "name": "Tirpitz",
+        "price_gold": 12500,
+        "nation": "germany",
+        "is_premium": true,
+        "ship_id": 4292818736,
+        "price_credit": 0,
+        "tier": 8,
+        "next_ships": {}
+    },
+{
+        "name": "Hermelin",
+        "price_gold": 0,
+        "nation": "germany",
+        "is_premium": false,
+        "ship_id": 4293834544,
+        "price_credit": 0,
+        "tier": 1,
+        "next_ships": {
+            "4292785968": 350
+        }
+    },
+{
+        "name": "Tenryū",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4279154384,
+        "price_credit": 256000,
+        "tier": 3,
+        "next_ships": {
+            "4293867216": 2600,
+            "4281251536": 5600
+        }
+    },
+{
+        "name": "Imperator Nikolai I",
+        "price_gold": 2800,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4293866960,
+        "price_credit": 0,
+        "tier": 4,
+        "next_ships": {}
+    },
+{
+        "name": "Kawachi",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4293867216,
+        "price_credit": 318000,
+        "tier": 3,
+        "next_ships": {
+            "4291770064": 6700
+        }
+    },
+{
+        "name": "Omaha",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4289640432,
+        "price_credit": 1200000,
+        "tier": 5,
+        "next_ships": {
+            "4183734256": 33000,
+            "4078876656": 38500
+        }
+    },
+{
+        "name": "Aurora",
+        "price_gold": 2250,
+        "nation": "ussr",
+        "is_premium": true,
+        "ship_id": 4293834192,
+        "price_credit": 0,
+        "tier": 3,
+        "next_ships": {}
+    },
+{
+        "name": "Montana",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4277090288,
+        "price_credit": 20800000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Kuma",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4281251536,
+        "price_credit": 684000,
+        "tier": 4,
+        "next_ships": {
+            "4289640144": 11500
+        }
+    },
+{
+        "name": "Umikaze",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4292753104,
+        "price_credit": 60000,
+        "tier": 2,
+        "next_ships": {
+            "4269684432": 2000
+        }
+    },
+{
+        "name": "Aoba",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4287542992,
+        "price_credit": 2660000,
+        "tier": 6,
+        "next_ships": {
+            "4286494416": 72000
+        }
+    },
+{
+        "name": "Ishizuchi",
+        "price_gold": 2500,
+        "nation": "japan",
+        "is_premium": true,
+        "ship_id": 4286527184,
+        "price_credit": 0,
+        "tier": 4,
+        "next_ships": {}
+    },
+{
+        "name": "Arkansas Beta",
+        "price_gold": 2850,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4281284592,
+        "price_credit": 0,
+        "tier": 4,
+        "next_ships": {}
+    },
+{
+        "name": "St. Louis",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4290689008,
+        "price_credit": 247000,
+        "tier": 3,
+        "next_ships": {
+            "4293867504": 2800,
+            "4269717488": 5600
+        }
+    },
+{
+        "name": "New York",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4288624624,
+        "price_credit": 1500000,
+        "tier": 5,
+        "next_ships": {
+            "4259264496": 40000
+        }
+    },
+{
+        "name": "South Carolina",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4293867504,
+        "price_credit": 309000,
+        "tier": 3,
+        "next_ships": {
+            "4290721776": 7200
+        }
+    },
+{
+        "name": "Fūjin",
+        "price_gold": 5000,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4277024464,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Mikasa",
+        "price_gold": 2000,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4283381456,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Yūbari",
+        "price_gold": 2250,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4290688720,
+        "price_credit": 0,
+        "tier": 4,
+        "next_ships": {}
+    },
+{
+        "name": "Nicholas",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4280170480,
+        "price_credit": 1300000,
+        "tier": 5,
+        "next_ships": {
+            "4289607664": 35500
+        }
+    },
+{
+        "name": "Kongō",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4287575760,
+        "price_credit": 1420000,
+        "tier": 5,
+        "next_ships": {
+            "4288624336": 42500
+        }
+    },
+{
+        "name": "Amagi",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4281284304,
+        "price_credit": 10900000,
+        "tier": 8,
+        "next_ships": {
+            "4272895696": 178000
+        }
+    },
+{
+        "name": "Sampson",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4292753392,
+        "price_credit": 60000,
+        "tier": 2,
+        "next_ships": {
+            "4266538992": 2200
+        }
+    },
+{
+        "name": "Tachibana",
+        "price_gold": 950,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4293801680,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Mahan",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4288559088,
+        "price_credit": 5350000,
+        "tier": 7,
+        "next_ships": {
+            "4286461936": 115000
+        }
+    },
+{
+        "name": "Nagato",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4284430032,
+        "price_credit": 6350000,
+        "tier": 7,
+        "next_ships": {
+            "4281284304": 135000
+        }
+    },
+{
+        "name": "North Carolina",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4282333168,
+        "price_credit": 9800000,
+        "tier": 8,
+        "next_ships": {
+            "4276041712": 175000
+        }
+    },
+{
+        "name": "Ibuki",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4282300112,
+        "price_credit": 12500000,
+        "tier": 9,
+        "next_ships": {
+            "4259231440": 238000
+        }
+    },
+{
+        "name": "Clemson",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4274927600,
+        "price_credit": 720000,
+        "tier": 4,
+        "next_ships": {
+            "4280170480": 11000,
+            "4185896944": 11000
+        }
+    },
+{
+        "name": "Wyoming",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4290721776,
+        "price_credit": 785000,
+        "tier": 4,
+        "next_ships": {
+            "4288624624": 13000
+        }
+    },
+{
+        "name": "Colorado",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4286527472,
+        "price_credit": 6000000,
+        "tier": 7,
+        "next_ships": {
+            "4282333168": 120000
+        }
+    },
+{
+        "name": "Fletcher",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4272830448,
+        "price_credit": 12850000,
+        "tier": 9,
+        "next_ships": {
+            "4281219056": 236000
+        }
+    },
+{
+        "name": "Shimakaze",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4282267344,
+        "price_credit": 19300000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Albany",
+        "price_gold": 1550,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4291737584,
+        "price_credit": 0,
+        "tier": 2,
+        "next_ships": {}
+    },
+{
+        "name": "Gremyashchy",
+        "price_gold": 2350,
+        "nation": "ussr",
+        "is_premium": false,
+        "ship_id": 4293801424,
+        "price_credit": 0,
+        "tier": 5,
+        "next_ships": {}
+    },
+{
+        "name": "Yamato",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4276041424,
+        "price_credit": 20600000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Des Moines",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4273911792,
+        "price_credit": 19800000,
+        "tier": 10,
+        "next_ships": {}
+    },
+{
+        "name": "Mogami",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4285445840,
+        "price_credit": 8800000,
+        "tier": 8,
+        "next_ships": {
+            "4282300112": 151000
+        }
+    },
+{
+        "name": "Myōkō",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4286494416,
+        "price_credit": 5800000,
+        "tier": 7,
+        "next_ships": {
+            "4285445840": 109000
+        }
+    },
+{
+        "name": "Atlanta",
+        "price_gold": 9000,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4288591856,
+        "price_credit": 0,
+        "tier": 7,
+        "next_ships": {}
+    },
+{
+        "name": "Farragut",
+        "price_gold": 0,
+        "nation": "usa",
+        "is_premium": false,
+        "ship_id": 4289607664,
+        "price_credit": 3120000,
+        "tier": 6,
+        "next_ships": {
+            "4288559088": 65000
+        }
+    },
+{
+        "name": "Minekaze",
+        "price_gold": 0,
+        "nation": "japan",
+        "is_premium": false,
+        "ship_id": 4290655952,
+        "price_credit": 1380000,
+        "tier": 5,
+        "next_ships": {
+            "4078843600": 34000
+        }
+    }
+]
