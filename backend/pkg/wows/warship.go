@@ -3,7 +3,6 @@ package wows
 //go:generate go run ./gen/generate_warships.go
 
 import (
-	"errors"
 	"strings"
 )
 
@@ -52,57 +51,49 @@ func (w *Warship) GetsPremiumTreatment() bool {
 }
 
 // Resource returns the Resource the ship will yield
-func (w *Warship) Resource() (Resource, error) {
-	if !w.IsEgligible() {
-		return 0, errors.New("Ship is not egligible for this event")
-	}
-
+func (w *Warship) Resource() Resource {
 	if w.Tier < 7 {
-		return Coal, nil
+		return Coal
 	}
-	return RepublicTokens, nil
+	return RepublicTokens
 }
 
 // Amount returns the quantity of the resource the ship will yield
-func (w *Warship) Amount() (uint, error) {
-	if !w.IsEgligible() {
-		return 0, errors.New("Ship is not egligible for this event")
-	}
-
+func (w *Warship) Amount() uint {
 	switch w.GetsPremiumTreatment() {
 	case true:
 		switch w.Tier {
 		case 10:
 			fallthrough
 		case 9:
-			return 20, nil
+			return 20
 		case 8:
-			return 15, nil
+			return 15
 		case 7:
-			return 10, nil
+			return 10
 		case 6:
-			return 400, nil
+			return 400
 		case 5:
-			return 300, nil
+			return 300
 		default:
-			return 200, nil
+			return 200
 		}
 	case false:
 		switch w.Tier {
 		case 10:
 			fallthrough
 		case 9:
-			return 15, nil
+			return 15
 		case 8:
-			return 10, nil
+			return 10
 		case 7:
-			return 5, nil
+			return 5
 		case 6:
-			return 300, nil
+			return 300
 		default:
-			return 200, nil
+			return 200
 		}
 	}
 
-	return 0, errors.New("Unreachable error reached")
+	return 0
 }

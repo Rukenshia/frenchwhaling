@@ -108,14 +108,10 @@ func getUniqueAccountURL(accountID string) string {
 	return fmt.Sprintf("https://frenchwhaling.in.fkn.space/data/%s/%s%s.json", accountID, xid.New().String(), xid.New().String())
 }
 
-func (s *Subscriber) TriggerRefresh() error {
+func TriggerRefresh(r []RefreshEvent) error {
 	client := sns.New(session.New())
 
-	data, err := json.Marshal(&RefreshEvent{
-		AccountID:   s.AccountID,
-		AccessToken: s.AccessToken,
-		DataURL:     s.DataURL,
-	})
+	data, err := json.Marshal(r)
 	if err != nil {
 		return err
 	}
@@ -132,4 +128,14 @@ func (s *Subscriber) TriggerRefresh() error {
 	})
 
 	return err
+}
+
+func (s *Subscriber) TriggerRefresh() error {
+	r := RefreshEvent{
+		AccountID:   s.AccountID,
+		AccessToken: s.AccessToken,
+		DataURL:     s.DataURL,
+	}
+
+	return TriggerRefresh([]RefreshEvent{r})
 }
