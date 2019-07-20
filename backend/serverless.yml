@@ -16,11 +16,19 @@ provider:
     - Effect: Allow
       Action: "dynamodb:*Item"
       Resource:
-        Fn::GetAtt: SubscribersTable.Arn
+      - Fn::GetAtt: SubscribersTable.Arn
+      - Fn::GetAtt: SubscriberEventsTable.Arn
     - Effect: Allow
-      Action: "s3:GetObject"
+      Action:
+      - "s3:GetObject"
+      - "s3:PutObject"
+      - "s3:ListBucket"
       Resource:
-        Fn::GetAtt: SubscribersBucket.Arn
+      - Fn::GetAtt: SubscribersBucket.Arn
+      - Fn::Join:
+        - ''
+        - - Fn::GetAtt: SubscribersBucket.Arn
+          - '/*'
     - Effect: Allow
       Action: "sns:Publish"
       Resource:
@@ -48,6 +56,10 @@ functions:
 
   refresh:
     handler: bin/refresh
+    memorySize: 256
+    reservedConcurrency: 1
+    environment:
+      APPLICATION_ID: ${file(.env.live.json):APPLICATION_ID}
     events:
     - sns:
         filterPolicy:
@@ -68,18 +80,43 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: frenchwhaling-subscribers
+        BillingMode: PAY_PER_REQUEST
         AttributeDefinitions: 
         - AttributeName: "AccountID"
           AttributeType: "S"
         KeySchema: 
         - AttributeName: "AccountID"
           KeyType: "HASH"
+    
+    SubscriberEventsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: frenchwhaling-subscriber-events
         BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+        - AttributeName: "AccountID"
+          AttributeType: "S"
+        - AttributeName: "Timestamp"
+          AttributeType: "S"
+        KeySchema:
+        - AttributeName: "AccountID"
+          KeyType: "HASH"
+        - AttributeName: "Timestamp"
+          KeyType: "RANGE"
+        GlobalSecondaryIndexes:
+        - IndexName: "AccountID-index"
+          KeySchema:
+          - AttributeName: "AccountID"
+            KeyType: "HASH"
+          Projection:
+            ProjectionType: "KEYS_ONLY"
     
     SubscribersBucket:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: frenchwhaling-subscribers
+        VersioningConfiguration:
+          Status: Enabled
 
     SNSTopic:
       Type: AWS::SNS::Topic
