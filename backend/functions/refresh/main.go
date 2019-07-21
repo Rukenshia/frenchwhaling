@@ -171,6 +171,8 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 		}
 	}
 
+	log.Printf("Processed all events count=%d", len(refreshEvents))
+
 	return fmt.Sprintf("Processed %d refreshEvents", len(refreshEvents)), nil
 }
 
