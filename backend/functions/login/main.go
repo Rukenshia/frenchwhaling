@@ -43,7 +43,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=false&reason=subscription-failed&isNew=%d", isNew),
+				"Location": fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=false&reason=subscription-failed&isNew=%t", isNew),
 			},
 		}, nil
 	}
@@ -75,7 +75,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		Body:            "",
 		Headers: map[string]string{
 			"Content-Type": "application/json",
-			"Location":     fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=true&isNew=%d&token=%s&dataUrl=%s", isNew, tokenString, subscriber.DataURL),
+			"Location":     fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=true&isNew=%t&token=%s&dataUrl=%s", isNew, tokenString, subscriber.DataURL),
 		},
 	}
 

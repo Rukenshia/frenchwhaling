@@ -6,6 +6,9 @@
     import axios from 'axios';
     import ShipInfo from './ShipInfo.svelte';
 
+    export let isNew;
+    let retries = 0;
+
     let data = writable(undefined);
     let error = false;
     const max = derived(data, v => {
@@ -69,10 +72,28 @@
         try {
             const res = await axios.get($dataUrl);
             $data = res.data;
-
-            
         } catch(e) {
             error = true;
+
+            if (isNew) {
+                const intv = setInterval(async () => {
+                    retries++;
+                    console.log(retries);
+
+                    if (retries > 9) {
+                        clearInterval(intv);
+                        return;
+                    }
+
+                    try {
+                        const res = await axios.get($dataUrl);
+                        $data = res.data;
+                        error = false;
+                    } catch(e) {
+                        error = true;
+                    }
+                }, 2500);
+            }
         }
     });
 </script>
@@ -118,16 +139,28 @@
 </div>
 
 {:else}
-{#if error}
 <div class="w-full flex flex-wrap justify-around mt-4">
-    <div class="w-full text-center text-6xl text-red-700 rounded font-mono">Big Red Error</div>
+{#if isNew && retries <= 9}
+    <div class="w-full text-center text-5xl text-gray-600 mt-8">
+        Loading your stuff
+    </div>
+    <div class="w-1/2 text-center text-2xl text-gray-500">
+        You're apparently new here. That's cool. Loading your data might take a bit depending on the server load.
+        Just stay put.
+    </div>
+    <div class="w-3/4 text-center text-xs text-gray-500 font-mono">
+        attempt {retries + 1} of 10
+    </div>
+{/if}
+{#if error && retries > 9}
+    <div class="w-full text-center text-6xl text-red-700 rounded font-mono mt-8">Big Red Error</div>
     <div class="w-3/4 text-center text-2xl text-gray-800 rounded font-mono">
         There are a lot of things that can go wrong. Guess what, you're a lucky one. You've caught the
         big red error. Basically, nothing works.
         <br />
         A refresh of the page might help.
     </div>
-</div>
 {/if}
+    </div>
 {/if}
 
