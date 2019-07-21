@@ -5,10 +5,9 @@ import (
 	"encoding/json"
 	"log"
 	"net/url"
+	"path"
 	"rukenshia/frenchwhaling/pkg/wows"
 	"rukenshia/frenchwhaling/pkg/wows/api"
-	"strings"
-	"time"
 
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 
@@ -17,22 +16,22 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-type EarnabledResource struct {
-	Resource wows.Resource
-	Amount   uint
-	Earned   bool
+type EarnableResource struct {
+	Type   wows.Resource
+	Amount uint
+	Earned uint
 }
 
 type StoredShip struct {
 	api.ShipStatistics
-	Earnable EarnabledResource
+	Resource EarnableResource
 }
 
 type SubscriberPublicData struct {
 	AccountID   string
-	LastUpdated *time.Time
+	LastUpdated int64
 
-	Earnable []EarnabledResource
+	Resources []EarnableResource
 
 	Ships map[int64]*StoredShip
 }
@@ -55,11 +54,11 @@ func LoadPublicSubscriberData(dataURL string) (*SubscriberPublicData, error) {
 
 	buf := &aws.WriteAtBuffer{}
 
-	log.Printf("LoadPublicSubscriberData: key=%s", strings.Replace(parsedURL.Path, "/data", "/public", 1))
+	log.Printf("LoadPublicSubscriberData: key=%s", path.Join("public", parsedURL.Path))
 
 	n, err := svc.Download(buf, &s3.GetObjectInput{
 		Bucket: aws.String("frenchwhaling-subscribers"),
-		Key:    aws.String(strings.Replace(parsedURL.Path, "/data", "/public", 1)),
+		Key:    aws.String(path.Join("public", parsedURL.Path)),
 	})
 	if err != nil {
 		return nil, err
@@ -95,12 +94,13 @@ func (s *SubscriberPublicData) Save(dataURL string) error {
 		return err
 	}
 
-	log.Printf("SubscriberPublicData.Save: key=%s", strings.Replace(parsedURL.Path, "/data", "/public", 1))
+	log.Printf("SubscriberPublicData.Save: key=%s", path.Join("public", parsedURL.Path))
 
 	_, err = svc.Upload(&s3manager.UploadInput{
 		Bucket: aws.String("frenchwhaling-subscribers"),
-		Key:    aws.String(strings.Replace(parsedURL.Path, "/data", "/public", 1)),
+		Key:    aws.String(path.Join("public", parsedURL.Path)),
 		Body:   bytes.NewBuffer(data),
+		ACL:    aws.String("public-read"),
 	})
 
 	return err

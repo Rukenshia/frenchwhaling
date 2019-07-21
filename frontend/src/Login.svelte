@@ -1,17 +1,31 @@
 <script>
-    function login() {
+    function login(realm) {
         const expiresAt = Date.now() + 3600 * 24 * 14;
-        window.location.href = `https://api.worldoftanks.eu/wot/auth/login/
+        window.location.href = `https://api.worldoftanks.${realm}/wot/auth/login/
             ?application_id=80aa6f7e1d5df049c79d9141dd0826ae
             &expires_at=${expiresAt}
-            &redirect_uri=https://vh66uhz6ce.execute-api.eu-central-1.amazonaws.com/dev/login`;
+            &redirect_uri=https://vh66uhz6ce.execute-api.eu-central-1.amazonaws.com/dev/login?realm=${realm}`;
             // &redirect_uri=https://frenchwhaling.in.fkn.space/api/login`;
     }
 </script>
 <div class="w-3/4 text-center">
     <div class="bg-gray-200 text-gray-600 rounded-sm text-md p-4">
-        To figure out how much of a whale you really are, we'll need you to log in with the Wargaming website.
+        Please log in to the correct server using the buttons below
     </div>
 
-    <button on:click={login} class="mt-8 px-5 py-2 bg-red-200 hover:bg-red-300 border-none text-red-900 rounded">Login</button>
+    <div class="flex flex-wrap mt-8">
+        <div class="w-1/4 p-4">
+            <button on:click={() => login('asia')} class="px-5 py-2 bg-yellow-200 hover:bg-yellow-300 border-none text-yellow-900 rounded">ASIA</button>
+        </div>
+        <div class="w-1/4 p-4">
+            <button on:click={() => login('ru')} class="px-5 py-2 bg-red-200 hover:bg-red-300 border-none text-red-900 rounded">CIS</button>
+        </div>
+        <div class="w-1/4 p-4">
+            <button on:click={() => login('eu')} class="px-5 py-2 bg-blue-200 hover:bg-blue-300 border-none text-blue-900 rounded">EU</button>
+        </div>
+        <div class="w-1/4 p-4">
+            <button on:click={() => login('com')} class="px-5 py-2 bg-gray-200 hover:bg-gray-300 border-none text-gray-900 rounded">NA</button>
+        </div>
+    </div>
+
 </div>
