@@ -10,9 +10,9 @@
 
 {#if $shipInfo}
 <div class="flex w-full">
-    <div class="w-10">
-        <img src={$shipInfo[ship.ship_id].images.small} />
+    <div class="w-10 pl-1">
+        <img alt="image of {$shipInfo[ship.ship_id].name}"src={$shipInfo[ship.ship_id].images.small} />
     </div>
-    <div class="w-auto pl-2 mt-1">{$shipInfo[ship.ship_id].name}</div>
+    <div class="w-auto pl-2 mt-1" class:text-gray-600={ship.Resource.Earned}>{$shipInfo[ship.ship_id].name}</div>
 </div>
 {/if}
