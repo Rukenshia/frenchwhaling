@@ -60,10 +60,10 @@
         </div>
 
         {#if $loggedIn}
-            <div class="float-right">
-                <button on:click={donate} class="mr-4 p-0 px-4 font-xs border-none py-1 rounded bg-green-200 hover:bg-green-400 text-gray-700">Donate</button>
-                <a href="mailto:svc-frenchwhaling@ruken.pw" class="mr-4 p-0 px-4 py-2 border-none rounded bg-gray-200 hover:no-underline hover:bg-gray-400">Contact me</a>
-                <button on:click={logout} class="mr-4 p-0 px-4 font-xs border-none py-1 rounded bg-gray-200 hover:bg-gray-400 text-gray-700">Logout</button>
+            <div class="float-right h-8">
+                <button on:click={donate} class="mr-4 px-4 font-xs border-none py-1 rounded bg-green-200 hover:bg-green-400 text-gray-700">Donate</button>
+                <a style="padding-top: 7px; padding-bottom: 7px;" href="mailto:svc-frenchwhaling@ruken.pw" class="mr-4 p-0 px-4 border-none rounded bg-gray-200 hover:no-underline hover:bg-gray-400">Contact me</a>
+                <button on:click={logout} class="mr-4 px-4 font-xs border-none py-1 rounded bg-gray-200 hover:bg-gray-400 text-gray-700">Logout</button>
             </div>
 
             <div class="mt-12">

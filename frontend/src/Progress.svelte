@@ -18,7 +18,7 @@
 
         return newMax;
     }, [0, 0]);
-    const sortedShips = derived([data, shipInfo], ([v, vs]) => {
+    const categories = derived([data, shipInfo], ([v, vs]) => {
         if (v === undefined || vs === undefined) { return [{}, {}]; }
 
         const sort = (a, b) => {
@@ -44,8 +44,22 @@
         };
 
         return [
-            Object.values(v.Ships).filter(s => s.Resource.Type === 0).sort(sort),
-            Object.values(v.Ships).filter(s => s.Resource.Type === 1).sort(sort),
+            Object.values(v.Ships).filter(s => s.Resource.Type === 0).sort(sort).reduce((agg, x) => {
+                if (!agg[x.Resource.Amount]) {
+                    agg[x.Resource.Amount] = { Amount: x.Resource.Amount, Ships: [] };
+                }
+
+                agg[x.Resource.Amount].Ships.push(x);
+                return agg;
+            }, {}),
+            Object.values(v.Ships).filter(s => s.Resource.Type === 1).sort(sort).reduce((agg, x) => {
+                if (!agg[x.Resource.Amount]) {
+                    agg[x.Resource.Amount] = { Amount: x.Resource.Amount, Ships: [] };
+                }
+
+                agg[x.Resource.Amount].Ships.push(x);
+                return agg;
+            }, {}),
         ];
     }, [{}, {}])
 
@@ -64,10 +78,13 @@
 </script>
 
 {#if $data}
-Last updated: {moment($data.LastUpdated / 1000000).fromNow()}
-<div class="w-full flex flex-wrap mt-4">
+
+<div class="ml-4 text-gray-600 font-medium text-sm">
+    Last updated {moment($data.LastUpdated / 1000000).fromNow()}
+</div>
+<div class="w-full flex flex-wrap mt-4 px-2">
 {#each $data.Resources as resource}
-    <div class="w-1/2">
+    <div class="w-full md:w-1/2">
         <div class="m-2 p-4 shadow-xl rounded bg-gray-200">
             <div class="flex">
                 <div class="w-7">
@@ -80,15 +97,20 @@ Last updated: {moment($data.LastUpdated / 1000000).fromNow()}
             </div>
 
 
-        <div class="flex flex-wrap">
-            {#if $sortedShips}
-            {#each $sortedShips[resource.Type] as ship}
-                <div class="w-2/5 rounded p-1 m-2 border-2" class:border-green-200={ship.Resource.Earned > 0}>
-                    <ShipInfo {ship} />
+        {#if $categories}
+        {#each Object.keys($categories[resource.Type]).reverse() as amount}
+            <div class="flex flex-wrap mb-4">
+                <div class="w-full pl-2 text-sm text-gray-600 font-medium">{amount} {resourceName[resource.Type]}</div>
+                {#each $categories[resource.Type][amount].Ships as ship}
+                <div class="w-1/2 xl:w-2/6 p-1 ">
+                    <div class="border-2 rounded" class:border-green-200={ship.Resource.Earned > 0}>
+                        <ShipInfo {ship} />
+                    </div>
                 </div>
-            {/each}
-            {/if}
-        </div>
+                {/each}
+            </div>
+        {/each}
+        {/if}
         </div>
 
     </div>
