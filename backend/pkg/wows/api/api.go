@@ -75,10 +75,10 @@ type ShipStatistics struct {
 	} `json:"oper_solo"`
 }
 
-func GetPlayerInfo(accessToken, accountId string) (*PlayerInfo, error) {
+func GetPlayerInfo(realm, accessToken, accountId string) (*PlayerInfo, error) {
 	client := resty.New()
 
-	log.Printf("GetPlayerInfo: accountId=%s", accountId)
+	log.Printf("GetPlayerInfo: accountId=%s realm=%s", accountId, realm)
 
 	res, err := client.R().
 		SetResult(PlayerInfoResponse{}).
@@ -86,7 +86,7 @@ func GetPlayerInfo(accessToken, accountId string) (*PlayerInfo, error) {
 		SetQueryParam("account_id", accountId).
 		SetQueryParam("access_token", accessToken).
 		SetQueryParam("fields", "account_id,created_at,nickname,hidden_profile,private").
-		Get("https://api.worldofwarships.eu/wows/account/info/")
+		Get(fmt.Sprintf("https://api.worldofwarships.%s/wows/account/info/", realm))
 
 	if err != nil {
 		log.Printf("GetPlayerInfo: error=%v response=%s", err, res.String())
@@ -108,10 +108,10 @@ func GetPlayerInfo(accessToken, accountId string) (*PlayerInfo, error) {
 	return &entry, nil
 }
 
-func GetPlayerShipStatistics(accessToken, accountId string) (map[int64]ShipStatistics, error) {
+func GetPlayerShipStatistics(realm, accessToken, accountId string) (map[int64]ShipStatistics, error) {
 	client := resty.New()
 
-	log.Printf("GetPlayerShipStatistics: accountId=%s", accountId)
+	log.Printf("GetPlayerShipStatistics: accountId=%s realm=%s", accountId, realm)
 
 	res, err := client.R().
 		SetResult(ShipsStatisticsResponse{}).
@@ -121,7 +121,7 @@ func GetPlayerShipStatistics(accessToken, accountId string) (map[int64]ShipStati
 		SetQueryParam("in_garage", "1").
 		SetQueryParam("extra", "pve,oper_solo,oper_div,rank_solo").
 		SetQueryParam("fields", "ship_id,last_battle_time,battles,pvp.battles,pvp.wins,pve.battles,pve.wins,oper_solo.battles,oper_solo.wins,oper_div.battles,oper_div.wins,rank_solo.battles,rank_solo.wins").
-		Get("https://api.worldofwarships.eu/wows/ships/stats/")
+		Get(fmt.Sprintf("https://api.worldofwarships.%s/wows/ships/stats/", realm))
 
 	if err != nil {
 		log.Printf("GetPlayerShipStatistics: error=%v response=%s", err, res.String())

@@ -1,0 +1,10 @@
+CLOUDFRONT_ID=E70E85S3UWCMA
+
+.PHONY: build
+build:
+	npm run build
+
+.PHONY: deploy
+deploy:
+	aws s3 sync public s3://frenchwhaling.in.fkn.space
+	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_ID) --paths /index.html /img/* /bundle.css /bundle.js /global.css

@@ -23,26 +23,27 @@ type Response events.APIGatewayProxyResponse
 func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Response, error) {
 	accessToken := request.QueryStringParameters["access_token"]
 	accountId := request.QueryStringParameters["account_id"]
+	realm := request.QueryStringParameters["realm"]
 	// Verify the access token and account_id combination by making an authorized API call to the WG api
-	res, err := api.GetPlayerInfo(accessToken, accountId)
+	res, err := api.GetPlayerInfo(realm, accessToken, accountId)
 	if err != nil {
 		log.Printf("Could not retrieve player info: %v", err)
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": "http://localhost:5000/callback?success=false&reason=invalid-data",
+				"Location": "http://frenchwhaling.in.fkn.space/?success=false&reason=invalid-data",
 			},
 		}, nil
 	}
 
 	// Update DynDB
-	subscriber, err := storage.FindOrCreateUpdateSubscriber(accessToken, accountId)
+	subscriber, isNew, err := storage.FindOrCreateUpdateSubscriber(accessToken, realm, accountId)
 	if err != nil {
 		log.Printf("Could not crud subscriber info: %v", err)
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": "http://localhost:5000/callback?success=false&reason=subscription-failed",
+				"Location": fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=false&reason=subscription-failed&isNew=%d", isNew),
 			},
 		}, nil
 	}
@@ -63,7 +64,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": "http://localhost:5000/callback?success=false&reason=signing-failed",
+				"Location": "http://frenchwhaling.in.fkn.space/?success=false&reason=signing-failed",
 			},
 		}, nil
 	}
@@ -74,7 +75,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		Body:            "",
 		Headers: map[string]string{
 			"Content-Type": "application/json",
-			"Location":     fmt.Sprintf("http://localhost:5000/callback?success=true&token=%s", tokenString),
+			"Location":     fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=true&isNew=%d&token=%s&dataUrl=%s", isNew, tokenString, subscriber.DataURL),
 		},
 	}
 

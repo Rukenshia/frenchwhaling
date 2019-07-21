@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"rukenshia/frenchwhaling/pkg/events"
 	"rukenshia/frenchwhaling/pkg/storage"
 	"rukenshia/frenchwhaling/pkg/wows"
 	"rukenshia/frenchwhaling/pkg/wows/api"
@@ -13,24 +14,30 @@ import (
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/s3"
 
-	"github.com/aws/aws-lambda-go/events"
+	awsEvents "github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-// Handler is the lambda handler invoked by the `lambda.Start` function call
-func Handler(ctx context.Context, event events.SNSEvent) (string, error) {
-	var events []storage.RefreshEvent
+var EventStartTime = map[string]int{
+	"eu":   1563710005,
+	"com":  1563710005,
+	"ru":   1563710005,
+	"asia": 1563710005,
+}
 
-	if err := json.Unmarshal([]byte(event.Records[0].SNS.Message), &events); err != nil {
+// Handler is the lambda handler invoked by the `lambda.Start` function call
+func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
+	var refreshEvents []storage.RefreshEvent
+
+	if err := json.Unmarshal([]byte(event.Records[0].SNS.Message), &refreshEvents); err != nil {
 		return "", fmt.Errorf("Could not parse event: %v", err)
 	}
 
 	// Process everything sequentially to avoid caring about rate limiting
-	for _, ev := range events {
-		log.Printf("Processing event: accountId=%s", ev.AccountID)
-
+	for _, ev := range refreshEvents {
 		log.Printf("Loading subscriber data: accountId=%s", ev.AccountID)
 
+		isNewSubscriber := false
 		var subscriberData *storage.SubscriberPublicData
 		if sdata, err := storage.LoadPublicSubscriberData(ev.DataURL); err == nil {
 			subscriberData = sdata
@@ -39,16 +46,16 @@ func Handler(ctx context.Context, event events.SNSEvent) (string, error) {
 				if aerr.Code() == s3.ErrCodeNoSuchKey {
 					log.Printf("Public data not found: will create new object later accountId=%s", ev.AccountID)
 
-					now := time.Now()
 					subscriberData = &storage.SubscriberPublicData{
 						AccountID: ev.AccountID,
-						Earnable: []storage.EarnabledResource{
-							{Resource: wows.Coal, Amount: 0},
-							{Resource: wows.RepublicTokens, Amount: 0},
+						Resources: []storage.EarnableResource{
+							{Type: wows.RepublicTokens, Amount: 0, Earned: 0},
+							{Type: wows.Coal, Amount: 0, Earned: 0},
 						},
 						Ships:       map[int64]*storage.StoredShip{},
-						LastUpdated: &now,
+						LastUpdated: time.Now().UnixNano(),
 					}
+					isNewSubscriber = true
 				} else {
 					log.Printf("ERROR: Could not load subscriber data: accountId=%s code=%s error=%v", ev.AccountID, aerr.Code(), aerr)
 					continue
@@ -59,7 +66,7 @@ func Handler(ctx context.Context, event events.SNSEvent) (string, error) {
 			}
 		}
 
-		newData, err := api.GetPlayerShipStatistics(ev.AccessToken, ev.AccountID)
+		newData, err := api.GetPlayerShipStatistics(ev.Realm, ev.AccessToken, ev.AccountID)
 		if err != nil {
 			log.Printf("ERROR: Processing event: failed for accountId=%s error=%v", ev.AccountID, err)
 			continue
@@ -84,64 +91,109 @@ func Handler(ctx context.Context, event events.SNSEvent) (string, error) {
 				// TODO: detect last battle time, set "Earned" automatically
 				currentShip = &storage.StoredShip{
 					ShipStatistics: ship,
-					Earnable: storage.EarnabledResource{
-						Resource: wowsShip.Resource(),
-						Amount:   wowsShip.Amount(),
-						Earned:   false,
+					Resource: storage.EarnableResource{
+						Type:   wowsShip.Resource(),
+						Amount: wowsShip.Amount(),
+						Earned: 0,
 					},
 				}
 
-				currentShip.LastBattleTime = 0
-				currentShip.Pvp.Wins = 0
+				if !isNewSubscriber {
+					// Reset all battles on the ship
 
-				log.Printf("New ship accountId=%s shipId=%d", ev.AccountID, ship.ShipID)
+					// send event
+					if err := events.Add(events.NewShipAddition(ev.AccountID, ship.ShipID)); err != nil {
+						log.Printf("WARN: could not send event for new subscriber ship error=%v", err)
+					}
+				}
+
+				if ship.LastBattleTime > EventStartTime["eu"] {
+					// A battle was played with a ship that we did not know yet.
+					// For new subscribers, they might be coming to the event late.
+					// For existing subscribers, they might just have bought a ship and played a battle
+					// with it. Let's give them the resource if we can find any wins.
+
+					// Compare against empty statistics to find a win
+					win, winType := getWinType(&storage.StoredShip{
+						ShipStatistics: api.ShipStatistics{},
+					}, ship)
+
+					if win {
+						// Credit the resources
+						currentShip.ShipStatistics = ship
+						currentShip.Resource.Earned = currentShip.Resource.Amount
+						subscriberData.Ships[ship.ShipID] = currentShip
+
+						if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
+							log.Printf("WARN: could not send resource earned event")
+						}
+						continue
+					}
+				}
 			}
 
 			if ship.LastBattleTime > currentShip.LastBattleTime {
-				// There is a new battle. Find out if it was a win
-				win := false
-				winType := ""
+				// There is a new battle. Find out if it was a win and credit resources
 
-				if ship.Pvp.Wins > currentShip.Pvp.Wins {
-					win = true
-					winType = "pvp"
-				} else if ship.Pve.Wins > currentShip.Pve.Wins {
-					win = true
-					winType = "pve"
-				} else if ship.OperDiv.Wins > currentShip.OperDiv.Wins {
-					win = true
-					winType = "oper_div"
-				} else if ship.OperSolo.Wins > currentShip.OperSolo.Wins {
-					win = true
-					winType = "oper_solo"
-				} else if ship.RankSolo.Wins > currentShip.RankSolo.Wins {
-					win = true
-					winType = "rank_solo"
-				}
+				win, winType := getWinType(currentShip, ship)
 
 				if win {
-					log.Printf("Resource earned accountId=%s shipId=%d winType=%s", ev.AccountID, ship.ShipID, winType)
-
-					// TODO: report win
 					currentShip.ShipStatistics = ship
-					currentShip.Earnable.Earned = true
-					continue
+					currentShip.Resource.Earned = currentShip.Resource.Amount
+
+					if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
+						log.Printf("WARN: could not send resource earned event")
+					}
 				}
 			}
 
 			subscriberData.Ships[ship.ShipID] = currentShip
 		}
 
+		for i := range subscriberData.Resources {
+			subscriberData.Resources[i].Earned = 0
+		}
+
+		for _, ship := range subscriberData.Ships {
+			subscriberData.Resources[ship.Resource.Type].Earned += ship.Resource.Earned
+		}
+
+		subscriberData.LastUpdated = time.Now().UnixNano()
+
 		// Store data in S3
 		if err := subscriberData.Save(ev.DataURL); err != nil {
 			log.Printf("ERROR: Could not save data: accountId=%s error=%v", ev.AccountID, err)
 			continue
 		}
+
+		if err := storage.SetSubscriberLastUpdated(ev.AccountID, subscriberData.LastUpdated); err != nil {
+			log.Printf("ERROR: Could not set last updated accountId=%s error=%v", ev.AccountID, err)
+		}
 	}
 
-	return fmt.Sprintf("Processed %d events", len(events)), nil
+	return fmt.Sprintf("Processed %d refreshEvents", len(refreshEvents)), nil
 }
 
 func main() {
 	lambda.Start(Handler)
+}
+
+func getWinType(currentShip *storage.StoredShip, newShip api.ShipStatistics) (win bool, winType string) {
+	if newShip.Pvp.Wins > currentShip.Pvp.Wins {
+		win = true
+		winType = "pvp"
+	} else if newShip.Pve.Wins > currentShip.Pve.Wins {
+		win = true
+		winType = "pve"
+	} else if newShip.OperDiv.Wins > currentShip.OperDiv.Wins {
+		win = true
+		winType = "oper_div"
+	} else if newShip.OperSolo.Wins > currentShip.OperSolo.Wins {
+		win = true
+		winType = "oper_solo"
+	} else if newShip.RankSolo.Wins > currentShip.RankSolo.Wins {
+		win = true
+		winType = "rank_solo"
+	}
+	return win, winType
 }
