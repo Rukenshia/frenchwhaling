@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"rukenshia/frenchwhaling/pkg/storage"
+	"sync"
 	"time"
 
 	awsEvents "github.com/aws/aws-lambda-go/events"
@@ -15,6 +16,8 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 	log.Printf("Scheduler started")
 	want := time.Now().Add(-15 * time.Minute)
 
+	log.Printf("Finding last scheduled want=%d", want.UnixNano())
+
 	subscribers, err := storage.FindUnscheduledSubscribers(want.UnixNano(), 600)
 	if err != nil {
 		log.Fatalf("Could not find subscribers: %v", err)
@@ -23,7 +26,9 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 	log.Printf("Found subscribers, sending refresh events subscribers=%d", len(subscribers))
 
 	var batch []storage.RefreshEvent
+	var wg sync.WaitGroup
 	for _, subscriber := range subscribers {
+		log.Printf("Selected for scheduling accountId=%s lastScheduled=%d", subscriber.AccountID, subscriber.LastScheduled)
 		batch = append(batch, storage.RefreshEvent{
 			AccountID:   subscriber.AccountID,
 			Realm:       subscriber.Realm,
@@ -31,11 +36,14 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 			DataURL:     subscriber.DataURL,
 		})
 
-		go func() {
-			if err := storage.SetSubscriberLastScheduled(subscriber.AccountID, time.Now().UnixNano()); err != nil {
+		wg.Add(1)
+		go func(accountID string) {
+			defer wg.Done()
+
+			if err := storage.SetSubscriberLastScheduled(accountID, time.Now().UnixNano()); err != nil {
 				log.Printf("ERROR: could not update last scheduled error=%v", err)
 			}
-		}()
+		}(subscriber.AccountID)
 
 		if len(batch) >= 100 {
 			log.Printf("Sending batch of size=%d", len(batch))
@@ -58,6 +66,10 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 	if err := storage.TriggerRefresh(batch); err != nil {
 		log.Printf("ERROR: sending batch error=%v", err)
 	}
+
+	log.Printf("Waiting for subscriber schedule data update")
+	wg.Wait()
+	log.Printf("All subscriber scheduling info updated")
 
 	return "done", nil
 }
