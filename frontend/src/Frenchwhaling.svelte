@@ -8,9 +8,11 @@
 
     let toggle = false;
     let error = false;
+    let isNew = false;
 
     onMount(() => {
         const data = querystring.parseUrl(window.location.href);
+        isNew = data.query.isNew;
 
         if (data.query && data.query.success === 'true') {
             try {
@@ -67,7 +69,7 @@
             </div>
 
             <div class="mt-12">
-                <Progress />
+                <Progress {isNew} />
             </div>
         {/if}
 
