@@ -1,2 +1,2 @@
 .env.local
-.env.live.json
+.env.live.yml

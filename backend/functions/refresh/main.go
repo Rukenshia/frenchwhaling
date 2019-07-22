@@ -5,11 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	"rukenshia/frenchwhaling/pkg/events"
 	"rukenshia/frenchwhaling/pkg/storage"
 	"rukenshia/frenchwhaling/pkg/wows"
 	"rukenshia/frenchwhaling/pkg/wows/api"
 	"time"
+
+	"github.com/getsentry/sentry-go"
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -18,11 +21,14 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-var EventStartTime = map[string]int{
-	"eu":   1563710005,
-	"com":  1563710005,
-	"ru":   1563710005,
-	"asia": 1563710005,
+type E map[string]interface{}
+
+func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
+	h := hub.Clone()
+	h.ConfigureScope(func(scope *sentry.Scope) {
+		scope.SetExtras(fields)
+	})
+	return h
 }
 
 // Handler is the lambda handler invoked by the `lambda.Start` function call
@@ -30,11 +36,23 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 	var refreshEvents []storage.RefreshEvent
 
 	if err := json.Unmarshal([]byte(event.Records[0].SNS.Message), &refreshEvents); err != nil {
+		sentry.CaptureException(fmt.Errorf("Could not parse event: %v", err))
 		return "", fmt.Errorf("Could not parse event: %v", err)
 	}
 
 	// Process everything sequentially to avoid caring about rate limiting
 	for _, ev := range refreshEvents {
+		sentryAccountHub := sentry.CurrentHub().Clone()
+		sentryAccountHub.ConfigureScope(func(scope *sentry.Scope) {
+			scope.SetTag("AccountID", ev.AccountID)
+		})
+
+		if _, ok := wows.EventStartTime[ev.Realm]; !ok {
+			log.Printf("WARN: Invalid realm for accountId=%s realm=%s", ev.AccountID, ev.Realm)
+			sentryAccountHub.CaptureMessage(fmt.Sprintf("Invalid realm '%s'", ev.Realm))
+			continue
+		}
+
 		log.Printf("Loading subscriber data: accountId=%s", ev.AccountID)
 
 		isNewSubscriber := false
@@ -57,10 +75,12 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					}
 					isNewSubscriber = true
 				} else {
+					getHub(sentryAccountHub, E{"error": aerr, "code": aerr.Code()}).CaptureMessage("Could not load subscriber data")
 					log.Printf("ERROR: Could not load subscriber data: accountId=%s code=%s error=%v", ev.AccountID, aerr.Code(), aerr)
 					continue
 				}
 			} else {
+				getHub(sentryAccountHub, E{"error": err}).CaptureMessage("Could not load subscriber data")
 				log.Printf("ERROR: Could not load subscriber data: accountId=%s error=%v", ev.AccountID, err)
 				continue
 			}
@@ -68,24 +88,74 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 		newData, err := api.GetPlayerShipStatistics(ev.Realm, ev.AccessToken, ev.AccountID)
 		if err != nil {
+			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("GetPlayerShipStatistics failed")
 			log.Printf("ERROR: Processing event: failed for accountId=%s error=%v", ev.AccountID, err)
 			continue
+		}
+
+		// Get all ships in port
+		shipsInPort, err := api.GetPlayerPort(ev.Realm, ev.AccessToken, ev.AccountID)
+		if err != nil {
+			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("GetPlayerPort failed")
+			log.Printf("ERROR: Could not retrieve ships in port accountId=%s error=%v", ev.AccountID, err)
+			continue
+		}
+
+		// Add ships that were not in port before
+		for _, shipID := range shipsInPort {
+			wowsShip, ok := wows.Ships[shipID]
+			if !ok {
+				// Probably a ship that's not in the API anymore
+				continue
+			}
+
+			if !wowsShip.IsEgligible() {
+				continue
+			}
+
+			// If the data is not in subscriberData yet, we did not refresh it the last time
+			if _, inCurrentData := subscriberData.Ships[shipID]; !inCurrentData {
+				// We want to ignore ships that also have new statistics, it means the ship was already
+				// played and will be processed further down.
+				if _, inNewData := newData[shipID]; inNewData {
+					continue
+				}
+			} else {
+				continue
+			}
+
+			log.Printf("New ship found from port data accountId=%s shipId=%d", ev.AccountID, shipID)
+
+			// Add the ship with empty data to newData,
+			// this means it will be counted as ShipAddition further down
+			newData[shipID] = api.ShipStatistics{
+				ShipID:         shipID,
+				LastBattleTime: 0,
+				Private: api.ShipStatisticsPrivate{
+					InGarage: true,
+				},
+			}
 		}
 
 		// Compare data
 		log.Printf("Received data: comparing accountId=%s", ev.AccountID)
 
 		for _, ship := range newData {
+			sentryShipHub := sentryAccountHub.Clone()
+			sentryShipHub.ConfigureScope(func(scope *sentry.Scope) {
+				scope.SetTag("ShipID", fmt.Sprintf("%d", ship.ShipID))
+			})
+
 			wowsShip, ok := wows.Ships[ship.ShipID]
+			if !ok {
+				// Probably a ship that doesn't really exist anymore
+				continue
+			}
 
 			if !wowsShip.IsEgligible() {
 				continue
 			}
 
-			if !ok {
-				log.Printf("ERROR: Ignoring unknown ship accountId=%s shipId=%d", ev.AccountID, ship.ShipID)
-				continue
-			}
 			currentShip, ok := subscriberData.Ships[ship.ShipID]
 			if !ok {
 				// TODO: detect last battle time, set "Earned" automatically
@@ -103,11 +173,12 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 					// send event
 					if err := events.Add(events.NewShipAddition(ev.AccountID, ship.ShipID)); err != nil {
+						getHub(sentryShipHub, E{"error": err}).CaptureMessage("Could not send ShipAddition event")
 						log.Printf("WARN: could not send event for new subscriber ship error=%v", err)
 					}
 				}
 
-				if ship.LastBattleTime > EventStartTime["eu"] {
+				if ship.LastBattleTime > wows.EventStartTime[ev.Realm] {
 					// A battle was played with a ship that we did not know yet.
 					// For new subscribers, they might be coming to the event late.
 					// For existing subscribers, they might just have bought a ship and played a battle
@@ -125,6 +196,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 						subscriberData.Ships[ship.ShipID] = currentShip
 
 						if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
+							getHub(sentryShipHub, E{"error": err}).CaptureMessage("Could not send ResourceEarned event")
 							log.Printf("WARN: could not send resource earned event")
 						}
 						continue
@@ -142,6 +214,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					currentShip.Resource.Earned = currentShip.Resource.Amount
 
 					if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
+						getHub(sentryShipHub, E{"error": err}).CaptureMessage("Could not send ResourceEarned event")
 						log.Printf("WARN: could not send resource earned event")
 					}
 				}
@@ -163,21 +236,29 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 		// Store data in S3
 		if err := subscriberData.Save(ev.DataURL); err != nil {
+			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("Could not save data to S3")
 			log.Printf("ERROR: Could not save data: accountId=%s error=%v", ev.AccountID, err)
 			continue
 		}
 
 		if err := storage.SetSubscriberLastUpdated(ev.AccountID, subscriberData.LastUpdated); err != nil {
+			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("Could not update LastUpdated in DynamoDB")
 			log.Printf("ERROR: Could not set last updated accountId=%s error=%v", ev.AccountID, err)
 		}
 	}
 
 	log.Printf("Processed all events count=%d", len(refreshEvents))
 
+	sentry.Flush(time.Second * 2)
 	return fmt.Sprintf("Processed %d refreshEvents", len(refreshEvents)), nil
 }
 
 func main() {
+	sentry.Init(sentry.ClientOptions{
+		Dsn:        os.Getenv("SENTRY_DSN"),
+		ServerName: "refresh",
+	})
+
 	lambda.Start(Handler)
 }
 

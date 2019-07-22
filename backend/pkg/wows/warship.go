@@ -24,7 +24,7 @@ func (w *Warship) IsEgligible() bool {
 		return false
 	}
 
-	if w.Tier < 5 && !w.IsPremium {
+	if w.Tier < 5 && !w.GetsPremiumTreatment() {
 		return false
 	}
 
