@@ -53,7 +53,10 @@ type ShipStatistics struct {
 	ShipID         int64 `json:"ship_id"`
 	LastBattleTime int   `json:"last_battle_time"`
 	Battles        int   `json:"battles"`
-	Pvp            struct {
+	Private        struct {
+		InGarage bool `json:"in_garage"`
+	} `json:"private"`
+	Pvp struct {
 		Wins    int `json:"wins"`
 		Battles int `json:"battles"`
 	} `json:"pvp"`
@@ -118,9 +121,8 @@ func GetPlayerShipStatistics(realm, accessToken, accountId string) (map[int64]Sh
 		SetQueryParam("application_id", os.Getenv("APPLICATION_ID")).
 		SetQueryParam("account_id", accountId).
 		SetQueryParam("access_token", accessToken).
-		SetQueryParam("in_garage", "1").
 		SetQueryParam("extra", "pve,oper_solo,oper_div,rank_solo").
-		SetQueryParam("fields", "ship_id,last_battle_time,battles,pvp.battles,pvp.wins,pve.battles,pve.wins,oper_solo.battles,oper_solo.wins,oper_div.battles,oper_div.wins,rank_solo.battles,rank_solo.wins").
+		SetQueryParam("fields", "ship_id,last_battle_time,battles,pvp.battles,pvp.wins,pve.battles,pve.wins,oper_solo.battles,oper_solo.wins,oper_div.battles,oper_div.wins,rank_solo.battles,rank_solo.wins,private.in_garage").
 		Get(fmt.Sprintf("https://api.worldofwarships.%s/wows/ships/stats/", realm))
 
 	if err != nil {

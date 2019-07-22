@@ -14,7 +14,7 @@ import (
 // Handler is the lambda handler invoked by the `lambda.Start` function call
 func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (string, error) {
 	log.Printf("Scheduler started")
-	want := time.Now().Add(-15 * time.Minute)
+	want := time.Now().Add(-30 * time.Minute)
 
 	log.Printf("Finding last scheduled want=%d", want.UnixNano())
 

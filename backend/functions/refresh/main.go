@@ -147,6 +147,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				}
 			}
 
+			currentShip.ShipStatistics = ship
 			subscriberData.Ships[ship.ShipID] = currentShip
 		}
 

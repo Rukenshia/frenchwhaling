@@ -28,6 +28,10 @@ func (w *Warship) IsEgligible() bool {
 		return false
 	}
 
+	if w.Tier < 2 {
+		return false
+	}
+
 	return true
 }
 
@@ -35,6 +39,11 @@ func (w *Warship) IsEgligible() bool {
 // which are treated as Premium ships in the event
 func (w *Warship) GetsPremiumTreatment() bool {
 	if w.IsPremium {
+		return true
+	}
+
+	// ARP Event ships
+	if strings.Contains(w.Name, "ARP ") {
 		return true
 	}
 
