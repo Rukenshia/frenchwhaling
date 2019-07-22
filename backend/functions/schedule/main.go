@@ -2,14 +2,28 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"os"
 	"rukenshia/frenchwhaling/pkg/storage"
 	"sync"
 	"time"
 
+	"github.com/getsentry/sentry-go"
+
 	awsEvents "github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
+
+type E map[string]interface{}
+
+func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
+	h := hub.Clone()
+	h.ConfigureScope(func(scope *sentry.Scope) {
+		scope.SetExtras(fields)
+	})
+	return h
+}
 
 // Handler is the lambda handler invoked by the `lambda.Start` function call
 func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (string, error) {
@@ -20,6 +34,7 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 
 	subscribers, err := storage.FindUnscheduledSubscribers(want.UnixNano(), 600)
 	if err != nil {
+		getHub(sentry.CurrentHub(), E{"error": err}).CaptureException(fmt.Errorf("FindUnscheduledSubscribers failed"))
 		log.Fatalf("Could not find subscribers: %v", err)
 	}
 
@@ -28,6 +43,11 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 	var batch []storage.RefreshEvent
 	var wg sync.WaitGroup
 	for _, subscriber := range subscribers {
+		sentryAccountHub := sentry.CurrentHub().Clone()
+		sentryAccountHub.ConfigureScope(func(scope *sentry.Scope) {
+			scope.SetTag("AccountID", subscriber.AccountID)
+		})
+
 		log.Printf("Selected for scheduling accountId=%s lastScheduled=%d", subscriber.AccountID, subscriber.LastScheduled)
 		batch = append(batch, storage.RefreshEvent{
 			AccountID:   subscriber.AccountID,
@@ -41,6 +61,7 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 			defer wg.Done()
 
 			if err := storage.SetSubscriberLastScheduled(accountID, time.Now().UnixNano()); err != nil {
+				sentryAccountHub.CaptureException(fmt.Errorf("SetSubscriberLastScheduled failed"))
 				log.Printf("ERROR: could not update last scheduled error=%v", err)
 			}
 		}(subscriber.AccountID)
@@ -49,6 +70,7 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 			log.Printf("Sending batch of size=%d", len(batch))
 
 			if err := storage.TriggerRefresh(batch); err != nil {
+				sentry.CaptureException(fmt.Errorf("TriggerRefresh failed"))
 				log.Printf("ERROR: sending batch error=%v", err)
 			}
 			batch = []storage.RefreshEvent{}
@@ -64,6 +86,7 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 	log.Printf("Sending last batch of size=%d", len(batch))
 
 	if err := storage.TriggerRefresh(batch); err != nil {
+		sentry.CaptureException(fmt.Errorf("TriggerRefresh failed"))
 		log.Printf("ERROR: sending batch error=%v", err)
 	}
 
@@ -71,9 +94,16 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 	wg.Wait()
 	log.Printf("All subscriber scheduling info updated")
 
+	sentry.Flush(5 * time.Second)
+
 	return "done", nil
 }
 
 func main() {
+	sentry.Init(sentry.ClientOptions{
+		Dsn:        os.Getenv("SENTRY_DSN"),
+		ServerName: "schedule",
+	})
+
 	lambda.Start(Handler)
 }

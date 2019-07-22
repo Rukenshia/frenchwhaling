@@ -47,8 +47,9 @@ functions:
   login:
     handler: bin/login
     environment:
-      APPLICATION_ID: ${file(.env.live.json):APPLICATION_ID}
-      SIGNING_SECRET: ${file(.env.live.json):SIGNING_SECRET}
+      APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
+      SIGNING_SECRET: ${file(.env.live.yml):SigningSecret}
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
     events:
@@ -63,7 +64,8 @@ functions:
     timeout: 600
     reservedConcurrency: 1
     environment:
-      APPLICATION_ID: ${file(.env.live.json):APPLICATION_ID}
+      APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
     events:
     - sns:
         filterPolicy:
@@ -83,7 +85,8 @@ functions:
     memorySize: 256
     reservedConcurrency: 1
     environment:
-      APPLICATION_ID: ${file(.env.live.json):APPLICATION_ID}
+      APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
     events:

@@ -44,18 +44,29 @@ type PlayerInfo struct {
 	} `json:"private"`
 }
 
+type PlayerPortResponse struct {
+	ApiResponse
+	Data map[string]struct {
+		Private struct {
+			Port []int64 `json:"port"`
+		} `json:"private"`
+	} `json:"data"`
+}
+
 type ShipsStatisticsResponse struct {
 	ApiResponse
 	Data map[string][]ShipStatistics `json:"data"`
+}
+
+type ShipStatisticsPrivate struct {
+	InGarage bool `json:"in_garage"`
 }
 
 type ShipStatistics struct {
 	ShipID         int64 `json:"ship_id"`
 	LastBattleTime int   `json:"last_battle_time"`
 	Battles        int   `json:"battles"`
-	Private        struct {
-		InGarage bool `json:"in_garage"`
-	} `json:"private"`
+	Private        ShipStatisticsPrivate `json:"private"`
 	Pvp struct {
 		Wins    int `json:"wins"`
 		Battles int `json:"battles"`
@@ -109,6 +120,38 @@ func GetPlayerInfo(realm, accessToken, accountId string) (*PlayerInfo, error) {
 	entry := data.Data[accountId]
 
 	return &entry, nil
+}
+
+func GetPlayerPort(realm, accessToken, accountId string) ([]int64, error) {
+	client := resty.New()
+
+	log.Printf("GetPlayerPort: accountId=%s realm=%s", accountId, realm)
+
+	res, err := client.R().
+		SetResult(PlayerPortResponse{}).
+		SetQueryParam("application_id", os.Getenv("APPLICATION_ID")).
+		SetQueryParam("account_id", accountId).
+		SetQueryParam("access_token", accessToken).
+		SetQueryParam("extra", "private.port").
+		SetQueryParam("fields", "private.port").
+		Get(fmt.Sprintf("https://api.worldofwarships.%s/wows/account/info/", realm))
+
+	if err != nil {
+		log.Printf("GetPlayerPort: error=%v response=%s", err, res.String())
+		return nil, err
+	}
+
+	data, ok := res.Result().(*PlayerPortResponse)
+	if !ok {
+		log.Printf("GetPlayerPort: error=parse failed response=%s", res.String())
+		return nil, errors.New("Could not parse response from Wargaming API")
+	}
+
+	if data.Status != "ok" {
+		return nil, fmt.Errorf("WG API status: %v", data)
+	}
+
+	return data.Data[accountId].Private.Port, nil
 }
 
 func GetPlayerShipStatistics(realm, accessToken, accountId string) (map[int64]ShipStatistics, error) {
