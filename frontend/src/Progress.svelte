@@ -32,6 +32,20 @@
                     return 1;
                 }
                 return 0;
+            };
+            const byInGarage = () => {
+                if (a.private.in_garage) {
+                    if (b.private.in_garage) {
+                        return byName();
+                    }
+
+                    return -1;
+                } else {
+                    if (b.private.in_garage) {
+                        return 1;
+                    }
+                    return byName();
+                }
             }
             if (a.Resource.Earned) {
                 if (b.Resource.Earned) {
@@ -40,7 +54,7 @@
                 return 1;
             } else {
                 if (!b.Resource.Earned) {
-                    return byName();
+                    return byInGarage();
                 }
                 return -1;
             }
@@ -124,7 +138,7 @@
                 <div class="w-full pl-2 text-sm text-gray-600 font-medium">{amount} {resourceName[resource.Type]}</div>
                 {#each $categories[resource.Type][amount].Ships as ship}
                 <div class="w-1/2 xl:w-2/6 p-1 ">
-                    <div class="border-2 rounded" class:border-green-200={ship.Resource.Earned > 0}>
+                    <div class="border-2 rounded" class:border-green-200={ship.Resource.Earned > 0} class:border-red-200={ship.private && !ship.private.in_garage}>
                         <ShipInfo {ship} />
                     </div>
                 </div>
