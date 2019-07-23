@@ -15,17 +15,16 @@
 
     <div class="flex flex-wrap mt-8">
         <div class="w-1/4 p-4">
-            <button on:click={() => login('asia')} class="px-5 py-2 bg-yellow-200 hover:bg-yellow-300 border-none text-yellow-900 rounded">ASIA</button>
+            <button on:click={() => login('asia')} class="font-medium px-5 py-2 bg-yellow-200 hover:bg-yellow-300 border-none text-yellow-900 rounded">ASIA</button>
         </div>
         <div class="w-1/4 p-4">
-            <button on:click={() => login('ru')} class="px-5 py-2 bg-red-200 hover:bg-red-300 border-none text-red-900 rounded">CIS</button>
+            <button on:click={() => login('ru')} class="font-medium px-5 py-2 bg-red-200 hover:bg-red-300 border-none text-red-900 rounded">CIS</button>
         </div>
         <div class="w-1/4 p-4">
-            <button on:click={() => login('eu')} class="px-5 py-2 bg-blue-200 hover:bg-blue-300 border-none text-blue-900 rounded">EU</button>
+            <button on:click={() => login('eu')} class="font-medium px-5 py-2 bg-blue-200 hover:bg-blue-300 border-none text-blue-900 rounded">EU</button>
         </div>
         <div class="w-1/4 p-4">
-            <button on:click={() => login('com')} class="px-5 py-2 bg-gray-200 hover:bg-gray-300 border-none text-gray-900 rounded">NA</button>
+            <button on:click={() => login('com')} class="font-medium px-5 py-2 bg-purple-200 hover:bg-purple-300 border-none text-purple-900 rounded">NA</button>
         </div>
     </div>
-
 </div>

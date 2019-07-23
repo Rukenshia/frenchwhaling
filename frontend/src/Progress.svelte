@@ -8,19 +8,23 @@
 
     export let isNew;
     let retries = 0;
+    let withShipsNotInGarage = [false, false];
 
     let data = writable(undefined);
     let error = false;
     const max = derived(data, v => {
         if (v === undefined) { return [0, 0]; }
 
-        const newMax = [0, 0];
+        const newMax = [[0, 0], [0, 0]];
         Object.keys(v.Ships).forEach(s => {
-            newMax[v.Ships[s].Resource.Type] += v.Ships[s].Resource.Amount;
+            if (v.Ships[s].private.in_garage) {
+                newMax[v.Ships[s].Resource.Type][0] += v.Ships[s].Resource.Amount;
+            }
+            newMax[v.Ships[s].Resource.Type][1] += v.Ships[s].Resource.Amount;
         });
 
         return newMax;
-    }, [0, 0]);
+    }, [[0, 0], [0, 0]]);
     const categories = derived([data, shipInfo], ([v, vs]) => {
         if (v === undefined || vs === undefined) { return [{}, {}]; }
 
@@ -89,25 +93,22 @@
         } catch(e) {
             error = true;
 
-            if (isNew) {
-                const intv = setInterval(async () => {
-                    retries++;
-                    console.log(retries);
+            const intv = setInterval(async () => {
+                retries++;
 
-                    if (retries > 9) {
-                        clearInterval(intv);
-                        return;
-                    }
+                if (retries > 9) {
+                    clearInterval(intv);
+                    return;
+                }
 
-                    try {
-                        const res = await axios.get($dataUrl);
-                        $data = res.data;
-                        error = false;
-                    } catch(e) {
-                        error = true;
-                    }
-                }, 2500);
-            }
+                try {
+                    const res = await axios.get($dataUrl);
+                    $data = res.data;
+                    error = false;
+                } catch(e) {
+                    error = true;
+                }
+            }, 2500);
         }
     });
 </script>
@@ -119,7 +120,7 @@
 </div>
 <div class="w-full flex flex-wrap mt-4 px-2">
 {#each $data.Resources as resource}
-    <div class="w-full md:w-1/2">
+    <div class="w-full lg:w-1/2">
         <div class="m-2 p-4 shadow-xl rounded bg-gray-200">
             <div class="flex">
                 <div class="w-7">
@@ -128,7 +129,15 @@
                 <div class="w-auto ml-2 text-xl text-gray-700">{resourceName[resource.Type]}</div>
             </div>
             <div class="p-4 text-gray-700">
-                You have earned up to <span class="text-3xl">{resource.Earned}</span> {resourceName[resource.Type]} out of <span class="text-3xl">{$max[resource.Type]}</span> you can earn during the event.
+                You have earned up to <span class="text-3xl">{resource.Earned}</span> {resourceName[resource.Type]} out of <span class="text-3xl">{$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</span> you can earn during the event.
+            </div>
+            <div class="p-4 pt-0">
+                <label class="md:w-2/3 block text-gray-600 font-bold">
+                    <input class="mr-2 leading-tight" type="checkbox" bind:checked={withShipsNotInGarage[resource.Type]}>
+                    <span class="text-sm">
+                        Include ships I don't have in port
+                    </span>
+                </label>
             </div>
 
 
@@ -137,11 +146,13 @@
             <div class="flex flex-wrap mb-4">
                 <div class="w-full pl-2 text-sm text-gray-600 font-medium">{amount} {resourceName[resource.Type]}</div>
                 {#each $categories[resource.Type][amount].Ships as ship}
-                <div class="w-1/2 xl:w-2/6 p-1 ">
+                {#if withShipsNotInGarage[resource.Type] || ship.private.in_garage}
+                <div class="w-1/2 lg:w-1/2 xl:w-1/3 p-1 ">
                     <div class="border-2 rounded" class:border-green-200={ship.Resource.Earned > 0} class:border-red-200={ship.private && !ship.private.in_garage}>
                         <ShipInfo {ship} />
                     </div>
                 </div>
+                {/if}
                 {/each}
             </div>
         {/each}
@@ -154,12 +165,12 @@
 
 {:else}
 <div class="w-full flex flex-wrap justify-around mt-4">
-{#if isNew && retries <= 9}
+{#if retries <= 9}
     <div class="w-full text-center text-5xl text-gray-600 mt-8">
         Loading your stuff
     </div>
     <div class="w-1/2 text-center text-2xl text-gray-500">
-        You're apparently new here. That's cool. Loading your data might take a bit depending on the server load.
+        {#if isNew}You're apparently new here. That's cool.{:else}Welcome back, fellow whale.{/if} Loading your data might take a bit depending on the server load.
         Just stay put.
     </div>
     <div class="w-3/4 text-center text-xs text-gray-500 font-mono">
@@ -172,9 +183,10 @@
         There are a lot of things that can go wrong. Guess what, you're a lucky one. You've caught the
         big red error. Basically, nothing works.
         <br />
-        A refresh of the page might help.
+        A refresh of the page might help. Otherwise, dunno... You can reach me with the Contact button above, I guess.
     </div>
 {/if}
     </div>
+    <div class="mb-64"></div>
 {/if}
 

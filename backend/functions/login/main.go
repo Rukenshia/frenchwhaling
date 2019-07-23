@@ -54,6 +54,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		"iss":      "frenchwhaling",
 		"exp":      request.QueryStringParameters["expires_at"],
 		"nickname": res.Nickname,
+		"realm":    request.QueryStringParameters["realm"],
 		"sub":      res.AccountID,
 	})
 
