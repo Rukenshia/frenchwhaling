@@ -14,7 +14,6 @@
     </div>
     <div class="w-auto pl-2 mt-1" class:text-gray-600={ship.Resource.Earned}>
         {$shipInfo[ship.ship_id].name}
-        {#if ship.private && !ship.private.in_garage}(not in port){/if}
     </div>
 </div>
 {/if}
