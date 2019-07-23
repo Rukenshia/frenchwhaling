@@ -50,10 +50,11 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 
 		log.Printf("Selected for scheduling accountId=%s lastScheduled=%d", subscriber.AccountID, subscriber.LastScheduled)
 		batch = append(batch, storage.RefreshEvent{
-			AccountID:   subscriber.AccountID,
-			Realm:       subscriber.Realm,
-			AccessToken: subscriber.AccessToken,
-			DataURL:     subscriber.DataURL,
+			AccountID:            subscriber.AccountID,
+			Realm:                subscriber.Realm,
+			AccessToken:          subscriber.AccessToken,
+			AccessTokenExpiresAt: subscriber.AccessTokenExpiresAt,
+			DataURL:              subscriber.DataURL,
 		})
 
 		wg.Add(1)

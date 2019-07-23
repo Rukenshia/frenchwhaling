@@ -105,6 +105,7 @@
                     const res = await axios.get($dataUrl);
                     $data = res.data;
                     error = false;
+                    clearInterval(intv);
                 } catch(e) {
                     error = true;
                 }

@@ -17,23 +17,25 @@ import (
 )
 
 type RefreshEvent struct {
-	AccountID   string
-	Realm       string
-	AccessToken string
-	DataURL     string
+	AccountID            string
+	Realm                string
+	AccessToken          string
+	AccessTokenExpiresAt int64
+	DataURL              string
 }
 
 type Subscriber struct {
-	AccountID   string
-	Realm       string
-	AccessToken string
-	DataURL     string
+	AccountID            string
+	Realm                string
+	AccessToken          string
+	AccessTokenExpiresAt int64
+	DataURL              string
 
 	LastUpdated   int64
 	LastScheduled int64
 }
 
-func FindOrCreateUpdateSubscriber(accessToken, realm, accountId string) (*Subscriber, bool, error) {
+func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int, realm, accountId string) (*Subscriber, bool, error) {
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
 
@@ -54,12 +56,13 @@ func FindOrCreateUpdateSubscriber(accessToken, realm, accountId string) (*Subscr
 		log.Printf("FindOrCreateUpdateSubscriber: creating new subscription accountId=%s", accountId)
 		// Create entry
 		subscriber := Subscriber{
-			AccountID:     accountId,
-			Realm:         realm,
-			AccessToken:   accessToken,
-			DataURL:       getUniqueAccountURL(accountId),
-			LastScheduled: time.Now().UnixNano(),
-			LastUpdated:   0,
+			AccountID:            accountId,
+			Realm:                realm,
+			AccessToken:          accessToken,
+			AccessTokenExpiresAt: int64(accessTokenExpiresAt),
+			DataURL:              getUniqueAccountURL(accountId),
+			LastScheduled:        time.Now().UnixNano(),
+			LastUpdated:          0,
 		}
 
 		av, err := dynamodbattribute.MarshalMap(subscriber)
