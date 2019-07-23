@@ -12,10 +12,10 @@ import (
 type ApiResponse struct {
 	Status string `json:"status"`
 	Error  struct {
-		Code    string `json:"code"`
-		Message string `json:"message"`
-		Field   string `json:"field"`
-		Value   string `json:"value"`
+		Code    interface{} `json:"code"`
+		Message string      `json:"message"`
+		Field   string      `json:"field"`
+		Value   string      `json:"value"`
 	} `json:"error"`
 	Meta struct {
 		Count  int         `json:"count"`
@@ -63,11 +63,11 @@ type ShipStatisticsPrivate struct {
 }
 
 type ShipStatistics struct {
-	ShipID         int64 `json:"ship_id"`
-	LastBattleTime int   `json:"last_battle_time"`
-	Battles        int   `json:"battles"`
+	ShipID         int64                 `json:"ship_id"`
+	LastBattleTime int                   `json:"last_battle_time"`
+	Battles        int                   `json:"battles"`
 	Private        ShipStatisticsPrivate `json:"private"`
-	Pvp struct {
+	Pvp            struct {
 		Wins    int `json:"wins"`
 		Battles int `json:"battles"`
 	} `json:"pvp"`
