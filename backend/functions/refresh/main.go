@@ -169,8 +169,6 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				}
 
 				if !isNewSubscriber {
-					// Reset all battles on the ship
-
 					// send event
 					if err := events.Add(events.NewShipAddition(ev.AccountID, ship.ShipID)); err != nil {
 						getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipAddition event")
