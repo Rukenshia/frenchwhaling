@@ -28,7 +28,7 @@ func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
 // Handler is the lambda handler invoked by the `lambda.Start` function call
 func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (string, error) {
 	log.Printf("Scheduler started")
-	want := time.Now().Add(-30 * time.Minute)
+	want := time.Now().Add(-60 * time.Minute)
 
 	log.Printf("Finding last scheduled want=%d", want.UnixNano())
 

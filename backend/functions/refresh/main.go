@@ -80,7 +80,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					continue
 				}
 			} else {
-				getHub(sentryAccountHub, E{"error": err}).CaptureMessage("Could not load subscriber data")
+				getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("Could not load subscriber data")
 				log.Printf("ERROR: Could not load subscriber data: accountId=%s error=%v", ev.AccountID, err)
 				continue
 			}
@@ -88,7 +88,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 		newData, err := api.GetPlayerShipStatistics(ev.Realm, ev.AccessToken, ev.AccountID)
 		if err != nil {
-			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("GetPlayerShipStatistics failed")
+			getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("GetPlayerShipStatistics failed")
 			log.Printf("ERROR: Processing event: failed for accountId=%s error=%v", ev.AccountID, err)
 			continue
 		}
@@ -96,7 +96,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 		// Get all ships in port
 		shipsInPort, err := api.GetPlayerPort(ev.Realm, ev.AccessToken, ev.AccountID)
 		if err != nil {
-			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("GetPlayerPort failed")
+			getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("GetPlayerPort failed")
 			log.Printf("ERROR: Could not retrieve ships in port accountId=%s error=%v", ev.AccountID, err)
 			continue
 		}
@@ -130,7 +130,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 			// this means it will be counted as ShipAddition further down
 			newData[shipID] = api.ShipStatistics{
 				ShipID:         shipID,
-				LastBattleTime: 0,
+				LastBattleTime: -1,
 				Private: api.ShipStatisticsPrivate{
 					InGarage: true,
 				},
@@ -173,7 +173,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 					// send event
 					if err := events.Add(events.NewShipAddition(ev.AccountID, ship.ShipID)); err != nil {
-						getHub(sentryShipHub, E{"error": err}).CaptureMessage("Could not send ShipAddition event")
+						getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipAddition event")
 						log.Printf("WARN: could not send event for new subscriber ship error=%v", err)
 					}
 				}
@@ -196,7 +196,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 						subscriberData.Ships[ship.ShipID] = currentShip
 
 						if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
-							getHub(sentryShipHub, E{"error": err}).CaptureMessage("Could not send ResourceEarned event")
+							getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ResourceEarned event")
 							log.Printf("WARN: could not send resource earned event")
 						}
 						continue
@@ -204,7 +204,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				}
 			}
 
-			if ship.LastBattleTime > currentShip.LastBattleTime {
+			if ship.LastBattleTime != -1 && ship.LastBattleTime > currentShip.LastBattleTime {
 				// There is a new battle. Find out if it was a win and credit resources
 
 				win, winType := getWinType(currentShip, ship)
@@ -214,7 +214,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					currentShip.Resource.Earned = currentShip.Resource.Amount
 
 					if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
-						getHub(sentryShipHub, E{"error": err}).CaptureMessage("Could not send ResourceEarned event")
+						getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ResourceEarned event")
 						log.Printf("WARN: could not send resource earned event")
 					}
 				}
@@ -236,13 +236,13 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 		// Store data in S3
 		if err := subscriberData.Save(ev.DataURL); err != nil {
-			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("Could not save data to S3")
+			getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("Could not save data to S3")
 			log.Printf("ERROR: Could not save data: accountId=%s error=%v", ev.AccountID, err)
 			continue
 		}
 
 		if err := storage.SetSubscriberLastUpdated(ev.AccountID, subscriberData.LastUpdated); err != nil {
-			getHub(sentryAccountHub, E{"error": err}).CaptureMessage("Could not update LastUpdated in DynamoDB")
+			getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("Could not update LastUpdated in DynamoDB")
 			log.Printf("ERROR: Could not set last updated accountId=%s error=%v", ev.AccountID, err)
 		}
 	}
