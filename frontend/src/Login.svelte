@@ -4,7 +4,7 @@
         window.location.href = `https://api.worldoftanks.${realm}/wot/auth/login/
             ?application_id=80aa6f7e1d5df049c79d9141dd0826ae
             &expires_at=${expiresAt}
-            &redirect_uri=https://vh66uhz6ce.execute-api.eu-central-1.amazonaws.com/dev/login?realm=${realm}`;
+            &redirect_uri=https://frenchwhaling-api.in.fkn.space/login?realm=${realm}`;
             // &redirect_uri=https://frenchwhaling.in.fkn.space/api/login`;
     }
 </script>
