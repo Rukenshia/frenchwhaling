@@ -159,19 +159,22 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (Res
 		}, nil
 	}
 
-	if err := storage.SetSubscriberLastScheduled(subscriber.AccountID, time.Now().UnixNano()); err != nil {
-		sentryAccountHub.CaptureMessage("SetSubscriberLastScheduled failed")
-		log.Printf("ERROR: could not update last scheduled error=%v", err)
+	// FIXME: Experiment to not set last scheduled, otherwise if you manually refresh you might
+	// end up not being refreshed for another close to 2 hours.
 
-		return Response{
-			StatusCode: 500,
-			Body:       "Update failed",
-			Headers: map[string]string{
-				"Content-Type":                "text/plain",
-				"Access-Control-Allow-Origin": "*",
-			},
-		}, nil
-	}
+	// if err := storage.SetSubscriberLastScheduled(subscriber.AccountID, time.Now().UnixNano()); err != nil {
+	// 	sentryAccountHub.CaptureMessage("SetSubscriberLastScheduled failed")
+	// 	log.Printf("ERROR: could not update last scheduled error=%v", err)
+
+	// 	return Response{
+	// 		StatusCode: 500,
+	// 		Body:       "Update failed",
+	// 		Headers: map[string]string{
+	// 			"Content-Type":                "text/plain",
+	// 			"Access-Control-Allow-Origin": "*",
+	// 		},
+	// 	}, nil
+	// }
 
 	return Response{
 		StatusCode: 200,
