@@ -91,7 +91,7 @@
     const resourceName = ['Republic Tokens', 'Coal'];
 
     function refresh() {
-        axios.get(`https://vh66uhz6ce.execute-api.eu-central-1.amazonaws.com/dev/subscribers/${$accountId}/refresh`, {
+        axios.get(`https://frenchwhaling-api.in.fkn.space/subscribers/${$accountId}/refresh`, {
             headers: {
                 'Authorization': `Bearer ${$token}`,
             },
@@ -105,7 +105,7 @@
             });
     }
 
-    async function reloadDataWithRetry(tries = 9) {
+    async function reloadDataWithRetry(tries = 60) {
         let lastUpdated = undefined;
         if ($data) {
             reloading = true;
