@@ -8,6 +8,7 @@
 
     let toggle = false;
     let error = false;
+    let reason = 'UNKNOWN';
     let isNew = false;
 
     const eventStartTimes = {
@@ -38,6 +39,7 @@
             }
         } else if (data.query && data.query.success === 'false') {
             $loggedIn = false;
+            reason = data.query.reason;
             error = true;
         }
     });
@@ -107,7 +109,9 @@ a:visited {
                 {#if error}
                 <div class="w-full flex justify-around mb-8">
                     <div class="w-1/2 text-center bg-red-600 text-white rounded-sm p-4">
-                        There was an error logging you in.
+                        There was an error logging you in. Feel free to contact me <a class="font-medium underline" href="mailto:svc-frenchwhaling@ruken.pw">via Email</a> or Discord (Rukenshia#4396) if you can't get past this.
+                        <br />
+                        Error message: <span class="font-mono">{reason}<span>
                     </div>
                 </div>
                 {/if}
