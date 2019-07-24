@@ -1,14 +1,18 @@
 <script>
     import { derived, writable } from 'svelte/store';
     import { onMount } from 'svelte';
-    import { dataUrl, shipInfo } from './store';
+    import { accountId, dataUrl, token, shipInfo } from './store';
     import moment from 'moment';
     import axios from 'axios';
     import ShipInfo from './ShipInfo.svelte';
 
     export let isNew;
     let retries = 0;
+    let reloading = false;
     let withShipsNotInGarage = [false, false];
+
+    const timestamp = writable(+ new Date());
+    const lastUpdatedMoment = writable(undefined);
 
     let data = writable(undefined);
     let error = false;
@@ -82,42 +86,102 @@
                 return agg;
             }, {}),
         ];
-    }, [{}, {}])
+    }, [{}, {}]);
 
     const resourceName = ['Republic Tokens', 'Coal'];
 
-    onMount(async () => {
+    function refresh() {
+        axios.get(`https://vh66uhz6ce.execute-api.eu-central-1.amazonaws.com/dev/subscribers/${$accountId}/refresh`, {
+            headers: {
+                'Authorization': `Bearer ${$token}`,
+            },
+        })
+            .then(res => {
+                reloadDataWithRetry(60);
+            })
+            .catch(err => {
+                console.log(err, err.response);
+                alert('Sorry, we could not refresh your data at this time. Please try again in a bit. Data is also updated automatically every hour');
+            });
+    }
+
+    async function reloadDataWithRetry(tries = 9) {
+        let lastUpdated = undefined;
+        if ($data) {
+            reloading = true;
+            lastUpdated = $data.LastUpdated;
+        }
+        retries = 0;
+
         try {
             const res = await axios.get($dataUrl);
             $data = res.data;
+
+            if (reloading) {
+                if (lastUpdated >= $data.LastUpdated) {
+                    throw new Error('Not updated yet');
+                }
+            }
+            reloading = false;
         } catch(e) {
             error = true;
 
             const intv = setInterval(async () => {
+                console.log('retry');
                 retries++;
 
-                if (retries > 9) {
+                if (retries > tries) {
                     clearInterval(intv);
+                    reloading = false;
                     return;
                 }
 
                 try {
                     const res = await axios.get($dataUrl);
                     $data = res.data;
+
+                    if (reloading) {
+                        if (lastUpdated >= $data.LastUpdated) {
+                            throw new Error('Not updated yet');
+                        }
+                    }
+                    
                     error = false;
+                    reloading = false;
                     clearInterval(intv);
                 } catch(e) {
                     error = true;
                 }
             }, 2500);
         }
+    }
+
+    onMount(async () => {
+        $timestamp = +new Date() * 1000000;
+        await reloadDataWithRetry();
+        $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
+
+        setInterval(() => {
+            $timestamp = +new Date() * 1000000;
+            $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
+        }, 2500);
     });
 </script>
 
 {#if $data}
 
 <div class="ml-4 text-gray-600 font-medium text-sm">
-    Last updated {moment($data.LastUpdated / 1000000).fromNow()}
+    {#if reloading}
+    <span class="font-mono">Loading...</span>
+    {:else}
+    Last updated {$lastUpdatedMoment}
+
+    {#if $timestamp - $data.LastUpdated > 10 * 60 * 1000 * 1000000}
+        <button on:click={refresh} class="bg-gray-200 hover:bg-gray-300 border-none rounded shadow-md p-2">Refresh now</button>
+    {:else}
+        <button disabled class="border-2 border-gray-200 rounded p-2 cursor-not-allowed">Refresh now</button>
+    {/if}
+    {/if}
 </div>
 <div class="w-full flex flex-wrap mt-4 px-2">
 {#each $data.Resources as resource}

@@ -66,7 +66,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		"exp":      request.QueryStringParameters["expires_at"],
 		"nickname": res.Nickname,
 		"realm":    request.QueryStringParameters["realm"],
-		"sub":      res.AccountID,
+		"sub":      fmt.Sprintf("%d", res.AccountID),
 	})
 
 	// Sign and get the complete encoded token as a string using the secret

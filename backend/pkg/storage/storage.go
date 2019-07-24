@@ -35,6 +35,31 @@ type Subscriber struct {
 	LastScheduled int64
 }
 
+func GetSubscriber(accountId string) (*Subscriber, error) {
+	sess := session.Must(session.NewSession())
+	svc := dynamodb.New(sess)
+
+	log.Printf("GetSubscriber: start accountId=%s", accountId)
+	result, err := svc.GetItem(&dynamodb.GetItemInput{
+		TableName: aws.String("frenchwhaling-subscribers"),
+		Key: map[string]*dynamodb.AttributeValue{
+			"AccountID": {
+				S: aws.String(accountId),
+			},
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	item := Subscriber{}
+	if err := dynamodbattribute.UnmarshalMap(result.Item, &item); err != nil {
+		return nil, fmt.Errorf("Failed to unmarshal Record: %v", err)
+	}
+
+	return &item, nil
+}
+
 func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int, realm, accountId string) (*Subscriber, bool, error) {
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
@@ -137,14 +162,32 @@ func TriggerRefresh(r []RefreshEvent) error {
 }
 
 func (s *Subscriber) TriggerRefresh() error {
-	r := RefreshEvent{
+	client := sns.New(session.New())
+
+	r := []RefreshEvent{RefreshEvent{
 		AccountID:   s.AccountID,
 		Realm:       s.Realm,
 		AccessToken: s.AccessToken,
 		DataURL:     s.DataURL,
+	}}
+
+	data, err := json.Marshal(r)
+	if err != nil {
+		return err
 	}
 
-	return TriggerRefresh([]RefreshEvent{r})
+	_, err = client.Publish(&sns.PublishInput{
+		Message:  aws.String(string(data)),
+		TopicArn: aws.String(os.Getenv("TOPIC_ARN")),
+		MessageAttributes: map[string]*sns.MessageAttributeValue{
+			"Type": &sns.MessageAttributeValue{
+				DataType:    aws.String("String"),
+				StringValue: aws.String("ManualRefresh"),
+			},
+		},
+	})
+
+	return err
 }
 
 func SetSubscriberLastUpdated(accountID string, timestamp int64) error {

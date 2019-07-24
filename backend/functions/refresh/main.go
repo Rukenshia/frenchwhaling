@@ -33,6 +33,7 @@ func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
 
 // Handler is the lambda handler invoked by the `lambda.Start` function call
 func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
+	defer sentry.Flush(5 * time.Second)
 	var refreshEvents []storage.RefreshEvent
 
 	if err := json.Unmarshal([]byte(event.Records[0].SNS.Message), &refreshEvents); err != nil {
@@ -202,7 +203,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				}
 			}
 
-			if ship.LastBattleTime != -1 && ship.LastBattleTime > currentShip.LastBattleTime {
+			if ship.LastBattleTime != -1 && ship.LastBattleTime > currentShip.LastBattleTime && ship.LastBattleTime > wows.EventStartTime[ev.Realm] {
 				// There is a new battle. Find out if it was a win and credit resources
 
 				win, winType := getWinType(currentShip, ship)
@@ -247,7 +248,6 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 	log.Printf("Processed all events count=%d", len(refreshEvents))
 
-	sentry.Flush(time.Second * 2)
 	return fmt.Sprintf("Processed %d refreshEvents", len(refreshEvents)), nil
 }
 
