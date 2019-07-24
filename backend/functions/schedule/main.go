@@ -27,6 +27,7 @@ func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
 
 // Handler is the lambda handler invoked by the `lambda.Start` function call
 func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (string, error) {
+	defer sentry.Flush(5 * time.Second)
 	log.Printf("Scheduler started")
 	want := time.Now().Add(-60 * time.Minute)
 
@@ -94,8 +95,6 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 	log.Printf("Waiting for subscriber schedule data update")
 	wg.Wait()
 	log.Printf("All subscriber scheduling info updated")
-
-	sentry.Flush(5 * time.Second)
 
 	return "done", nil
 }

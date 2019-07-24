@@ -58,6 +58,45 @@ functions:
           path: /login
           method: get
 
+  requestRefresh:
+    handler: bin/requestRefresh
+    memorySize: 256
+    timeout: 3
+    environment:
+      APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
+      SIGNING_SECRET: ${file(.env.live.yml):SigningSecret}
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
+      TOPIC_ARN:
+        Ref: SNSTopic
+    events:
+    - http:
+        cors: true
+        path: /subscribers/{accountId}/refresh
+        method: get
+
+  manualRefresh:
+    handler: bin/refresh
+    memorySize: 512
+    timeout: 3
+    reservedConcurrency: 3
+    environment:
+      APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
+    events:
+    - sns:
+        filterPolicy:
+          Type:
+          - ManualRefresh
+        arn:
+          Fn::Join:
+            - ':'
+            - - 'arn:aws:sns'
+              - Ref: 'AWS::Region'
+              - Ref: 'AWS::AccountId'
+              - 'frenchwhaling-events'
+        topicName: frenchwhaling-events
+
+
   refresh:
     handler: bin/refresh
     memorySize: 256

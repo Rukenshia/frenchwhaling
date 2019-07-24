@@ -12,11 +12,10 @@
 
     const eventStartTimes = {
         eu:   1564034400,
-        com:  1563966000,
+        com:  1563963722,
         ru:   1563937200,
         asia: 1564005600,
     };
-    const GATE_REQUIRE_EVENT_STARTED = false;
     const ts = Math.round(+ new Date() / 1000);
 
     onMount(() => {
@@ -81,16 +80,15 @@ a:visited {
                         <a style="padding-top: 7px; padding-bottom: 7px;" href="mailto:svc-frenchwhaling@ruken.pw" class="mr-4 p-0 px-4 border-none rounded bg-gray-200 hover:no-underline hover:bg-gray-400">Contact me</a>
                         <button on:click={logout} class="mr-4 px-4 font-xs border-none py-1 rounded bg-gray-200 hover:bg-gray-400 text-gray-700">Logout</button>
                     </div>
-                    {#if GATE_REQUIRE_EVENT_STARTED && ts < eventStartTimes[$realm]}
-                        <div class="w-full flex justify-around mt-32">
-                            <div class="w-1/2 bg-blue-300 text-blue-900 font-medium rounded p-4">
-                                You are preregistered for the tracking, but the event has not started on your realm yet. Please come back
-                                once the patch is live on your realm.
+                    {#if ts < eventStartTimes[$realm]}
+                        <div class="w-full flex justify-around mt-16 mb-8">
+                            <div class="w-3/4 bg-blue-300 text-blue-900 font-medium rounded p-4">
+                                You are preregistered for the tracking, but the event has not started on your server yet. Data will update as soon
+                                as the patch is live on your server and you started playing battles.
                             </div>
                         </div>
-                    {:else}
-                    <Progress {isNew} />
                     {/if}
+                    <Progress {isNew} />
                 </div>
             </div>
         {:else}    
