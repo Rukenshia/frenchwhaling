@@ -60,7 +60,7 @@ func GetSubscriber(accountId string) (*Subscriber, error) {
 	return &item, nil
 }
 
-func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int, realm, accountId string) (*Subscriber, bool, error) {
+func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int64, realm, accountId string) (*Subscriber, bool, error) {
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
 
@@ -84,7 +84,7 @@ func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int, 
 			AccountID:            accountId,
 			Realm:                realm,
 			AccessToken:          accessToken,
-			AccessTokenExpiresAt: int64(accessTokenExpiresAt),
+			AccessTokenExpiresAt: accessTokenExpiresAt,
 			DataURL:              getUniqueAccountURL(accountId),
 			LastScheduled:        time.Now().UnixNano(),
 			LastUpdated:          0,

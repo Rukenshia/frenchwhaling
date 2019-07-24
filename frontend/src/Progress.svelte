@@ -248,7 +248,7 @@
         There are a lot of things that can go wrong. Guess what, you're a lucky one. You've caught the
         big red error. Basically, nothing works.
         <br />
-        A refresh of the page might help. Otherwise, dunno... You can reach me with the Contact button above, I guess.
+        A refresh of the page might help. Otherwise, dunno... There's a contact button above and you can also reach me on various discord servers as Rukenshia#4396. I'm happy to try and help out.
     </div>
 {/if}
     </div>
