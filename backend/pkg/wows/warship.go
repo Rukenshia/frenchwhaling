@@ -24,6 +24,10 @@ func (w *Warship) IsEgligible() bool {
 		return false
 	}
 
+	if w.IsTestShip() {
+		return false
+	}
+
 	if w.Tier < 5 && !w.GetsPremiumTreatment() {
 		return false
 	}
@@ -33,6 +37,21 @@ func (w *Warship) IsEgligible() bool {
 	}
 
 	return true
+}
+
+// IsTestShip returns whether the ship is currently in testing (WIP ships)
+func (w *Warship) IsTestShip() bool {
+	for _, ts := range []string{
+		"Hayate", "Friesland", "Ark Royal", "Siegfried",
+		"Ohio", "Somers", "Colbert", "Smolensk", "Slava",
+		"Thunderer", "Kléber",
+	} {
+		if w.Name == ts {
+			return true
+		}
+	}
+
+	return false
 }
 
 // GetsPremiumTreatment returns whether the ship is a premium or premium in disguise, like Armory ship,
