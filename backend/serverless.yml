@@ -78,7 +78,7 @@ functions:
     handler: bin/refresh
     memorySize: 512
     timeout: 10
-    reservedConcurrency: 3
+    reservedConcurrency: 6
     environment:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}

@@ -76,6 +76,7 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (Res
 	})
 	if err != nil {
 		log.Printf("Could not parse jwt: %v", err)
+		getHub(sentryAccountHub, E{"authz": authz, "headers": request.Headers}).CaptureMessage("Could not parse jwt")
 		return Response{
 			StatusCode: 401,
 			Body:       "Invalid jwt",
