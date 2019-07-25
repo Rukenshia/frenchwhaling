@@ -232,7 +232,7 @@ func SetSubscriberLastScheduled(accountID string, timestamp int64) error {
 	return err
 }
 
-func FindUnscheduledSubscribers(notScheduledSince, limit int64) ([]*Subscriber, error) {
+func FindUnscheduledSubscribers(notScheduledSince int64) ([]*Subscriber, error) {
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
 
@@ -241,7 +241,6 @@ func FindUnscheduledSubscribers(notScheduledSince, limit int64) ([]*Subscriber, 
 		ExpressionAttributeNames: map[string]*string{
 			"#ls": aws.String("LastScheduled"),
 		},
-		Limit: &limit,
 		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
 			":t": {
 				N: aws.String(fmt.Sprintf("%d", notScheduledSince)),

@@ -33,7 +33,7 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (str
 
 	log.Printf("Finding last scheduled want=%d", want.UnixNano())
 
-	subscribers, err := storage.FindUnscheduledSubscribers(want.UnixNano(), 600)
+	subscribers, err := storage.FindUnscheduledSubscribers(want.UnixNano())
 	if err != nil {
 		getHub(sentry.CurrentHub(), E{"error": err}).CaptureException(fmt.Errorf("FindUnscheduledSubscribers failed"))
 		log.Fatalf("Could not find subscribers: %v", err)
