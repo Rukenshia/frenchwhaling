@@ -101,7 +101,7 @@
             })
             .catch(err => {
                 console.log(err, err.response);
-                alert('Sorry, we could not refresh your data at this time. Please try again in a bit. Data is also updated automatically every hour');
+                alert('Sorry, we could not refresh your data at this time. Please try logging out and in again, if that still does not work please contact me. Your data is also updated automatically every hour');
             });
     }
 
