@@ -153,12 +153,12 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				continue
 			}
 
-			if !wowsShip.IsEgligible() {
-				continue
-			}
-
 			currentShip, ok := subscriberData.Ships[ship.ShipID]
 			if !ok {
+				if !wowsShip.IsEgligible() {
+					continue
+				}
+
 				// TODO: detect last battle time, set "Earned" automatically
 				currentShip = &storage.StoredShip{
 					ShipStatistics: ship,
@@ -201,6 +201,21 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 						continue
 					}
 				}
+			}
+
+			if !wowsShip.IsEgligible() {
+				// remove the ship
+				delete(subscriberData.Ships, ship.ShipID)
+				log.Printf("Removed unegligible ship accountId=%s shipId=%d", ev.AccountID, ship.ShipID)
+
+				continue
+			}
+
+			if currentShip.Resource.Earned > 0 {
+				// Skip already earned ship
+				currentShip.ShipStatistics = ship
+				subscriberData.Ships[ship.ShipID] = currentShip
+				continue
 			}
 
 			if ship.LastBattleTime != -1 && ship.LastBattleTime > currentShip.LastBattleTime && ship.LastBattleTime > wows.EventStartTime[ev.Realm] {
