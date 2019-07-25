@@ -114,7 +114,7 @@
         retries = 0;
 
         try {
-            const res = await axios.get($dataUrl);
+            const res = await axios.get(`${$dataUrl}?${+ new Date()}`);
             $data = res.data;
 
             if (reloading) {
@@ -137,7 +137,7 @@
                 }
 
                 try {
-                    const res = await axios.get($dataUrl);
+                    const res = await axios.get(`${$dataUrl}?${+ new Date()}`);
                     $data = res.data;
 
                     if (reloading) {
