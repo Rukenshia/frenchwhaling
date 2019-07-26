@@ -197,10 +197,10 @@
                 You have earned up to <span class="text-3xl">{resource.Earned}</span> {resourceName[resource.Type]} out of <span class="text-3xl">{$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</span> you can earn during the event.
             </div>
             <div class="p-4 pt-0">
-                <label class="md:w-2/3 block text-gray-600 font-bold">
+                <label class="md:w-full block text-gray-600 font-bold">
                     <input class="mr-2 leading-tight" type="checkbox" bind:checked={withShipsNotInGarage[resource.Type]}>
                     <span class="text-sm">
-                        Include ships I don't have in port
+                        Include ships I used to have in port
                     </span>
                 </label>
             </div>
