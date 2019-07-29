@@ -249,7 +249,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 		subscriberData.LastUpdated = time.Now().UnixNano()
 
 		// Store data in S3
-		if err := subscriberData.Save(ev.DataURL); err != nil {
+		if err := subscriberData.Save(ev.DataURL, isNewSubscriber); err != nil {
 			getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("Could not save data to S3")
 			log.Printf("ERROR: Could not save data: accountId=%s error=%v", ev.AccountID, err)
 			continue
