@@ -73,7 +73,7 @@ func LoadPublicSubscriberData(dataURL string) (*SubscriberPublicData, error) {
 	return &data, nil
 }
 
-func (s *SubscriberPublicData) Save(dataURL string) error {
+func (s *SubscriberPublicData) Save(dataURL string, isNew bool) error {
 	sess, err := session.NewSessionWithOptions(session.Options{
 		Config: aws.Config{
 			Region: aws.String("eu-central-1"),
@@ -95,13 +95,25 @@ func (s *SubscriberPublicData) Save(dataURL string) error {
 	}
 
 	log.Printf("SubscriberPublicData.Save: key=%s", path.Join("public", parsedURL.Path))
-
 	_, err = svc.Upload(&s3manager.UploadInput{
 		Bucket: aws.String("frenchwhaling-subscribers"),
 		Key:    aws.String(path.Join("public", parsedURL.Path)),
 		Body:   bytes.NewBuffer(data),
 		ACL:    aws.String("public-read"),
 	})
+	if err != nil {
+		return err
+	}
 
-	return err
+	if isNew {
+		log.Printf("SubscriberPublicData.Save: is new subscriber, saving first snapshot")
+
+		_, err = svc.Upload(&s3manager.UploadInput{
+			Bucket: aws.String("frenchwhaling-subscribers"),
+			Key:    aws.String(path.Join("private", parsedURL.Path)),
+			Body:   bytes.NewBuffer(data),
+		})
+	}
+
+	return nil
 }
