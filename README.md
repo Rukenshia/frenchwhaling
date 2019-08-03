@@ -56,3 +56,9 @@ The refresh logics works the following way:
 1. If it is a win, send a `ResourceEarned` event and update the S3 data.
 1. Save the data back to S3
 
+### Wargaming API Interaction
+
+When using the Wargaming API, you are limited to 10req/s. To resolve this issue with frenchwhaling, the `refresh` and `manualRefresh` functions
+are limited in how many concurrent executions are allowed.
+The Wargaming API is not the fastest in the world, so one API call takes a little less than a second for the methods I am using. This way it was easy
+to set concurrency limits on the lambda functions.
