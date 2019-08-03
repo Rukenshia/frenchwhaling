@@ -89,6 +89,15 @@ type ShipStatistics struct {
 	} `json:"oper_solo"`
 }
 
+type RefreshAccessTokenResponse struct {
+	ApiResponse
+	Data struct {
+		AccountID   int64  `json:"account_id"`
+		AccessToken string `json:"access_token"`
+		ExpiresAt   int64  `json:"expires_at"`
+	} `json:"data"`
+}
+
 func GetPlayerInfo(realm, accessToken, accountId string) (*PlayerInfo, error) {
 	client := resty.New()
 
@@ -192,4 +201,35 @@ func GetPlayerShipStatistics(realm, accessToken, accountId string) (map[int64]Sh
 	}
 
 	return shipStatistics, nil
+}
+
+func RefreshAccessToken(realm, accessToken, accountId string) (*RefreshAccessTokenResponse, error) {
+	client := resty.New()
+
+	log.Printf("RefreshAccessToken: accountId=%s realm=%s", accountId, realm)
+
+	res, err := client.R().
+		SetResult(RefreshAccessTokenResponse{}).
+		SetFormData(map[string]string{
+			"application_id": os.Getenv("APPLICATION_ID"),
+			"access_token":   accessToken,
+		}).
+		Post(fmt.Sprintf("https://api.worldoftanks.%s/wot/auth/prolongate/", realm))
+
+	if err != nil {
+		log.Printf("RefreshAccessToken: error=%v response=%s", err, res.String())
+		return nil, err
+	}
+
+	data, ok := res.Result().(*RefreshAccessTokenResponse)
+	if !ok {
+		log.Printf("RefreshAccessToken: error=parse failed response=%s", res.String())
+		return nil, errors.New("Could not parse response from Wargaming API")
+	}
+
+	if data.Status != "ok" {
+		return nil, fmt.Errorf("WG API status: %v", data)
+	}
+
+	return data, nil
 }

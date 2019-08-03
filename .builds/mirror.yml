@@ -1,0 +1,19 @@
+image: alpine/edge
+packages:
+  - git
+sources:
+  - https://git.sr.ht/~rukenshia/frenchwhaling
+secrets:
+  - 39526075-910f-4eef-98f4-bfa9788aec0f
+  - 1ae5be86-eab3-49fd-be80-3aebd4e33db4
+environment: {}
+tasks:
+  - mirror: |
+      cd shipvote
+      git remote set-url origin git@github.com:Rukenshia/frenchwhaling.git
+      git push origin master --force
+      git push origin --tags
+triggers:
+  - action: email
+    condition: failure
+    to: "Jan Christophersen <jan@chrstphrsn.cc>"
