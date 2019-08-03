@@ -4,7 +4,7 @@ packages:
 sources:
   - https://git.sr.ht/~rukenshia/frenchwhaling
 secrets:
-  - 39526075-910f-4eef-98f4-bfa9788aec0f
+  - 2843d5d8-2a4d-4b4c-9603-7d0c2ecba3ab
   - 1ae5be86-eab3-49fd-be80-3aebd4e33db4
 environment: {}
 tasks:
