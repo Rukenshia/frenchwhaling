@@ -9,7 +9,7 @@ secrets:
 environment: {}
 tasks:
   - mirror: |
-      cd shipvote
+      cd frenchwhaling
       git remote set-url origin git@github.com:Rukenshia/frenchwhaling.git
       git push origin master --force
       git push origin --tags
