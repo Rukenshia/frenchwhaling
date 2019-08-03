@@ -9,7 +9,7 @@
         "MessageId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         "TopicArn": "arn:aws:sns:eu-west-1:000000000000:cloudwatch-alarms",
         "Subject": "",
-        "Message": "[{\"AccountID\": \"{{ACCOUNT_ID}}\", \"AccessToken\": \"{{ACCESS_TOKEN}}\", \"DataURL\": \"xxxxxx\"}]",
+        "Message": "[{\"AccountID\": \"{{ACCOUNT_ID}}\", \"AccessToken\": \"{{ACCESS_TOKEN}}\", \"DataURL\": \"xxxxxx\", \"Realm\": \"eu\", \"AccessTokenExpiresAt\": 1565128634}]",
         "Timestamp": "2017-01-12T16:30:42.318Z",
         "SignatureVersion": "1",
         "Signature": "Cg==",

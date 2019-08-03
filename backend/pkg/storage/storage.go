@@ -165,10 +165,11 @@ func (s *Subscriber) TriggerRefresh() error {
 	client := sns.New(session.New())
 
 	r := []RefreshEvent{RefreshEvent{
-		AccountID:   s.AccountID,
-		Realm:       s.Realm,
-		AccessToken: s.AccessToken,
-		DataURL:     s.DataURL,
+		AccountID:            s.AccountID,
+		Realm:                s.Realm,
+		AccessToken:          s.AccessToken,
+		AccessTokenExpiresAt: s.AccessTokenExpiresAt,
+		DataURL:              s.DataURL,
 	}}
 
 	data, err := json.Marshal(r)
@@ -187,6 +188,30 @@ func (s *Subscriber) TriggerRefresh() error {
 		},
 	})
 
+	return err
+}
+
+func SetSubscriberAccessToken(accountID, accessToken string, expiresAt int64) error {
+	sess := session.Must(session.NewSession())
+	svc := dynamodb.New(sess)
+
+	_, err := svc.UpdateItem(&dynamodb.UpdateItemInput{
+		TableName: aws.String("frenchwhaling-subscribers"),
+		Key: map[string]*dynamodb.AttributeValue{
+			"AccountID": {
+				S: aws.String(accountID),
+			},
+		},
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":t": {
+				S: aws.String(accessToken),
+			},
+			":e": {
+				N: aws.String(fmt.Sprintf("%d", expiresAt)),
+			},
+		},
+		UpdateExpression: aws.String("set AccessToken = :t, AccessTokenExpiresAt = :e"),
+	})
 	return err
 }
 

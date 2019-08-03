@@ -60,6 +60,27 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 		var subscriberData *storage.SubscriberPublicData
 		if sdata, err := storage.LoadPublicSubscriberData(ev.DataURL); err == nil {
 			subscriberData = sdata
+
+			// Check if the token expires soon
+			if accessTokenExpiresSoon(ev.AccessTokenExpiresAt) {
+				log.Printf("Access token will expire soon. Refreshing accountId=%s expiresAt=%d", ev.AccountID, ev.AccessTokenExpiresAt)
+
+				newToken, err := api.RefreshAccessToken(ev.Realm, ev.AccessToken, ev.AccountID)
+				if err != nil {
+					log.Printf("Could not refresh token: %v", err)
+					getHub(sentryAccountHub, E{"error": err.Error(), "expiresAt": ev.AccessTokenExpiresAt}).CaptureMessage("Could not refresh access token")
+				} else {
+					ev.AccessToken = newToken.Data.AccessToken
+					ev.AccessTokenExpiresAt = newToken.Data.ExpiresAt
+
+					if err := storage.SetSubscriberAccessToken(ev.AccountID, ev.AccessToken, ev.AccessTokenExpiresAt); err != nil {
+						log.Printf("Could not update new access token in dynamodb: %v", err)
+						getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("Could not refresh access token")
+					}
+
+					log.Printf("Access token refreshed accountId=%s expiresAt=%d", ev.AccountID, ev.AccessTokenExpiresAt)
+				}
+			}
 		} else {
 			if aerr, ok := err.(awserr.Error); ok {
 				if aerr.Code() == s3.ErrCodeNoSuchKey {
@@ -293,4 +314,13 @@ func getWinType(currentShip *storage.StoredShip, newShip api.ShipStatistics) (wi
 		winType = "rank_solo"
 	}
 	return win, winType
+}
+
+func accessTokenExpiresSoon(expiresAt int64) bool {
+	now := time.Now().Unix()
+
+	if expiresAt-now < 3*60*60 {
+		return true
+	}
+	return false
 }
