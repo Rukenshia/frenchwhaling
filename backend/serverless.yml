@@ -68,11 +68,11 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    events:
-    - http:
-        cors: true
-        path: /subscribers/{accountId}/refresh
-        method: get
+    #events:
+    #- http:
+        #cors: true
+        #path: /subscribers/{accountId}/refresh
+        #method: get
 
   manualRefresh:
     handler: bin/refresh
@@ -129,8 +129,8 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    events:
-    - schedule: rate(2 minutes)
+    #events:
+      #- schedule: rate(2 minutes)
 
 resources:
   Resources:
