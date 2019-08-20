@@ -74,7 +74,15 @@ a:visited {
             </div>
         </div>
 
-        {#if $loggedIn}
+
+        <div class="mt-16 w-full flex justify-around">
+            <div class="w-2/3 text-gray-700">
+                <h1 class="text-2xl text-gray-800">You are too late.</h1>
+                This event is over. Looks like we might be back for the Wargaming Birthday event, though?
+            </div>
+        </div>
+
+        <!-- {#if $loggedIn}
             <div class="mt-12 w-full flex justify-around">
                 <div class="w-full xl:w-3/4">
                     <div class="float-right h-8">
@@ -128,7 +136,7 @@ a:visited {
             This website is not affiliated with Wargaming
             &bullet;
             Thanks to AdonisWerther for the logo ❤️
-        </div>
+        </div> -->
 
         {#if toggle}
         <div class="flex justify-around">
