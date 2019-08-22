@@ -122,7 +122,7 @@ functions:
   schedule:
     handler: bin/schedule
     memorySize: 256
-    timeout: 30
+    timeout: 90
     reservedConcurrency: 1
     environment:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
@@ -136,6 +136,7 @@ resources:
   Resources:
     SubscribersTable:
       Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
       Properties:
         TableName: frenchwhaling-subscribers
         BillingMode: PAY_PER_REQUEST
@@ -148,6 +149,7 @@ resources:
     
     SubscriberEventsTable:
       Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
       Properties:
         TableName: frenchwhaling-subscriber-events
         BillingMode: PAY_PER_REQUEST
@@ -171,6 +173,7 @@ resources:
     
     SubscribersBucket:
       Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
       Properties:
         BucketName: frenchwhaling-subscribers
         VersioningConfiguration:

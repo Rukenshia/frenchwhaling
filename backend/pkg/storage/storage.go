@@ -257,7 +257,7 @@ func SetSubscriberLastScheduled(accountID string, timestamp int64) error {
 	return err
 }
 
-func FindUnscheduledSubscribers(notScheduledSince int64) ([]*Subscriber, error) {
+func getPage(lastEvaluated map[string]*dynamodb.AttributeValue, notScheduledSince int64) ([]*Subscriber, error) {
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
 
@@ -273,6 +273,7 @@ func FindUnscheduledSubscribers(notScheduledSince int64) ([]*Subscriber, error) 
 		},
 		FilterExpression:       aws.String("#ls < :t"),
 		ReturnConsumedCapacity: aws.String("TOTAL"),
+		ExclusiveStartKey:      lastEvaluated,
 	})
 	if err != nil {
 		return nil, err
@@ -283,5 +284,19 @@ func FindUnscheduledSubscribers(notScheduledSince int64) ([]*Subscriber, error) 
 	if err := dynamodbattribute.UnmarshalListOfMaps(out.Items, &subscribers); err != nil {
 		return nil, err
 	}
+
+	if out.LastEvaluatedKey != nil {
+		subs, err := getPage(out.LastEvaluatedKey, notScheduledSince)
+		if err != nil {
+			return nil, err
+		}
+
+		subscribers = append(subscribers, subs...)
+	}
+
 	return subscribers, nil
+}
+
+func FindUnscheduledSubscribers(notScheduledSince int64) ([]*Subscriber, error) {
+	return getPage(nil, notScheduledSince)
 }
