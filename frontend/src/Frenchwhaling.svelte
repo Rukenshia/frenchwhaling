@@ -78,7 +78,7 @@ a:visited {
         <div class="mt-16 w-full flex justify-around">
             <div class="w-2/3 text-gray-700">
                 <h1 class="text-2xl text-gray-800">You are too late.</h1>
-                This event is over. Looks like we might be back for the Wargaming Birthday event, though?
+                I don't know why you are coming back to this page, the Frenchwhaling event is long over.
             </div>
         </div>
 
