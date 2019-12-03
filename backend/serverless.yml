@@ -1,4 +1,4 @@
-service: frenchwhaling
+service: whaling
 frameworkVersion: ">=1.28.0 <2.0.0"
 
 provider:
@@ -7,11 +7,11 @@ provider:
   region: eu-central-1
   deploymentBucket:
     tags:
-      Application: frenchwhaling
+      Application: whaling
   stackTags:
-    Application: frenchwhaling
+    Application: whaling
   tags:
-    Application: frenchwhaling
+    Application: whaling
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -68,11 +68,11 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    #events:
-    #- http:
-        #cors: true
-        #path: /subscribers/{accountId}/refresh
-        #method: get
+    events:
+    - http:
+        cors: true
+        path: /subscribers/{accountId}/refresh
+        method: get
 
   manualRefresh:
     handler: bin/refresh
@@ -93,8 +93,8 @@ functions:
             - - 'arn:aws:sns'
               - Ref: 'AWS::Region'
               - Ref: 'AWS::AccountId'
-              - 'frenchwhaling-events'
-        topicName: frenchwhaling-events
+              - 'whaling-events'
+        topicName: whaling-events
 
 
   refresh:
@@ -116,8 +116,8 @@ functions:
             - - 'arn:aws:sns'
               - Ref: 'AWS::Region'
               - Ref: 'AWS::AccountId'
-              - 'frenchwhaling-events'
-        topicName: frenchwhaling-events
+              - 'whaling-events'
+        topicName: whaling-events
   
   schedule:
     handler: bin/schedule
@@ -129,8 +129,8 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    #events:
-      #- schedule: rate(2 minutes)
+    events:
+      - schedule: rate(2 minutes)
 
 resources:
   Resources:
@@ -138,7 +138,7 @@ resources:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
       Properties:
-        TableName: frenchwhaling-subscribers
+        TableName: whaling-subscribers
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions: 
         - AttributeName: "AccountID"
@@ -151,7 +151,7 @@ resources:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
       Properties:
-        TableName: frenchwhaling-subscriber-events
+        TableName: whaling-subscriber-events
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
         - AttributeName: "AccountID"
@@ -175,12 +175,10 @@ resources:
       Type: AWS::S3::Bucket
       DeletionPolicy: Retain
       Properties:
-        BucketName: frenchwhaling-subscribers
-        VersioningConfiguration:
-          Status: Enabled
+        BucketName: whaling-subscribers
 
     SNSTopic:
       Type: AWS::SNS::Topic
       Properties:
-        TopicName: frenchwhaling-events
-        DisplayName: frenchwhaling-events
+        TopicName: whaling-events
+        DisplayName: whaling-events

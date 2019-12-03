@@ -57,7 +57,7 @@ func LoadPublicSubscriberData(dataURL string) (*SubscriberPublicData, error) {
 	log.Printf("LoadPublicSubscriberData: key=%s", path.Join("public", parsedURL.Path))
 
 	n, err := svc.Download(buf, &s3.GetObjectInput{
-		Bucket: aws.String("frenchwhaling-subscribers"),
+		Bucket: aws.String("whaling-subscribers"),
 		Key:    aws.String(path.Join("public", parsedURL.Path)),
 	})
 	if err != nil {
@@ -96,7 +96,7 @@ func (s *SubscriberPublicData) Save(dataURL string, isNew bool) error {
 
 	log.Printf("SubscriberPublicData.Save: key=%s", path.Join("public", parsedURL.Path))
 	_, err = svc.Upload(&s3manager.UploadInput{
-		Bucket: aws.String("frenchwhaling-subscribers"),
+		Bucket: aws.String("whaling-subscribers"),
 		Key:    aws.String(path.Join("public", parsedURL.Path)),
 		Body:   bytes.NewBuffer(data),
 		ACL:    aws.String("public-read"),
@@ -109,7 +109,7 @@ func (s *SubscriberPublicData) Save(dataURL string, isNew bool) error {
 		log.Printf("SubscriberPublicData.Save: is new subscriber, saving first snapshot")
 
 		_, err = svc.Upload(&s3manager.UploadInput{
-			Bucket: aws.String("frenchwhaling-subscribers"),
+			Bucket: aws.String("whaling-subscribers"),
 			Key:    aws.String(path.Join("private", parsedURL.Path)),
 			Body:   bytes.NewBuffer(data),
 		})

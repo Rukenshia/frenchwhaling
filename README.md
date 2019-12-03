@@ -1,6 +1,7 @@
 # frenchwhaling
 
 Frenchwhaling is a website for players to track progress on the World of Warships 0.8.6 "French Destroyers" event.
+It has been modified to allow other resources as well, the frontend is currently skinned for the 0.8.11 Snowflake event.
 
 ## Architecture
 
@@ -17,7 +18,7 @@ back to the single page application.
 
 The redirect URL is built with several query parameters:
 
-`frenchwhaling.in.fkn.space/?isNew={bool}&success={bool}&token={jwt}&dataURL=frenchwhaling.in.fkn.space/data/{accountId}/{xid}{xid}.json`
+`DOMAIN/?isNew={bool}&success={bool}&token={jwt}&dataURL=DOMAIN/data/{accountId}/{xid}{xid}.json`
 
 `isNew`: whether the person is a new subscriber
 `success`: whether the login was successful

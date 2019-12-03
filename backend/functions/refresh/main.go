@@ -89,8 +89,9 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					subscriberData = &storage.SubscriberPublicData{
 						AccountID: ev.AccountID,
 						Resources: []storage.EarnableResource{
-							{Type: wows.RepublicTokens, Amount: 0, Earned: 0},
 							{Type: wows.Coal, Amount: 0, Earned: 0},
+							{Type: wows.Steel, Amount: 0, Earned: 0},
+							{Type: wows.SantaGiftContainer, Amount: 0, Earned: 0},
 						},
 						Ships:       map[int64]*storage.StoredShip{},
 						LastUpdated: time.Now().UnixNano(),
@@ -131,7 +132,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				continue
 			}
 
-			if !wowsShip.IsEgligible() {
+			if !wows.ActiveEvent.IsShipEligible(&wowsShip) {
 				continue
 			}
 
@@ -176,16 +177,18 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 			currentShip, ok := subscriberData.Ships[ship.ShipID]
 			if !ok {
-				if !wowsShip.IsEgligible() {
+				if !wows.ActiveEvent.IsShipEligible(&wowsShip) {
 					continue
 				}
+
+				resourceType, amount := wows.ActiveEvent.GetShipRedeemable(&wowsShip)
 
 				// TODO: detect last battle time, set "Earned" automatically
 				currentShip = &storage.StoredShip{
 					ShipStatistics: ship,
 					Resource: storage.EarnableResource{
-						Type:   wowsShip.Resource(),
-						Amount: wowsShip.Amount(),
+						Type: resourceType,
+						Amount: amount,
 						Earned: 0,
 					},
 				}
@@ -224,10 +227,10 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				}
 			}
 
-			if !wowsShip.IsEgligible() {
+			if !wows.ActiveEvent.IsShipEligible(&wowsShip) {
 				// remove the ship
 				delete(subscriberData.Ships, ship.ShipID)
-				log.Printf("Removed unegligible ship accountId=%s shipId=%d", ev.AccountID, ship.ShipID)
+				log.Printf("Removed uneligible ship accountId=%s shipId=%d", ev.AccountID, ship.ShipID)
 
 				continue
 			}

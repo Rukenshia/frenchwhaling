@@ -10,7 +10,7 @@ for line in ${csv}; do
 
     mkdir -p "temp/$(dirname "${key}")"
 
-    aws s3api get-object --bucket frenchwhaling-subscribers --version-id "${id}" --key "${key}" "temp/${key}"
+    aws s3api get-object --bucket whaling-subscribers --version-id "${id}" --key "${key}" "temp/${key}"
 done
 
-aws s3 sync temp/public s3://frenchwhaling-subscribers/private
+aws s3 sync temp/public s3://whaling-subscribers/private
