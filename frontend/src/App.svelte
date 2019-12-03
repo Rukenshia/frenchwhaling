@@ -1,5 +1,5 @@
 <script>
-	import Frenchwhaling from './Frenchwhaling.svelte';
+	import Whaling from './Whaling.svelte';
 	export let name;
 </script>
 
@@ -15,5 +15,5 @@ body {
 }
 </style>
 
-<Frenchwhaling />
+<Whaling />
   
