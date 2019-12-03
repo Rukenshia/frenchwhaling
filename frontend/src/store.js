@@ -10,5 +10,9 @@ export const shipInfo = writable(undefined);
 export const realm = writable(undefined);
 
 axios.get('/warships.min.json').then(res => {
-  shipInfo.set(res.data);
+  // transform from array to map
+  const ships = {};
+
+  res.data.forEach(s => ships[s.ship_id] = s);
+  shipInfo.set(ships);
 });
