@@ -91,7 +91,7 @@
     const resourceName = ['Republic Tokens', 'Coal'];
 
     function refresh() {
-        axios.get(`https://frenchwhaling-api.in.fkn.space/subscribers/${$accountId}/refresh`, {
+        axios.get(`https://whaling-api.in.fkn.space/subscribers/${$accountId}/refresh`, {
             headers: {
                 'Authorization': `Bearer ${$token}`,
             },
@@ -170,7 +170,7 @@
 
 {#if $data}
 
-<div class="ml-4 text-gray-600 font-medium text-sm">
+<div class="ml-4 text-gray-400 font-medium text-sm">
     {#if reloading}
     <span class="font-mono">Loading...</span>
     {:else}
@@ -197,7 +197,7 @@
                 You have earned up to <span class="text-3xl">{resource.Earned}</span> {resourceName[resource.Type]} out of <span class="text-3xl">{$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</span> you can earn during the event.
             </div>
             <div class="p-4 pt-0">
-                <label class="md:w-full block text-gray-600 font-bold">
+                <label class="md:w-full block text-gray-400 font-bold">
                     <input class="mr-2 leading-tight" type="checkbox" bind:checked={withShipsNotInGarage[resource.Type]}>
                     <span class="text-sm">
                         Include ships I used to have in port
@@ -209,7 +209,7 @@
         {#if $categories}
         {#each Object.keys($categories[resource.Type]).reverse() as amount}
             <div class="flex flex-wrap mb-4">
-                <div class="w-full pl-2 text-sm text-gray-600 font-medium">{amount} {resourceName[resource.Type]}</div>
+                <div class="w-full pl-2 text-sm text-gray-400 font-medium">{amount} {resourceName[resource.Type]}</div>
                 {#each $categories[resource.Type][amount].Ships as ship}
                 {#if withShipsNotInGarage[resource.Type] || ship.private.in_garage}
                 <div class="w-1/2 lg:w-1/2 xl:w-1/3 p-1 ">
@@ -231,7 +231,7 @@
 {:else}
 <div class="w-full flex flex-wrap justify-around mt-4">
 {#if retries <= 9}
-    <div class="w-full text-center text-5xl text-gray-600 mt-8">
+    <div class="w-full text-center text-5xl text-gray-400 mt-8">
         Loading your stuff
     </div>
     <div class="w-1/2 text-center text-2xl text-gray-500">

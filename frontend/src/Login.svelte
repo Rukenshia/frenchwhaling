@@ -4,13 +4,15 @@
         window.location.href = `https://api.worldoftanks.${realm}/wot/auth/login/
             ?application_id=80aa6f7e1d5df049c79d9141dd0826ae
             &expires_at=${expiresAt}
-            &redirect_uri=https://frenchwhaling-api.in.fkn.space/login?realm=${realm}`;
-            // &redirect_uri=https://frenchwhaling.in.fkn.space/api/login`;
+            &redirect_uri=https://whaling-api.in.fkn.space/login?realm=${realm}`;
+            // &redirect_uri=https://whaling.in.fkn.space/api/login`;
     }
 </script>
 <div class="w-3/4 text-center">
-    <div class="bg-gray-200 text-gray-600 rounded-sm text-md p-4">
-        Please log in to the correct server using the buttons below
+    <div class="w-1/2 mx-auto">
+        <div class="bg-gray-800 text-gray-400 rounded-sm text-md p-4">
+            Please use the buttons below to log into your server.
+        </div>
     </div>
 
     <div class="flex flex-wrap mt-8">

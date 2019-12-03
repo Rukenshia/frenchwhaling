@@ -56,33 +56,29 @@
 
 <style>
 a:visited {
-    @apply text-gray-600;
+    @apply text-gray-400;
+}
+
+body {
+    @apply text-white;
 }
 </style>
 
-<div class="font-sans w-full h-screen">
-    <div class="w-1/12 invisible md:visible bg-blue-200 md:float-left h-0 md:h-screen"></div>
-    <div class="w-1/12 invisible md:visible bg-red-200 shadow-inner md:float-right h-0 md:h-screen"></div>
-    <div class="w-auto h-screen bg-white shadow-md overflow-x-hidden overflow-y-visible">
+<div class="font-sans w-full h-screen text-white">
+    <div class="w-1/12 invisible md:visible bg-red-900 md:float-left h-0 md:h-screen"></div>
+    <div class="w-1/12 invisible md:visible bg-red-900 shadow-inner md:float-right h-0 md:h-screen"></div>
+    <div class="w-auto h-screen bg-gray-900 shadow-md overflow-x-hidden overflow-y-visible">
         <div class="flex flex-wrap mt-4 p-4">
             <div class="w-5/5 md:w-2/5 mx-auto h-24 md:h-80">
                 <img alt="Logo made by AdonisWerther" class="h-24 md:h-80 w-auto float-right" src="/img/hon.png" />
             </div>
             <div class="w-5/5 pl-4 md:w-3/5 flex-grow">
-                <h1 class="text-5xl">Frenchwhaling</h1>
-                <div class="-mt-2 text-gray-600">Brought to you by Rukenshia on the EU server, the same idiot that built Steelwhaling</div>
+                <h1 class="text-5xl text-gray-300">Whaling</h1>
+                <div class="-mt-2 text-gray-500">Brought to you by Rukenshia on the EU server, the same idiot that built Steelwhaling, Frenchwhaling and Shipvoting</div>
             </div>
         </div>
 
-
-        <div class="mt-16 w-full flex justify-around">
-            <div class="w-2/3 text-gray-700">
-                <h1 class="text-2xl text-gray-800">You are too late.</h1>
-                I don't know why you are coming back to this page, the Frenchwhaling event is long over.
-            </div>
-        </div>
-
-        <!-- {#if $loggedIn}
+        {#if $loggedIn}
             <div class="mt-12 w-full flex justify-around">
                 <div class="w-full xl:w-3/4">
                     <div class="float-right h-8">
@@ -103,13 +99,9 @@ a:visited {
             </div>
         {:else}    
             <div class="mt-16 w-full flex justify-around">
-                <div class="w-2/3 text-gray-700">
-                    This neat little website allows you to keep track of how many Republic Tokens and Coal you can earn and already earned by playing the ships you own (or owned before) during the "French Destroyers" campaign
-                    in version 0.8.6 of World of Warships.
-                    <br />
-                    If you used Steelwhaling last year, it is very similar to this but still better in almost every aspect. For this event, ships that are in your port are taken into account and only battles that resulted in
-                    a win will be counted.
-                    <br />
+                <div class="w-2/3 text-gray-500">
+                    Welcome to your favorite Whaling website! On here, you'll be able to track your progress for various
+                    World of Warships events such as the Snowflake 2019 event.
                     <strong>Please note that the website may not work with hidden profiles.</strong>
                 </div>
             </div>
@@ -128,7 +120,7 @@ a:visited {
             </div>
             <div class="mb-64"></div>
         {/if}
-        <div class="mt-8 text-gray-600 font-medium text-sm text-center">
+        <div class="mt-8 text-gray-400 font-medium text-sm text-center">
             <a href="#privacy" on:click={() => toggle = !toggle}>Privacy Policy</a>
             &bullet;
             <a target="_blank" href="https://git.sr.ht/~rukenshia/frenchwhaling">Source code</a>
@@ -136,11 +128,12 @@ a:visited {
             This website is not affiliated with Wargaming
             &bullet;
             Thanks to AdonisWerther for the logo ❤️
-        </div> -->
+        </div>
 
         {#if toggle}
         <div class="flex justify-around">
-            <div class="w-3/4 mt-8 pl-8 text-md text-gray-600 text-left">
+            <div id="privacy" class="w-3/4 mb-8 mt-8 pl-8 text-md text-gray-400 text-left">
+                <h3 class="text-3xl mb-4">Privacy Policy</h3>
                 <p>To provide this service to you, the following data will be collected and stored:</p>
 
                 <ul class="pl-8 mt-2">

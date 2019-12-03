@@ -12,7 +12,7 @@
     <div class="w-10">
         <img alt="image of {$shipInfo[ship.ship_id].name}"src={$shipInfo[ship.ship_id].images.small} />
     </div>
-    <div class="w-auto pl-2 mt-1 pr-2" class:line-through={ship.Resource.Earned} class:text-gray-600={ship.Resource.Earned}>
+    <div class="w-auto pl-2 mt-1 pr-2" class:line-through={ship.Resource.Earned} class:text-gray-400={ship.Resource.Earned}>
         {$shipInfo[ship.ship_id].name}
     </div>
 </div>
