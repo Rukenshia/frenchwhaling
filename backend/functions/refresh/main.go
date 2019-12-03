@@ -14,7 +14,10 @@ import (
 
 	"github.com/getsentry/sentry-go"
 
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	"github.com/aws/aws-sdk-go/service/s3"
 
 	awsEvents "github.com/aws/aws-lambda-go/events"
@@ -35,6 +38,8 @@ func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
 func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 	defer sentry.Flush(5 * time.Second)
 	var refreshEvents []storage.RefreshEvent
+	session := session.Must(session.NewSession())
+	cloudwatchSvc := cloudwatch.New(session)
 
 	if err := json.Unmarshal([]byte(event.Records[0].SNS.Message), &refreshEvents); err != nil {
 		sentry.CaptureException(fmt.Errorf("Could not parse event: %v", err))
@@ -68,10 +73,37 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				newToken, err := api.RefreshAccessToken(ev.Realm, ev.AccessToken, ev.AccountID)
 				if err != nil {
 					log.Printf("Could not refresh token: %v", err)
+					cloudwatchSvc.PutMetricData(&cloudwatch.PutMetricDataInput{
+						Namespace: aws.String("Whaling"),
+						MetricData: []*cloudwatch.MetricDatum{
+							{
+								MetricName: aws.String("AccessTokenRefresh"),
+								Dimensions: []*cloudwatch.Dimension{
+									{Name: aws.String("Status"), Value: aws.String("Failed")},
+									{Name: aws.String("Realm"), Value: aws.String(ev.Realm)},
+								},
+								Value: aws.Float64(1.0),
+							},
+						},
+					})
 					getHub(sentryAccountHub, E{"error": err.Error(), "expiresAt": ev.AccessTokenExpiresAt}).CaptureMessage("Could not refresh access token")
 				} else {
 					ev.AccessToken = newToken.Data.AccessToken
 					ev.AccessTokenExpiresAt = newToken.Data.ExpiresAt
+
+					cloudwatchSvc.PutMetricData(&cloudwatch.PutMetricDataInput{
+						Namespace: aws.String("Whaling"),
+						MetricData: []*cloudwatch.MetricDatum{
+							{
+								MetricName: aws.String("AccessTokenRefresh"),
+								Dimensions: []*cloudwatch.Dimension{
+									{Name: aws.String("Status"), Value: aws.String("Success")},
+									{Name: aws.String("Realm"), Value: aws.String(ev.Realm)},
+								},
+								Value: aws.Float64(1.0),
+							},
+						},
+					})
 
 					if err := storage.SetSubscriberAccessToken(ev.AccountID, ev.AccessToken, ev.AccessTokenExpiresAt); err != nil {
 						log.Printf("Could not update new access token in dynamodb: %v", err)
@@ -89,6 +121,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					subscriberData = &storage.SubscriberPublicData{
 						AccountID: ev.AccountID,
 						Resources: []storage.EarnableResource{
+							{Type: wows.RepublicTokens, Amount: 0, Earned: 0},
 							{Type: wows.Coal, Amount: 0, Earned: 0},
 							{Type: wows.Steel, Amount: 0, Earned: 0},
 							{Type: wows.SantaGiftContainer, Amount: 0, Earned: 0},
@@ -187,7 +220,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 				currentShip = &storage.StoredShip{
 					ShipStatistics: ship,
 					Resource: storage.EarnableResource{
-						Type: resourceType,
+						Type:   resourceType,
 						Amount: amount,
 						Earned: 0,
 					},

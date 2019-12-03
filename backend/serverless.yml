@@ -36,6 +36,9 @@ provider:
       Action: "sns:Publish"
       Resource:
         Ref: SNSTopic
+    - Effect: Allow
+      Action: "cloudwatch:PutMetricData"
+      Resource: "*"
 
 package:
  exclude:

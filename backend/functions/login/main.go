@@ -11,6 +11,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cloudwatch"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/dgrijalva/jwt-go"
@@ -35,6 +39,9 @@ func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
 
 // Handler is the lambda handler invoked by the `lambda.Start` function call
 func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Response, error) {
+	session := session.Must(session.NewSession())
+	cloudwatchSvc := cloudwatch.New(session)
+
 	defer sentry.Flush(5 * time.Second)
 	accessToken := request.QueryStringParameters["access_token"]
 	accountID := request.QueryStringParameters["account_id"]
@@ -47,13 +54,23 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 	})
 
 	if param, ok := request.QueryStringParameters["message"]; ok {
-		sentryAccountHub.ConfigureScope(func(scope *sentry.Scope) {
-			scope.SetTag("Realm", realm)
-			scope.SetTag("Reason", param)
-			scope.SetLevel(sentry.LevelDebug)
-		})
-		sentryAccountHub.CaptureMessage("Auth failed")
 		log.Printf("Auth has failed, aborting lambda accountId=%s reason=%s", accountID, strings.ToLower(param))
+
+		cloudwatchSvc.PutMetricData(&cloudwatch.PutMetricDataInput{
+			Namespace: aws.String("Whaling"),
+			MetricData: []*cloudwatch.MetricDatum{
+				{
+					MetricName: aws.String("Login"),
+					Dimensions: []*cloudwatch.Dimension{
+						{Name: aws.String("Status"), Value: aws.String("Failed")},
+						{Name: aws.String("Reason"), Value: aws.String(param)},
+						{Name: aws.String("Realm"), Value: aws.String(realm)},
+					},
+					Value: aws.Float64(1.0),
+				},
+			},
+		})
+
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
@@ -120,6 +137,32 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 			},
 		}, nil
 	}
+
+	metricEvents := []*cloudwatch.MetricDatum{
+		{
+			MetricName: aws.String("Login"),
+			Dimensions: []*cloudwatch.Dimension{
+				{Name: aws.String("Status"), Value: aws.String("Success")},
+				{Name: aws.String("Realm"), Value: aws.String(realm)},
+			},
+			Value: aws.Float64(1.0),
+		},
+	}
+
+	if isNew == true {
+		metricEvents = append(metricEvents, &cloudwatch.MetricDatum{
+			MetricName: aws.String("FirstTimeLogin"),
+			Dimensions: []*cloudwatch.Dimension{
+				{Name: aws.String("Realm"), Value: aws.String(realm)},
+			},
+			Value: aws.Float64(1.0),
+		})
+	}
+
+	cloudwatchSvc.PutMetricData(&cloudwatch.PutMetricDataInput{
+		Namespace:  aws.String("Whaling"),
+		MetricData: metricEvents,
+	})
 
 	resp := Response{
 		StatusCode:      302,
