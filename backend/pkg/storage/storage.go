@@ -41,7 +41,7 @@ func GetSubscriber(accountId string) (*Subscriber, error) {
 
 	log.Printf("GetSubscriber: start accountId=%s", accountId)
 	result, err := svc.GetItem(&dynamodb.GetItemInput{
-		TableName: aws.String("frenchwhaling-subscribers"),
+		TableName: aws.String("whaling-subscribers"),
 		Key: map[string]*dynamodb.AttributeValue{
 			"AccountID": {
 				S: aws.String(accountId),
@@ -66,7 +66,7 @@ func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int64
 
 	log.Printf("FindOrCreateUpdateSubscriber: start accountId=%s", accountId)
 	result, err := svc.GetItem(&dynamodb.GetItemInput{
-		TableName: aws.String("frenchwhaling-subscribers"),
+		TableName: aws.String("whaling-subscribers"),
 		Key: map[string]*dynamodb.AttributeValue{
 			"AccountID": {
 				S: aws.String(accountId),
@@ -96,7 +96,7 @@ func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int64
 		}
 
 		if _, err := svc.PutItem(&dynamodb.PutItemInput{
-			TableName: aws.String("frenchwhaling-subscribers"),
+			TableName: aws.String("whaling-subscribers"),
 			Item:      av,
 		}); err != nil {
 			return nil, true, err
@@ -126,7 +126,7 @@ func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int64
 		}
 
 		if _, err := svc.PutItem(&dynamodb.PutItemInput{
-			TableName: aws.String("frenchwhaling-subscribers"),
+			TableName: aws.String("whaling-subscribers"),
 			Item:      av,
 		}); err != nil {
 			return nil, false, err
@@ -136,7 +136,7 @@ func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int64
 }
 
 func getUniqueAccountURL(accountID string) string {
-	return fmt.Sprintf("https://frenchwhaling.in.fkn.space/data/%s/%s%s.json", accountID, xid.New().String(), xid.New().String())
+	return fmt.Sprintf("https://whaling.in.fkn.space/data/%s/%s%s.json", accountID, xid.New().String(), xid.New().String())
 }
 
 func TriggerRefresh(r []RefreshEvent) error {
@@ -196,7 +196,7 @@ func SetSubscriberAccessToken(accountID, accessToken string, expiresAt int64) er
 	svc := dynamodb.New(sess)
 
 	_, err := svc.UpdateItem(&dynamodb.UpdateItemInput{
-		TableName: aws.String("frenchwhaling-subscribers"),
+		TableName: aws.String("whaling-subscribers"),
 		Key: map[string]*dynamodb.AttributeValue{
 			"AccountID": {
 				S: aws.String(accountID),
@@ -220,7 +220,7 @@ func SetSubscriberLastUpdated(accountID string, timestamp int64) error {
 	svc := dynamodb.New(sess)
 
 	_, err := svc.UpdateItem(&dynamodb.UpdateItemInput{
-		TableName: aws.String("frenchwhaling-subscribers"),
+		TableName: aws.String("whaling-subscribers"),
 		Key: map[string]*dynamodb.AttributeValue{
 			"AccountID": {
 				S: aws.String(accountID),
@@ -241,7 +241,7 @@ func SetSubscriberLastScheduled(accountID string, timestamp int64) error {
 	svc := dynamodb.New(sess)
 
 	_, err := svc.UpdateItem(&dynamodb.UpdateItemInput{
-		TableName: aws.String("frenchwhaling-subscribers"),
+		TableName: aws.String("whaling-subscribers"),
 		Key: map[string]*dynamodb.AttributeValue{
 			"AccountID": {
 				S: aws.String(accountID),
@@ -262,7 +262,7 @@ func getPage(lastEvaluated map[string]*dynamodb.AttributeValue, notScheduledSinc
 	svc := dynamodb.New(sess)
 
 	out, err := svc.Scan(&dynamodb.ScanInput{
-		TableName: aws.String("frenchwhaling-subscribers"),
+		TableName: aws.String("whaling-subscribers"),
 		ExpressionAttributeNames: map[string]*string{
 			"#ls": aws.String("LastScheduled"),
 		},

@@ -7,3 +7,5 @@ var EventStartTime = map[string]int{
 	"ru":   1563937200,
 	"asia": 1564005600,
 }
+
+var ActiveEvent = Snowflake2019{}

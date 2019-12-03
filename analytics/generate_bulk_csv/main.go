@@ -19,7 +19,7 @@ import (
 func main() {
 	inFile := flag.String("in", "objects.json", "JSON file of all files that exist on the button (array of Key)")
 	outFile := flag.String("out", "last_versions.csv", "output file")
-	bucket := flag.String("bucket", "frenchwhaling-subscribers", "s3 bucket name")
+	bucket := flag.String("bucket", "whaling-subscribers", "s3 bucket name")
 	mode := flag.String("mode", "glacier", "mode. either glacier or all to output either all oldest versions or just versions stored in glacier")
 
 	flag.Parse()

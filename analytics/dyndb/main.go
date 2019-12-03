@@ -114,7 +114,7 @@ func getEventStats(eventType *string, events []*Event) []*EventStatistics {
 }
 
 func main() {
-	tableName := flag.String("table", "frenchwhaling-subscriber-events", "DynDB table name")
+	tableName := flag.String("table", "whaling-subscriber-events", "DynDB table name")
 	refresh := flag.Bool("refresh", false, "Download data from table")
 	eventType := flag.String("type", "ResourceEarned", "type (ResourceEarned, ShipAddition)")
 	byAccount := flag.Bool("byaccount", false, "get results for each account")

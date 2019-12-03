@@ -57,7 +57,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=false&reason=%s", strings.ToLower(param)),
+				"Location": fmt.Sprintf("https://whaling.in.fkn.space/?success=false&reason=%s", strings.ToLower(param)),
 			},
 		}, nil
 	}
@@ -69,7 +69,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": "http://frenchwhaling.in.fkn.space/?success=false&reason=invalid-expiry",
+				"Location": "https://whaling.in.fkn.space/?success=false&reason=invalid-expiry",
 			},
 		}, nil
 	}
@@ -82,7 +82,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": "http://frenchwhaling.in.fkn.space/?success=false&reason=invalid-data",
+				"Location": "https://whaling.in.fkn.space/?success=false&reason=invalid-data",
 			},
 		}, nil
 	}
@@ -95,13 +95,13 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=false&reason=subscription-failed&isNew=%t", isNew),
+				"Location": fmt.Sprintf("https://whaling.in.fkn.space/?success=false&reason=subscription-failed&isNew=%t", isNew),
 			},
 		}, nil
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"iss":      "frenchwhaling",
+		"iss":      "whaling",
 		"exp":      request.QueryStringParameters["expires_at"],
 		"nickname": res.Nickname,
 		"realm":    request.QueryStringParameters["realm"],
@@ -116,7 +116,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		return Response{
 			StatusCode: 302,
 			Headers: map[string]string{
-				"Location": "http://frenchwhaling.in.fkn.space/?success=false&reason=signing-failed",
+				"Location": "https://whaling.in.fkn.space/?success=false&reason=signing-failed",
 			},
 		}, nil
 	}
@@ -127,7 +127,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		Body:            "",
 		Headers: map[string]string{
 			"Content-Type": "application/json",
-			"Location":     fmt.Sprintf("http://frenchwhaling.in.fkn.space/?success=true&isNew=%t&token=%s&dataUrl=%s", isNew, tokenString, subscriber.DataURL),
+			"Location":     fmt.Sprintf("https://whaling.in.fkn.space/?success=true&isNew=%t&token=%s&dataUrl=%s", isNew, tokenString, subscriber.DataURL),
 		},
 	}
 
