@@ -34,6 +34,7 @@
                 $token = data.query.token;
                 $dataUrl = data.query.dataUrl;
             } catch(e) {
+                console.log(e);
                 error = true;
                 $loggedIn = false;
             }
@@ -83,8 +84,8 @@ body {
                 <div class="w-full xl:w-3/4">
                     <div class="float-right h-8">
                         <button on:click={donate} class="mr-4 px-4 font-xs border-none py-1 rounded bg-green-400 hover:bg-green-500 text-gray-800 shadow-md">Donate</button>
-                        <a style="padding-top: 7px; padding-bottom: 7px;" href="mailto:svc-frenchwhaling@ruken.pw" class="mr-4 p-0 px-4 border-none rounded bg-gray-200 hover:no-underline hover:bg-gray-400">Contact me</a>
-                        <button on:click={logout} class="mr-4 px-4 font-xs border-none py-1 rounded bg-gray-200 hover:bg-gray-400 text-gray-700">Logout</button>
+                        <a style="padding-top: 7px; padding-bottom: 7px;" href="mailto:svc-frenchwhaling@ruken.pw" class="mr-4 p-0 px-4 border-none rounded bg-gray-700 hover:no-underline hover:bg-gray-800">Contact me</a>
+                        <button on:click={logout} class="mr-4 px-4 font-xs border-none py-1 rounded bg-gray-700 hover:bg-gray-800">Logout</button>
                     </div>
                     {#if ts < eventStartTimes[$realm]}
                         <div class="w-full flex justify-around mt-16 mb-8">

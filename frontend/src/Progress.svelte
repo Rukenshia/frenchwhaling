@@ -19,7 +19,7 @@
     const max = derived(data, v => {
         if (v === undefined) { return [0, 0]; }
 
-        const newMax = [[0, 0], [0, 0]];
+        const newMax = [[0, 0], [0, 0], [0, 0], [0, 0]];
         Object.keys(v.Ships).forEach(s => {
             if (v.Ships[s].private.in_garage) {
                 newMax[v.Ships[s].Resource.Type][0] += v.Ships[s].Resource.Amount;
@@ -28,9 +28,9 @@
         });
 
         return newMax;
-    }, [[0, 0], [0, 0]]);
+    }, [[0, 0], [0, 0], [0, 0], [0, 0]]);
     const categories = derived([data, shipInfo], ([v, vs]) => {
-        if (v === undefined || vs === undefined) { return [{}, {}]; }
+        if (v === undefined || vs === undefined) { return [{}, {}, {}, {}]; }
 
         const sort = (a, b) => {
             const byName = () => {
@@ -68,27 +68,26 @@
             }
         };
 
+        const getCategory = resourceType => {
+            return Object.values(v.Ships).filter(s => s.Resource.Type === resourceType).sort(sort).reduce((agg, x) => {
+                if (!agg[x.Resource.Amount]) {
+                    agg[x.Resource.Amount] = { Amount: x.Resource.Amount, Ships: [] };
+                }
+
+                agg[x.Resource.Amount].Ships.push(x);
+                return agg;
+            }, {});
+        };
+
         return [
-            Object.values(v.Ships).filter(s => s.Resource.Type === 0).sort(sort).reduce((agg, x) => {
-                if (!agg[x.Resource.Amount]) {
-                    agg[x.Resource.Amount] = { Amount: x.Resource.Amount, Ships: [] };
-                }
-
-                agg[x.Resource.Amount].Ships.push(x);
-                return agg;
-            }, {}),
-            Object.values(v.Ships).filter(s => s.Resource.Type === 1).sort(sort).reduce((agg, x) => {
-                if (!agg[x.Resource.Amount]) {
-                    agg[x.Resource.Amount] = { Amount: x.Resource.Amount, Ships: [] };
-                }
-
-                agg[x.Resource.Amount].Ships.push(x);
-                return agg;
-            }, {}),
+            getCategory(0),
+            getCategory(1),
+            getCategory(2),
+            getCategory(3),
         ];
-    }, [{}, {}]);
+    }, [{}, {}, {}, {}]);
 
-    const resourceName = ['Republic Tokens', 'Coal'];
+    const resourceName = ['Republic Tokens', 'Coal', 'Steel', 'Santa Container'];
 
     function refresh() {
         axios.get(`https://whaling-api.in.fkn.space/subscribers/${$accountId}/refresh`, {
@@ -115,6 +114,7 @@
 
         try {
             const res = await axios.get(`${$dataUrl}?${+ new Date()}`);
+            console.log(res.data.Resources);
             $data = res.data;
 
             if (reloading) {
@@ -125,6 +125,7 @@
             reloading = false;
         } catch(e) {
             error = true;
+            console.log(e);
 
             const intv = setInterval(async () => {
                 console.log('retry');
@@ -150,6 +151,7 @@
                     reloading = false;
                     clearInterval(intv);
                 } catch(e) {
+                    console.log(e);
                     error = true;
                 }
             }, 2500);
@@ -177,27 +179,41 @@
     Last updated {$lastUpdatedMoment}
 
     {#if $timestamp - $data.LastUpdated > 10 * 60 * 1000 * 1000000}
-        <button on:click={refresh} class="bg-gray-200 hover:bg-gray-300 border-none rounded shadow-md p-2">Refresh now</button>
+        <button on:click={refresh} class="text-gray-200 bg-gray-700 hover:bg-gray-800 border-none rounded shadow-md p-2">Refresh now</button>
     {:else}
-        <button disabled class="border-2 border-gray-200 rounded p-2 cursor-not-allowed">Refresh now</button>
+        <button disabled class="border-2 border-gray-600 rounded p-2 cursor-not-allowed">Refresh now</button>
     {/if}
     {/if}
 </div>
 <div class="w-full flex flex-wrap mt-4 px-2">
-{#each $data.Resources as resource}
-    <div class="w-full lg:w-1/2">
-        <div class="m-2 p-4 shadow-xl rounded bg-gray-200">
+{#each $data.Resources.slice(1) as resource}
+    <div class="w-full lg:w-1/3">
+        <div class="m-2 p-4 shadow-xl rounded bg-gray-800">
             <div class="flex">
                 <div class="w-7">
-                    <img class="w-8" alt="resource icon" src="/img/resources/{resource.Type}.png" />
+                    <img class="w-8" alt="resource" src="/img/resources/{resource.Type}.png" />
                 </div>
-                <div class="w-auto ml-2 text-xl text-gray-700">{resourceName[resource.Type]}</div>
+                <div class="w-auto ml-2 text-lg text-gray-400">{resource.Earned} of {$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</div>
             </div>
-            <div class="p-4 text-gray-700">
+        </div>
+    </div>
+{/each}
+</div>
+<div class="w-full flex flex-wrap mt-4 px-2">
+{#each $data.Resources.slice(1) as resource}
+    <div class="w-full lg:w-1/2">
+        <div class="m-2 p-4 shadow-xl rounded bg-gray-800">
+            <div class="flex">
+                <div class="w-7">
+                    <img class="w-8" alt="resource" src="/img/resources/{resource.Type}.png" />
+                </div>
+                <div class="w-auto ml-2 text-xl text-gray-400">{resourceName[resource.Type]}</div>
+            </div>
+            <div class="p-4 text-gray-500">
                 You have earned up to <span class="text-3xl">{resource.Earned}</span> {resourceName[resource.Type]} out of <span class="text-3xl">{$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</span> you can earn during the event.
             </div>
             <div class="p-4 pt-0">
-                <label class="md:w-full block text-gray-400 font-bold">
+                <label class="md:w-full block text-gray-600 font-bold">
                     <input class="mr-2 leading-tight" type="checkbox" bind:checked={withShipsNotInGarage[resource.Type]}>
                     <span class="text-sm">
                         Include ships I used to have in port
@@ -209,11 +225,11 @@
         {#if $categories}
         {#each Object.keys($categories[resource.Type]).reverse() as amount}
             <div class="flex flex-wrap mb-4">
-                <div class="w-full pl-2 text-sm text-gray-400 font-medium">{amount} {resourceName[resource.Type]}</div>
+                <div class="w-full pl-2 text-sm text-gray-600 font-medium">{amount} {resourceName[resource.Type]}</div>
                 {#each $categories[resource.Type][amount].Ships as ship}
                 {#if withShipsNotInGarage[resource.Type] || ship.private.in_garage}
                 <div class="w-1/2 lg:w-1/2 xl:w-1/3 p-1 ">
-                    <div class="border-2 rounded" class:border-green-200={ship.Resource.Earned > 0} class:border-red-200={ship.private && !ship.private.in_garage}>
+                    <div class="border-2 border-gray-600 rounded" class:border-green-900={ship.Resource.Earned > 0} class:border-red-200={ship.private && !ship.private.in_garage}>
                         <ShipInfo {ship} />
                     </div>
                 </div>
