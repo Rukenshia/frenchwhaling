@@ -167,7 +167,7 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		}
 
 		metricEvents = append(metricEvents, &cloudwatch.MetricDatum{
-			MetricName: aws.String("PrematureAccessTokenInvalidation"),
+			MetricName: aws.String("AccountReEnabled"),
 			Dimensions: []*cloudwatch.Dimension{
 				{Name: aws.String("Realm"), Value: aws.String(realm)},
 			},
