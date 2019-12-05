@@ -8,6 +8,10 @@ func (s Snowflake2019) IsShipEligible(w *Warship) bool {
 		return false
 	}
 
+	if w.IsRentalShip() {
+		return false
+	}
+
 	if w.Tier < 5 {
 		return false
 	}

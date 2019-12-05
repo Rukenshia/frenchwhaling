@@ -9,9 +9,15 @@
     }
 </script>
 <div class="w-3/4 text-center">
-    <div class="w-1/2 mx-auto">
-        <div class="bg-gray-800 text-gray-400 rounded-sm text-md p-4">
+    <div class="w-3/4 mx-auto">
+        <!-- <div class="bg-gray-800 text-gray-400 rounded-sm text-md p-4">
             Please use the buttons below to log into your server.
+        </div>
+        -->
+        <div class="bg-red-800 text-gray-400 rounded-sm text-md p-4">
+            <strong>Important</strong><br />
+            The website is currently in a testing phase, all data will be wiped before the actual event starts.
+            You folks are just too eager to get whaling again.
         </div>
     </div>
 
