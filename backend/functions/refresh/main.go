@@ -10,6 +10,7 @@ import (
 	"rukenshia/frenchwhaling/pkg/storage"
 	"rukenshia/frenchwhaling/pkg/wows"
 	"rukenshia/frenchwhaling/pkg/wows/api"
+	"strings"
 	"time"
 
 	"github.com/getsentry/sentry-go"
@@ -146,6 +147,25 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 		if err != nil {
 			getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("GetPlayerShipStatistics failed")
 			log.Printf("ERROR: Processing event: failed for accountId=%s error=%v", ev.AccountID, err)
+
+			if strings.Contains(err.Error(), "INVALID_ACCESS_TOKEN") {
+				if err := storage.SetSubscriberActive(ev.AccountID, false); err != nil {
+					getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("Could not disable subscriber")
+				}
+
+				cloudwatchSvc.PutMetricData(&cloudwatch.PutMetricDataInput{
+					Namespace: aws.String("Whaling"),
+					MetricData: []*cloudwatch.MetricDatum{
+						{
+							MetricName: aws.String("PrematureAccessTokenInvalidation"),
+							Dimensions: []*cloudwatch.Dimension{
+								{Name: aws.String("Realm"), Value: aws.String(ev.Realm)},
+							},
+							Value: aws.Float64(1.0),
+						},
+					},
+				})
+			}
 			continue
 		}
 

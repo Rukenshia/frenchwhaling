@@ -159,6 +159,22 @@ func Handler(ctx context.Context, request events.APIGatewayProxyRequest) (Respon
 		})
 	}
 
+	if subscriber.Active == false {
+		// The subscriber was previously deactivated, but now wants to use
+		// whaling again. This is an interesting event, so lets put it to cloudwatch
+		if err := storage.SetSubscriberActive(accountID, true); err != nil {
+			getHub(sentryAccountHub, E{"error": err.Error()}).CaptureMessage("Could not re-enable subscriber")
+		}
+
+		metricEvents = append(metricEvents, &cloudwatch.MetricDatum{
+			MetricName: aws.String("PrematureAccessTokenInvalidation"),
+			Dimensions: []*cloudwatch.Dimension{
+				{Name: aws.String("Realm"), Value: aws.String(realm)},
+			},
+			Value: aws.Float64(1.0),
+		})
+	}
+
 	cloudwatchSvc.PutMetricData(&cloudwatch.PutMetricDataInput{
 		Namespace:  aws.String("Whaling"),
 		MetricData: metricEvents,

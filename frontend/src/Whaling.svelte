@@ -74,7 +74,7 @@ body {
                 <img alt="Logo made by AdonisWerther" class="h-24 md:h-80 w-auto float-right" src="/img/hon.png" />
             </div>
             <div class="w-5/5 pl-4 md:w-3/5 flex-grow">
-                <h1 class="text-5xl text-gray-300">Whaling</h1>
+                <h1 class="text-5xl text-gray-300">Steelwhaling</h1>
                 <div class="-mt-2 text-gray-500">Brought to you by Rukenshia on the EU server, the same idiot that built Steelwhaling, Frenchwhaling and Shipvoting</div>
             </div>
         </div>
@@ -119,9 +119,9 @@ body {
 
                 <Login />
             </div>
-            <div class="mb-64"></div>
+            <div class="mb-32"></div>
         {/if}
-        <div class="mt-8 text-gray-400 font-medium text-sm text-center">
+        <div class="mt-8 mb-8 text-gray-400 font-medium text-sm text-center">
             <a href="#privacy" on:click={() => toggle = !toggle}>Privacy Policy</a>
             &bullet;
             <a target="_blank" href="https://git.sr.ht/~rukenshia/frenchwhaling">Source code</a>
@@ -133,7 +133,7 @@ body {
 
         {#if toggle}
         <div class="flex justify-around">
-            <div id="privacy" class="w-3/4 mb-8 mt-8 pl-8 text-md text-gray-400 text-left">
+            <div id="privacy" class="w-3/4 mb-8 pl-8 text-md text-gray-400 text-left">
                 <h3 class="text-3xl mb-4">Privacy Policy</h3>
                 <p>To provide this service to you, the following data will be collected and stored:</p>
 

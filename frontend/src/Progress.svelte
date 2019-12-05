@@ -188,12 +188,15 @@
 <div class="w-full flex flex-wrap mt-4 px-2">
 {#each $data.Resources.slice(1) as resource}
     <div class="w-full lg:w-1/3">
-        <div class="m-2 p-4 shadow-xl rounded bg-gray-800">
-            <div class="flex">
+        <div class="m-2 shadow-xl rounded bg-gray-800 overflow-hidden">
+            <div class="p-4 pb-2 flex">
                 <div class="w-7">
                     <img class="w-8" alt="resource" src="/img/resources/{resource.Type}.png" />
                 </div>
                 <div class="w-auto ml-2 text-lg text-gray-400">{resource.Earned} of {$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</div>
+            </div>
+            <div class="relative h-2 w-full z-0 bg-gray-700">
+                <div style="width: {resource.Earned / Math.max(1, $max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]) * 100}%" class="absolute bottom-0 h-2 bg-green-900"></div>
             </div>
         </div>
     </div>

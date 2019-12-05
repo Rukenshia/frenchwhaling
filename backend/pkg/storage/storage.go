@@ -25,6 +25,7 @@ type RefreshEvent struct {
 }
 
 type Subscriber struct {
+	Active               bool
 	AccountID            string
 	Realm                string
 	AccessToken          string
@@ -191,6 +192,31 @@ func (s *Subscriber) TriggerRefresh() error {
 	return err
 }
 
+// SetSubscriberActive sets the status of a subscriber to indicate whether they should be scheduled
+//
+// This is used mostly for when an access token expires prematurely or could not be refreshed. If
+// the subscriber ends up logging in once more, they will be set to active again.
+func SetSubscriberActive(accountID string, active bool) error {
+	sess := session.Must(session.NewSession())
+	svc := dynamodb.New(sess)
+
+	_, err := svc.UpdateItem(&dynamodb.UpdateItemInput{
+		TableName: aws.String("whaling-subscribers"),
+		Key: map[string]*dynamodb.AttributeValue{
+			"AccountID": {
+				S: aws.String(accountID),
+			},
+		},
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":a": {
+				BOOL: aws.Bool(active),
+			},
+		},
+		UpdateExpression: aws.String("set Active = :a"),
+	})
+	return err
+}
+
 func SetSubscriberAccessToken(accountID, accessToken string, expiresAt int64) error {
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
@@ -265,13 +291,17 @@ func getPage(lastEvaluated map[string]*dynamodb.AttributeValue, notScheduledSinc
 		TableName: aws.String("whaling-subscribers"),
 		ExpressionAttributeNames: map[string]*string{
 			"#ls": aws.String("LastScheduled"),
+			"#a":  aws.String("Active"),
 		},
 		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
 			":t": {
 				N: aws.String(fmt.Sprintf("%d", notScheduledSince)),
 			},
+			":f": {
+				BOOL: aws.Bool(true),
+			},
 		},
-		FilterExpression:       aws.String("#ls < :t"),
+		FilterExpression:       aws.String("#ls < :t AND #a = :f"),
 		ReturnConsumedCapacity: aws.String("TOTAL"),
 		ExclusiveStartKey:      lastEvaluated,
 	})

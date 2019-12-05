@@ -18,6 +18,12 @@ type Warship struct {
 	NextShips   map[string]int64 `json:"next_ships"`
 }
 
+// IsRentalShip returns whether a ship is only available for a limited period of time,
+// such as ships for rent events or clan battles
+func (w *Warship) IsRentalShip() bool {
+	return strings.Contains(w.Name, "[")
+}
+
 // IsTestShip returns whether the ship is currently in testing (WIP ships)
 func (w *Warship) IsTestShip() bool {
 	for _, ts := range []string{
