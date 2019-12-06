@@ -170,6 +170,12 @@
     });
 </script>
 
+<style>
+button.cursor-not-allowed {
+    @apply bg-gray-900;
+}
+</style>
+
 {#if $data}
 
 <div class="ml-4 text-gray-400 font-medium text-sm">
