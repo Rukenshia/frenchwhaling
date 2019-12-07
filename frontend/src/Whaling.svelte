@@ -5,6 +5,7 @@
     import * as querystring from 'query-string';
     import jwtDecode from 'jwt-decode';
     import {accountId, dataUrl, token, nickname, realm, loggedIn} from './store';
+    import {reportClick} from './clickEvents';
 
     let toggle = false;
     let error = false;
@@ -48,10 +49,26 @@
     function logout() {
         $loggedIn = false;
         $token = undefined;
+        window.history.pushState('', 'WoWS Whaling', '/');
+
+        reportClick('Logout');
     }
 
     function donate() {
+        reportClick('Donate');
         alert('Thanks for clicking on this button! This was a project I built during my free time and I am paying the infrastructure costs myself. While I do not take actual money as donations, I am always happy to read a "Thank you" email or receiving a little gift on EU, my username is Rukenshia.');
+    }
+
+    function contact() {
+        reportClick('Contact');
+    }
+
+    function privacyPolicy() {
+        toggle = !toggle;
+
+        if (toggle) {
+            reportClick('PrivacyPolicy');
+        }
     }
 </script>
 
@@ -84,7 +101,7 @@ body {
                 <div class="w-full xl:w-3/4">
                     <div class="float-right h-8">
                         <button on:click={donate} class="mr-4 px-4 font-xs border-none py-1 rounded bg-green-400 hover:bg-green-500 text-gray-800 shadow-md">Donate</button>
-                        <a style="padding-top: 7px; padding-bottom: 7px;" href="mailto:svc-frenchwhaling@ruken.pw" class="mr-4 p-0 px-4 border-none rounded bg-gray-700 hover:no-underline hover:bg-gray-800">Contact me</a>
+                        <a on:click={contact} style="padding-top: 7px; padding-bottom: 7px;" href="mailto:svc-frenchwhaling@ruken.pw" class="mr-4 p-0 px-4 border-none rounded bg-gray-700 hover:no-underline hover:bg-gray-800">Contact me</a>
                         <button on:click={logout} class="mr-4 px-4 font-xs border-none py-1 rounded bg-gray-700 hover:bg-gray-800">Logout</button>
                     </div>
                     {#if ts < eventStartTimes[$realm]}
@@ -122,7 +139,7 @@ body {
             <div class="mb-32"></div>
         {/if}
         <div class="mt-8 mb-8 text-gray-400 font-medium text-sm text-center">
-            <a href="#privacy" on:click={() => toggle = !toggle}>Privacy Policy</a>
+            <a href="#privacy" on:click={privacyPolicy}>Privacy Policy</a>
             &bullet;
             <a target="_blank" href="https://git.sr.ht/~rukenshia/frenchwhaling">Source code</a>
             &bullet;
