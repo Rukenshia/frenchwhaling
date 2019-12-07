@@ -8,6 +8,7 @@ build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/requestRefresh functions/requestRefresh/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/schedule functions/schedule/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/login functions/login/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/click functions/click/main.go
 
 clean:
 	rm -rf ./bin ./vendor Gopkg.lock

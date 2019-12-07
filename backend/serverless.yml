@@ -60,6 +60,16 @@ functions:
           cors: true
           path: /login
           method: get
+    
+  click:
+    handler: bin/click
+    environment:
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
+    events:
+      - http:
+          cors: true
+          path: /click
+          method: post
 
   requestRefresh:
     handler: bin/requestRefresh
