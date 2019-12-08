@@ -89,6 +89,7 @@ func FindOrCreateUpdateSubscriber(accessToken string, accessTokenExpiresAt int64
 			DataURL:              getUniqueAccountURL(accountId),
 			LastScheduled:        time.Now().UnixNano(),
 			LastUpdated:          0,
+			Active:               true,
 		}
 
 		av, err := dynamodbattribute.MarshalMap(subscriber)
