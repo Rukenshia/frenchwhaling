@@ -9,7 +9,8 @@
     export let isNew;
     let retries = 0;
     let reloading = false;
-    let withShipsNotInGarage = [false, false];
+    let withShipsNotInGarage = false;
+    let resource = writable();
 
     const timestamp = writable(+ new Date());
     const lastUpdatedMoment = writable(undefined);
@@ -161,6 +162,7 @@
     onMount(async () => {
         $timestamp = +new Date() * 1000000;
         await reloadDataWithRetry();
+        $resource = $data.Resources[1];
         $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
 
         setInterval(() => {
@@ -192,65 +194,67 @@ button.cursor-not-allowed {
     {/if}
 </div>
 <div class="w-full flex flex-wrap mt-4 px-2">
-{#each $data.Resources.slice(1) as resource}
-    <div class="w-full lg:w-1/3">
-        <div class="m-2 shadow-xl rounded bg-gray-800 overflow-hidden">
+{#each $data.Resources.slice(1) as res}
+    <div class="w-1/3" on:click={() => $resource = res}>
+        <div style="transition: background-color .1s" class:bg-blue-900={res === $resource} class="m-2 shadow-xl rounded rounded-b-none bg-gray-800 overflow-hidden hover:bg-blue-900 hover:shadow-md">
             <div class="p-4 pb-2 flex">
                 <div class="w-7">
-                    <img class="w-8" alt="resource" src="/img/resources/{resource.Type}.png" />
+                    <img class="w-8" alt="resource" src="/img/resources/{res.Type}.png" />
                 </div>
-                <div class="w-auto ml-2 text-lg text-gray-400">{resource.Earned} of {$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</div>
+                <div class="sm:hidden w-auto ml-2 text-lg text-gray-400">
+                    {res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0]) * 100}%
+                </div>
+                <div class="hidden sm:block w-auto ml-2 text-lg text-gray-400">{res.Earned} of {$max[res.Type][withShipsNotInGarage ? 1 : 0]}</div>
             </div>
             <div class="relative h-2 w-full z-0 bg-gray-700">
-                <div style="width: {resource.Earned / Math.max(1, $max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]) * 100}%" class="absolute bottom-0 h-2 bg-green-900"></div>
+                <div style="width: {res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0]) * 100}%" class="absolute bottom-0 h-2 bg-green-900"></div>
             </div>
         </div>
     </div>
 {/each}
 </div>
-<div class="w-full flex flex-wrap mt-4 px-2">
-{#each $data.Resources.slice(1) as resource}
-    <div class="w-full lg:w-1/2">
-        <div class="m-2 p-4 shadow-xl rounded bg-gray-800">
+<div class="w-full flex flex-wrap -mt-4 px-2">
+    <div class="w-full">
+        <div class="m-2 p-4 shadow-xl rounded-t-none rounded bg-gray-800">
+        {#if $resource}
             <div class="flex">
                 <div class="w-7">
-                    <img class="w-8" alt="resource" src="/img/resources/{resource.Type}.png" />
+                    <img class="w-8" alt="resource" src="/img/resources/{$resource.Type}.png" />
                 </div>
-                <div class="w-auto ml-2 text-xl text-gray-400">{resourceName[resource.Type]}</div>
+                <div class="w-auto ml-2 text-xl text-gray-400">{resourceName[$resource.Type]}</div>
             </div>
             <div class="p-4 text-gray-500">
-                You have earned up to <span class="text-3xl">{resource.Earned}</span> {resourceName[resource.Type]} out of <span class="text-3xl">{$max[resource.Type][withShipsNotInGarage[resource.Type] ? 1 : 0]}</span> you can earn during the event.
+                You have earned up to <span class="text-3xl">{$resource.Earned}</span> {resourceName[$resource.Type]} out of <span class="text-3xl">{$max[$resource.Type][withShipsNotInGarage ? 1 : 0]}</span> you can earn during the event.
             </div>
             <div class="p-4 pt-0">
                 <label class="md:w-full block text-gray-600 font-bold">
-                    <input class="mr-2 leading-tight" type="checkbox" bind:checked={withShipsNotInGarage[resource.Type]}>
+                    <input class="mr-2 leading-tight" type="checkbox" bind:checked={withShipsNotInGarage}>
                     <span class="text-sm">
                         Include ships I used to have in port
                     </span>
                 </label>
             </div>
 
-
-        {#if $categories}
-        {#each Object.keys($categories[resource.Type]).reverse() as amount}
-            <div class="flex flex-wrap mb-4">
-                <div class="w-full pl-2 text-sm text-gray-600 font-medium">{amount} {resourceName[resource.Type]}</div>
-                {#each $categories[resource.Type][amount].Ships as ship}
-                {#if withShipsNotInGarage[resource.Type] || ship.private.in_garage}
-                <div class="w-1/2 lg:w-1/2 xl:w-1/3 p-1 ">
-                    <div class="border-2 border-gray-600 rounded" class:border-green-900={ship.Resource.Earned > 0} class:border-red-200={ship.private && !ship.private.in_garage}>
-                        <ShipInfo {ship} />
+            {#if $categories}
+            {#each Object.keys($categories[$resource.Type]).reverse() as amount}
+                <div class="flex flex-wrap mb-4">
+                    <div class="w-full pl-2 text-sm text-gray-600 font-medium">{amount} {resourceName[$resource.Type]}</div>
+                    {#each $categories[$resource.Type][amount].Ships as ship}
+                    {#if withShipsNotInGarage || ship.private.in_garage}
+                    <div class="w-1/2 lg:w-1/2 xl:w-1/4 p-1 ">
+                        <div class="border-2 border-gray-600 rounded" class:border-green-900={ship.Resource.Earned > 0} class:border-yellow-800={ship.private && !ship.private.in_garage}>
+                            <ShipInfo {ship} />
+                        </div>
                     </div>
+                    {/if}
+                    {/each}
                 </div>
-                {/if}
-                {/each}
-            </div>
-        {/each}
+            {/each}
+            {/if}
         {/if}
         </div>
 
     </div>
-{/each}
 </div>
 
 {:else}
