@@ -164,7 +164,7 @@ resources:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
       Properties:
-        TableName: whaling-subscriber-events
+        TableName: whaling-subscribers-events
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
         - AttributeName: "AccountID"

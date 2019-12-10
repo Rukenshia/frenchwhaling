@@ -64,7 +64,7 @@ func Add(event interface{}) error {
 	}
 
 	if _, err := svc.PutItem(&dynamodb.PutItemInput{
-		TableName: aws.String("whaling-subscriber-events"),
+		TableName: aws.String("whaling-subscribers-events"),
 		Item:      av,
 	}); err != nil {
 		return err
