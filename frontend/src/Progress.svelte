@@ -16,6 +16,7 @@
     const lastUpdatedMoment = writable(undefined);
 
     let data = writable(undefined);
+    let initialDataLoaded = writable(false);
     let error = false;
     const max = derived(data, v => {
         if (v === undefined) { return [0, 0]; }
@@ -105,7 +106,7 @@
             });
     }
 
-    async function reloadDataWithRetry(tries = 60) {
+    async function reloadDataWithRetry(tries = 60, done = () => {}) {
         let lastUpdated = undefined;
         if ($data) {
             reloading = true;
@@ -115,8 +116,8 @@
 
         try {
             const res = await axios.get(`${$dataUrl}?${+ new Date()}`);
-            console.log(res.data.Resources);
             $data = res.data;
+            done();
 
             if (reloading) {
                 if (lastUpdated >= $data.LastUpdated) {
@@ -141,6 +142,7 @@
                 try {
                     const res = await axios.get(`${$dataUrl}?${+ new Date()}`);
                     $data = res.data;
+                    done();
 
                     if (reloading) {
                         if (lastUpdated >= $data.LastUpdated) {
@@ -161,14 +163,16 @@
 
     onMount(async () => {
         $timestamp = +new Date() * 1000000;
-        await reloadDataWithRetry();
-        $resource = $data.Resources[1];
-        $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
 
-        setInterval(() => {
-            $timestamp = +new Date() * 1000000;
+        await reloadDataWithRetry(60, () => {
+            $resource = $data.Resources[1];
             $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
-        }, 2500);
+
+            setInterval(() => {
+                $timestamp = +new Date() * 1000000;
+                $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
+            }, 2500);
+        });
     });
 </script>
 
