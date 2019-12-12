@@ -199,7 +199,7 @@ button.cursor-not-allowed {
         <div style="transition: background-color .1s" class:bg-blue-900={res === $resource} class="m-2 shadow-xl rounded rounded-b-none bg-gray-800 overflow-hidden hover:bg-blue-900 hover:shadow-md">
             <div class="p-4 pb-2 flex">
                 <div class="w-7">
-                    <img class="w-8" alt="resource" src="/img/resources/{res.Type}.png" />
+                    <img class="h-8 w-auto" alt="resource" src="/img/resources/{res.Type}.png" />
                 </div>
                 <div class="sm:hidden w-auto ml-2 text-lg text-gray-400">
                     {res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0]) * 100}%
@@ -219,7 +219,7 @@ button.cursor-not-allowed {
         {#if $resource}
             <div class="flex">
                 <div class="w-7">
-                    <img class="w-8" alt="resource" src="/img/resources/{$resource.Type}.png" />
+                    <img class="h-8 w-auto" alt="resource" src="/img/resources/{$resource.Type}.png" />
                 </div>
                 <div class="w-auto ml-2 text-xl text-gray-400">{resourceName[$resource.Type]}</div>
             </div>

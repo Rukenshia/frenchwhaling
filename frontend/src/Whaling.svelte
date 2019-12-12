@@ -13,10 +13,10 @@
     let isNew = false;
 
     const eventStartTimes = {
-        eu:   1576137600,
-        com:  1576137600,
-        ru:   1576137600,
-        asia: 1576137600,
+        eu:   1576144800,
+        com:  1576069200,
+        ru:   1576047600,
+	asia: 1576108800,
     };
     const ts = Math.round(+ new Date() / 1000);
 
