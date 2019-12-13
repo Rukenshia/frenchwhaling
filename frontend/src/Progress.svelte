@@ -16,7 +16,6 @@
     const lastUpdatedMoment = writable(undefined);
 
     let data = writable(undefined);
-    let initialDataLoaded = writable(false);
     let error = false;
     const max = derived(data, v => {
         if (v === undefined) { return [0, 0]; }
