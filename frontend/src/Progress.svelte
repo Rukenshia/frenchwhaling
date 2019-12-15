@@ -205,7 +205,7 @@ button.cursor-not-allowed {
                     <img class="h-8 w-auto" alt="resource" src="/img/resources/{res.Type}.png" />
                 </div>
                 <div class="sm:hidden w-auto ml-2 text-lg text-gray-400">
-                    {res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0]) * 100}%
+                    {Math.round(res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0]) * 100)}%
                 </div>
                 <div class="hidden sm:block w-auto ml-2 text-lg text-gray-400">{res.Earned} of {$max[res.Type][withShipsNotInGarage ? 1 : 0]}</div>
             </div>
