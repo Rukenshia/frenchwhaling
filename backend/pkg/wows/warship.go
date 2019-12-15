@@ -29,7 +29,6 @@ func (w *Warship) IsTestShip() bool {
 	for _, ts := range []string{
 		"Hayate", "Slava", "Siegfried", "Goliath", "Hawkins",
 		"London", "Poltava", "Siliwangi", "Odin", "Mainz",
-		"Gorizia",
 	} {
 		if w.Name == ts {
 			return true
