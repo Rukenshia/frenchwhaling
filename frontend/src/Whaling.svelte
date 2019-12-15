@@ -112,6 +112,13 @@ body {
                             </div>
                         </div>
                     {/if}
+                    <div class="mt-12 mb-8 w-full justify-around flex">
+                        <div class="w-3/4 rounded p-2 bg-blue-800 text-white text-bold">
+                            If you enjoy using this website, please share the word and link your friends
+                            to <a href="https://whaling.in.fkn.space">https://whaling.in.fkn.space</a>
+                        </div>
+                    </div>
+
                     <Progress {isNew} />
                 </div>
             </div>
