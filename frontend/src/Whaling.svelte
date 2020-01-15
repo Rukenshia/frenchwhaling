@@ -96,7 +96,17 @@ body {
             </div>
         </div>
 
-        {#if $loggedIn}
+        <div class="mt-12 w-full flex justify-around">
+            <div class="flex flex-wrap mt-8 justify-around">
+                <div class="w-full mx-auto">
+                    <div class="bg-gray-800 text-gray-400 rounded-sm text-md p-4">
+                        Sorry, this event is over.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#if $loggedIn && false}
             <div class="mt-12 w-full flex justify-around">
                 <div class="w-full xl:w-3/4">
                     <div class="float-right h-8">
@@ -123,6 +133,7 @@ body {
                 </div>
             </div>
         {:else}    
+            {#if false}
             <div class="mt-16 w-full flex justify-around">
                 <div class="w-2/3 text-gray-500">
                     Welcome to your favorite Whaling website! On here, you'll be able to track your progress for various
@@ -143,6 +154,7 @@ body {
 
                 <Login />
             </div>
+            {/if}
             <div class="mb-32"></div>
         {/if}
         <div class="mt-8 mb-8 text-gray-400 font-medium text-sm text-center">
