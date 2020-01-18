@@ -22,8 +22,10 @@ type Statistics struct {
 	AccountID              string
 	CoalEarned             uint
 	CoalEarnable           uint
-	TokensEarned           uint
-	TokensEarnable         uint
+	SteelEarned            uint
+	SteelEarnable          uint
+	ContainersEarned       uint
+	ContainersEarnable     uint
 	ShipsInPortStart       uint
 	ShipsInPortEnd         uint
 	BattlesPlayed          int
@@ -38,25 +40,19 @@ type Statistics struct {
 	BattlesPveWon          int
 	BattlesOperSolo        int
 	BattlesOperSoloWon     int
-	HasJaguar              bool
-	HasGuepard             bool
-	HasVauquelin           bool
-	HasLeFantasque         bool
-	HasMogador             bool
-	MostPlayedShip1        string `csv:"-"`
-	MostPlayedShip1Battles int    `csv:"-"`
-	MostPlayedShip2        string `csv:"-"`
-	MostPlayedShip2Battles int    `csv:"-"`
-	MostPlayedShip3        string `csv:"-"`
-	MostPlayedShip3Battles int    `csv:"-"`
+	HasPuertoRico          bool
+	HasGorizia             bool
+	MostPlayedShip1        string //`csv:"-"`
+	MostPlayedShip1Battles int    //`csv:"-"`
+	MostPlayedShip2        string //`csv:"-"`
+	MostPlayedShip2Battles int    //`csv:"-"`
+	MostPlayedShip3        string //`csv:"-"`
+	MostPlayedShip3Battles int    //`csv:"-"`
 }
 
 var (
-	Mogador     = int64(4180555600)
-	LeFantasque = int64(4181604176)
-	Vauquelin   = int64(4182652752)
-	Guépard     = int64(4183701328)
-	Jaguar      = int64(4184749904)
+	PuertoRico = int64(3655251952)
+	Gorizia    = int64(3658397424)
 )
 
 func main() {
@@ -73,7 +69,8 @@ func main() {
 
 	s.AccountID = file.First.AccountID
 	s.CoalEarned = file.Last.Resources[wows.Coal].Earned
-	s.TokensEarned = file.Last.Resources[wows.RepublicTokens].Earned
+	s.SteelEarned = file.Last.Resources[wows.Steel].Earned
+	s.ContainersEarned = file.Last.Resources[wows.SantaGiftContainer].Earned
 
 	for idx, ship := range file.Last.Ships {
 		firstShip := file.First.Ships[idx]
@@ -107,21 +104,17 @@ func main() {
 
 		if ship.Resource.Type == wows.Coal {
 			s.CoalEarnable += ship.Resource.Amount
-		} else if ship.Resource.Type == wows.RepublicTokens {
-			s.TokensEarnable += ship.Resource.Amount
+		} else if ship.Resource.Type == wows.Steel {
+			s.SteelEarnable += ship.Resource.Amount
+		} else if ship.Resource.Type == wows.SantaGiftContainer {
+			s.ContainersEarnable += ship.Resource.Amount
 		}
 
 		switch ship.ShipID {
-		case Mogador:
-			s.HasMogador = true
-		case LeFantasque:
-			s.HasLeFantasque = true
-		case Vauquelin:
-			s.HasVauquelin = true
-		case Guépard:
-			s.HasGuepard = true
-		case Jaguar:
-			s.HasJaguar = true
+		case PuertoRico:
+			s.HasPuertoRico = true
+		case Gorizia:
+			s.HasGorizia = true
 		default:
 			continue
 
