@@ -14,13 +14,13 @@ clean:
 	rm -rf ./bin ./vendor Gopkg.lock
 
 deploy: clean build
-	sls deploy --verbose
+	npx sls deploy --verbose
 
 logs:
-	sls logs -f $(FUNCTION_NAME) -t
+	npx sls logs -f $(FUNCTION_NAME) -t
 
 invoke:
-	sls invoke -f $(FUNCTION_NAME) -l --path functions/$(FUNCTION_NAME)/resources/request.json
+	npx sls invoke -f $(FUNCTION_NAME) -l --path functions/$(FUNCTION_NAME)/resources/request.json
 
 invoke-local: build
 	./invoke.sh $(FUNCTION_NAME)
