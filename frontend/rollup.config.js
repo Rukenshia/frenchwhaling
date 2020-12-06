@@ -26,7 +26,7 @@ export default {
 			],
 			dev: !production,
 			css: css => {
-				css.write('public/bundle.css');
+				css.write('bundle.css');
 			},
 		}),
 

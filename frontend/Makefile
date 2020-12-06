@@ -3,6 +3,7 @@ CLOUDFRONT_ID=E70E85S3UWCMA
 .PHONY: build
 build:
 	npm run build
+	rm public/bundle.css.map
 
 .PHONY: deploy
 deploy:

@@ -2,10 +2,10 @@ package wows
 
 // EventStartTime is the Unix timestamp when the event starts
 var EventStartTime = map[string]int{
-	"eu":   1599127200,
-	"com":  1599127200,
-	"ru":   1599127200,
-	"asia": 1599127200,
+	"eu":   1608768000,
+	"com":  1608768000,
+	"ru":   1608768000,
+	"asia": 1608768000,
 }
 
-var ActiveEvent = BirthdayEvent2020{}
+var ActiveEvent = Snowflake2020{}
