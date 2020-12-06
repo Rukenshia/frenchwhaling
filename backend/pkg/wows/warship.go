@@ -26,7 +26,10 @@ func (w *Warship) IsRentalShip() bool {
 
 // IsTestShip returns whether the ship is currently in testing (WIP ships)
 func (w *Warship) IsTestShip() bool {
-	for _, ts := range []string{} {
+	for _, ts := range []string{
+		"Dante Alighieri", "Conte di Cavour", "Lepanto", "Leone", "Fen Yang",
+		"Werner Voss", "Hizen", "Strasbourg", "Mysore",
+	} {
 		if w.Name == ts {
 			return true
 		}

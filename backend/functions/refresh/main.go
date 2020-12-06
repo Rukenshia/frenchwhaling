@@ -264,22 +264,22 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					// with it. Let's give them the resource if we can find any wins.
 
 					// Compare against empty statistics to find a win
-					win, winType := getWinType(&storage.StoredShip{
+					_, winType := getWinType(&storage.StoredShip{
 						ShipStatistics: api.ShipStatistics{},
 					}, ship)
 
-					if win {
-						// Credit the resources
-						currentShip.ShipStatistics = ship
-						currentShip.Resource.Earned = currentShip.Resource.Amount
-						subscriberData.Ships[ship.ShipID] = currentShip
+					// if win {
+					// Credit the resources
+					currentShip.ShipStatistics = ship
+					currentShip.Resource.Earned = currentShip.Resource.Amount
+					subscriberData.Ships[ship.ShipID] = currentShip
 
-						if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
-							getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ResourceEarned event")
-							log.Printf("WARN: could not send resource earned event")
-						}
-						continue
+					if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
+						getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ResourceEarned event")
+						log.Printf("WARN: could not send resource earned event")
 					}
+					continue
+					// }
 				}
 			}
 
@@ -301,17 +301,18 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 			if ship.LastBattleTime != -1 && ship.LastBattleTime > currentShip.LastBattleTime && ship.LastBattleTime > wows.EventStartTime[ev.Realm] {
 				// There is a new battle. Find out if it was a win and credit resources
 
-				win, winType := getWinType(currentShip, ship)
+				// Snowflake 2020: removed win condiiton (need 300 base xp, let's just assume people are not this bad)
+				_, winType := getWinType(currentShip, ship)
 
-				if win {
-					currentShip.ShipStatistics = ship
-					currentShip.Resource.Earned = currentShip.Resource.Amount
+				// if win {
+				currentShip.ShipStatistics = ship
+				currentShip.Resource.Earned = currentShip.Resource.Amount
 
-					if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
-						getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ResourceEarned event")
-						log.Printf("WARN: could not send resource earned event")
-					}
+				if err := events.Add(events.NewResourceEarned(ev.AccountID, currentShip.Resource.Type, currentShip.Resource.Amount, currentShip.ShipID, winType)); err != nil {
+					getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ResourceEarned event")
+					log.Printf("WARN: could not send resource earned event")
 				}
+				// }
 			}
 
 			currentShip.ShipStatistics = ship
