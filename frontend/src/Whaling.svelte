@@ -20,10 +20,10 @@
   let isNew = false;
 
   const eventStartTimes = {
-    eu: 1598918400,
-    com: 1598918400,
-    ru: 1598918400,
-    asia: 1598918400,
+    eu: 1599127200,
+    com: 1599127200,
+    ru: 1599127200,
+    asia: 1599127200,
   };
   const ts = Math.round(+new Date() / 1000);
 
@@ -96,10 +96,10 @@
     class="w-1/12 invisible md:visible bg-blue-700 md:float-left h-0 md:h-screen" />
   <div
     class="w-1/12 invisible md:visible bg-blue-700 shadow-inner md:float-right
-    h-0 md:h-screen" />
+      h-0 md:h-screen" />
   <div
     class="w-auto h-screen bg-gray-900 shadow-md overflow-x-hidden
-    overflow-y-visible">
+      overflow-y-visible">
     <div class="flex flex-wrap mt-4 p-4">
       <div class="w-5/5 md:w-2/5 mx-auto h-24 md:h-80">
         <img
@@ -116,7 +116,7 @@
       </div>
     </div>
 
-    <!-- <div class="mt-12 w-full flex justify-around">
+    <div class="mt-12 w-full flex justify-around">
       <div class="flex flex-wrap mt-8 justify-around">
         <div class="w-full mx-auto">
           <div class="bg-gray-800 text-gray-400 rounded-sm text-md p-4">
@@ -124,16 +124,17 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
+    <!--
     {#if $loggedIn}
       <div class="mt-12 w-full flex justify-around">
         <div class="w-full xl:w-3/4">
           <div class="float-right h-8">
             <button
               on:click={donate}
-              class="mr-4 px-4 font-xs border-none py-1 rounded bg-green-400
-              hover:bg-green-500 text-gray-800 shadow-md">
+              class="mr-4 px-4 font-xs font-medium border-none py-1 rounded
+                bg-orange-400 hover:bg-orange-500 text-gray-900 shadow-xl">
               Donate
             </button>
             <a
@@ -141,13 +142,13 @@
               style="padding-top: 7px; padding-bottom: 7px;"
               href="mailto:svc-frenchwhaling@ruken.pw"
               class="mr-4 p-0 px-4 border-none rounded bg-gray-700
-              hover:no-underline hover:bg-gray-800">
+                hover:no-underline hover:bg-gray-800">
               Contact me
             </a>
             <button
               on:click={logout}
               class="mr-4 px-4 font-xs border-none py-1 rounded bg-gray-700
-              hover:bg-gray-800">
+                hover:bg-gray-800">
               Logout
             </button>
           </div>
@@ -164,8 +165,7 @@
           <div class="mt-12 mb-8 w-full justify-around flex">
             <div class="w-3/4 rounded p-2 bg-blue-800 text-white text-bold">
               If you enjoy using this website, please share the word and link
-              your friends to
-              <a href="https://whaling.in.fkn.space">
+              your friends to <a href="https://whaling.in.fkn.space">
                 https://whaling.in.fkn.space
               </a>
             </div>
@@ -179,8 +179,7 @@
         <div class="w-2/3 text-gray-500">
           Welcome to your favorite Whaling website! On here, you'll be able to
           track your progress for various World of Warships events such as the
-          Warships Anniversary 2020 event.
-          <strong>
+          Warships Anniversary 2020 event. <strong>
             Please note that the website may not work with hidden profiles.
           </strong>
         </div>
@@ -189,19 +188,12 @@
         {#if error}
           <div class="w-full flex justify-around mb-8">
             <div class="w-1/2 text-center bg-red-600 text-white rounded-sm p-4">
-              There was an error logging you in. Feel free to contact me
-              <a
+              There was an error logging you in. Feel free to contact me <a
                 class="font-medium underline"
                 href="mailto:svc-frenchwhaling@ruken.pw">
                 via Email
-              </a>
-              or Discord (Rukenshia#4396) if you can't get past this.
-              <br />
-              Error message:
-              <span class="font-mono">
-                {reason}
-                <span />
-              </span>
+              </a> or Discord (Rukenshia#4396) if you can't get past this. <br />
+              Error message: <span class="font-mono"> {reason} <span /> </span>
             </div>
           </div>
         {/if}
@@ -210,14 +202,14 @@
       </div>
       <div class="mb-32" />
     {/if}
+    -->
     <div class="mt-8 mb-8 text-gray-400 font-medium text-sm text-center">
-      <a href="#privacy" on:click={privacyPolicy}>Privacy Policy</a>
-      &bullet;
-      <a target="_blank" href="https://git.sr.ht/~rukenshia/frenchwhaling">
+      <a href="#privacy" on:click={privacyPolicy}>Privacy Policy</a> &bullet; <a
+        target="_blank"
+        href="https://git.sr.ht/~rukenshia/frenchwhaling">
         Source code
-      </a>
-      &bullet; This website is not affiliated with Wargaming &bullet; Thanks to
-      AdonisWerther for the logo ❤️
+      </a> &bullet; This website is not affiliated with Wargaming &bullet; Thanks
+      to AdonisWerther for the logo ❤️
     </div>
 
     {#if toggle}
@@ -239,7 +231,7 @@
             </li>
           </ul>
 
-          <p class="mt-2 ">
+          <p class="mt-2">
             The data will be stored on Amazon Web Services in the eu-central-1
             (Frankfurt) region. I intend to publish statistics about the event
             after it is over. Data will be anonymised and only general
