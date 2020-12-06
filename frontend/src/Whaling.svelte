@@ -20,10 +20,10 @@
   let isNew = false;
 
   const eventStartTimes = {
-    eu: 1599127200,
-    com: 1599127200,
-    ru: 1599127200,
-    asia: 1599127200,
+    eu: 1608768000,
+    com: 1608768000,
+    ru: 1608768000,
+    asia: 1608768000,
   };
   const ts = Math.round(+new Date() / 1000);
 
@@ -93,30 +93,32 @@
 
 <div class="font-sans w-full h-screen text-white">
   <div
-    class="w-1/12 invisible md:visible bg-blue-700 md:float-left h-0 md:h-screen" />
+    class="w-1/12 invisible md:visible bg-red-900 md:float-left h-0 md:h-screen" />
   <div
-    class="w-1/12 invisible md:visible bg-blue-700 shadow-inner md:float-right
+    class="w-1/12 invisible md:visible bg-red-900 shadow-inner md:float-right
       h-0 md:h-screen" />
   <div
     class="w-auto h-screen bg-gray-900 shadow-md overflow-x-hidden
       overflow-y-visible">
     <div class="flex flex-wrap mt-4 p-4">
-      <div class="w-5/5 md:w-2/5 mx-auto h-24 md:h-80">
+      <div class="w-5/5 md:w-2/5 mx-auto h-24 md:h-36">
         <img
           alt="Logo made by AdonisWerther"
-          class="h-24 md:h-80 w-auto float-right"
+          class="h-24 md:h-36 w-auto float-right"
           src="/img/whale.gif" />
       </div>
       <div class="w-5/5 pl-4 md:w-3/5 flex-grow">
-        <h1 class="text-5xl text-gray-300">Birthday Whaling</h1>
-        <div class="-mt-2 text-gray-500">
+        <h1 class="text-5xl text-gray-300">Steelwhaling</h1>
+        <div class="text-gray-500">
           Brought to you by Rukenshia on the EU server, the same idiot that
-          built Steelwhaling, Frenchwhaling and Shipvoting
+          built Steelwhaling, Frenchwhaling and
+          <a
+            href="https://dashboard.twitch.tv/extensions/1n8nhpxd3p623wla18px8l8smy0ym7-2.2.1">Shipvoting</a>
         </div>
       </div>
     </div>
 
-    <div class="mt-12 w-full flex justify-around">
+    <!-- <div class="mt-12 w-full flex justify-around">
       <div class="flex flex-wrap mt-8 justify-around">
         <div class="w-full mx-auto">
           <div class="bg-gray-800 text-gray-400 rounded-sm text-md p-4">
@@ -124,9 +126,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!--
     {#if $loggedIn}
       <div class="mt-12 w-full flex justify-around">
         <div class="w-full xl:w-3/4">
@@ -163,9 +164,10 @@
             </div>
           {/if}
           <div class="mt-12 mb-8 w-full justify-around flex">
-            <div class="w-3/4 rounded p-2 bg-blue-800 text-white text-bold">
+            <div class="w-3/4 rounded p-2 bg-blue-300 text-white text-blue-900">
               If you enjoy using this website, please share the word and link
-              your friends to <a href="https://whaling.in.fkn.space">
+              your friends to
+              <a href="https://whaling.in.fkn.space">
                 https://whaling.in.fkn.space
               </a>
             </div>
@@ -175,11 +177,12 @@
         </div>
       </div>
     {:else}
-      <div class="mt-16 w-full flex justify-around">
-        <div class="w-2/3 text-gray-500">
+      <div class="mt-8 mx-auto w-2/3 flex-col flex">
+        <div class="mt-4 text-gray-500">
           Welcome to your favorite Whaling website! On here, you'll be able to
           track your progress for various World of Warships events such as the
-          Warships Anniversary 2020 event. <strong>
+          Warships Anniversary 2020 event.
+          <strong>
             Please note that the website may not work with hidden profiles.
           </strong>
         </div>
@@ -188,28 +191,43 @@
         {#if error}
           <div class="w-full flex justify-around mb-8">
             <div class="w-1/2 text-center bg-red-600 text-white rounded-sm p-4">
-              There was an error logging you in. Feel free to contact me <a
+              There was an error logging you in. Feel free to contact me
+              <a
                 class="font-medium underline"
                 href="mailto:svc-frenchwhaling@ruken.pw">
                 via Email
-              </a> or Discord (Rukenshia#4396) if you can't get past this. <br />
-              Error message: <span class="font-mono"> {reason} <span /> </span>
+              </a>
+              or Discord (Rukenshia#4396) if you can't get past this.
+              <br />
+              Error message:
+              <span class="font-mono"> {reason} <span /> </span>
             </div>
           </div>
         {/if}
 
         <Login />
       </div>
-      <div class="mb-32" />
+      <div class="mb-16" />
+      <div class="bg-gray-800 text-gray-300 p-4">
+        <span class="block uppercase text-xs mb-2">Tracking information</span>
+        Wargaming has changed the event rules so that you either need to win a
+        battle or earn 300 base xp to blow off the snowflake. Due to limitations
+        in the Wargaming API, the 300 base xp requirement cannot be tracked by
+        this website. Since I hope that you are not a terrible player, I will
+        assume that
+        <strong>any battle</strong>
+        will blow off a snowflake of your ship.
+      </div>
     {/if}
-    -->
+
     <div class="mt-8 mb-8 text-gray-400 font-medium text-sm text-center">
-      <a href="#privacy" on:click={privacyPolicy}>Privacy Policy</a> &bullet; <a
-        target="_blank"
-        href="https://git.sr.ht/~rukenshia/frenchwhaling">
+      <a href="#privacy" on:click={privacyPolicy}>Privacy Policy</a>
+      &bullet;
+      <a target="_blank" href="https://git.sr.ht/~rukenshia/frenchwhaling">
         Source code
-      </a> &bullet; This website is not affiliated with Wargaming &bullet; Thanks
-      to AdonisWerther for the logo ❤️
+      </a>
+      &bullet; This website is not affiliated with Wargaming &bullet; Thanks to
+      AdonisWerther for the logo ❤️
     </div>
 
     {#if toggle}

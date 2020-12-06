@@ -209,7 +209,7 @@
     $timestamp = +new Date() * 1000000;
 
     await reloadDataWithRetry(60, () => {
-      $resource = $data.Resources[4];
+      $resource = $data.Resources[1];
       $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
 
       setInterval(() => {
@@ -227,12 +227,12 @@
 </style>
 
 {#if $data}
-
   <div class="ml-4 text-gray-400 font-medium text-sm">
     {#if reloading}
       <span class="font-mono">Loading...</span>
     {:else}
-      Last updated {$lastUpdatedMoment}
+      Last updated
+      {$lastUpdatedMoment}
       {#if $timestamp - $data.LastUpdated > 10 * 60 * 1000 * 1000000}
         <button
           on:click={refresh}
@@ -250,15 +250,15 @@
     {/if}
   </div>
   <div class="w-full flex flex-wrap mt-4 px-2">
-    {#each $data.Resources.slice(4) as res}
+    {#each $data.Resources.slice(1, 4) as res}
       <div class="w-1/3" on:click={() => ($resource = res)}>
         <div
           style="transition: background-color .1s"
-          class:bg-blue-900={res === $resource}
+          class:bg-red-900={res === $resource}
           class="m-2 shadow-xl rounded rounded-b-none bg-gray-800
-          overflow-hidden hover:bg-blue-900 hover:shadow-md">
+          overflow-hidden hover:bg-red-800 hover:shadow-md">
           <div class="p-4 pb-2 flex">
-            <div class="w-7">
+            <div class="w-8">
               <img
                 class="h-8 w-auto"
                 alt="resource"
@@ -268,7 +268,9 @@
               {Math.round((res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) * 100)}%
             </div>
             <div class="hidden sm:block w-auto ml-2 text-lg text-gray-400">
-              {res.Earned} of {$max[res.Type][withShipsNotInGarage ? 1 : 0]}
+              {res.Earned}
+              of
+              {$max[res.Type][withShipsNotInGarage ? 1 : 0]}
             </div>
           </div>
           <div class="relative h-2 w-full z-0 bg-gray-700">
@@ -298,7 +300,8 @@
           <div class="p-4 text-gray-500">
             You have earned up to
             <span class="text-3xl">{$resource.Earned}</span>
-            {resourceName[$resource.Type]} out of
+            {resourceName[$resource.Type]}
+            out of
             <span class="text-3xl">
               {$max[$resource.Type][withShipsNotInGarage ? 1 : 0]}
             </span>
@@ -318,7 +321,8 @@
             {#each Object.keys($categories[$resource.Type]).reverse() as amount}
               <div class="flex flex-wrap mb-4">
                 <div class="w-full pl-2 text-sm text-gray-600 font-medium">
-                  {amount} {resourceName[$resource.Type]}
+                  {amount}
+                  {resourceName[$resource.Type]}
                 </div>
                 {#each $categories[$resource.Type][amount].Ships as ship}
                   {#if withShipsNotInGarage || ship.private.in_garage}
@@ -337,7 +341,6 @@
           {/if}
         {/if}
       </div>
-
     </div>
   </div>
 {:else}
@@ -354,7 +357,9 @@
         stay put.
       </div>
       <div class="w-3/4 text-center text-xs text-gray-500 font-mono">
-        attempt {retries + 1} of 10
+        attempt
+        {retries + 1}
+        of 10
       </div>
     {/if}
     {#if error && retries > 9}
