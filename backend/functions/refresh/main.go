@@ -180,6 +180,58 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 			continue
 		}
 
+		// Remove ships if needed
+		if !isNewSubscriber {
+			// Remove ships that are no longer in port
+			for _, storedShip := range subscriberData.Ships {
+				sentryShipHub := sentryAccountHub.Clone()
+				sentryShipHub.ConfigureScope(func(scope *sentry.Scope) {
+					scope.SetTag("ShipID", fmt.Sprintf("%d", storedShip.ShipID))
+				})
+
+				wowsShip, ok := wows.Ships[storedShip.ShipID]
+				if !ok {
+					// Probably a ship that's not in the API anymore
+					continue
+				}
+
+				// Remove ships that are no longer eligible
+				if !wows.ActiveEvent.IsShipEligible(&wowsShip) {
+					storedShip.Private.InGarage = false
+					delete(subscriberData.Ships, storedShip.ShipID)
+					log.Printf("Removed ineligible ship=%d player=%s", storedShip.ShipID, subscriberData.AccountID)
+
+					if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
+						getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
+						log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
+					}
+					sentryShipHub.CaptureMessage("ShipRemoval: ineligible")
+					continue
+				}
+
+				if storedShip.Private.InGarage {
+					found := false
+					for _, portShip := range shipsInPort {
+						if storedShip.ShipID == portShip {
+							found = true
+							break
+						}
+					}
+
+					if !found {
+						log.Printf("Ship removed from garage ship=%d player=%s", storedShip.ShipID, subscriberData.AccountID)
+						storedShip.Private.InGarage = false
+						sentryShipHub.CaptureMessage("ShipRemoval: no longer in garage")
+
+						if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
+							getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
+							log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
+						}
+					}
+				}
+			}
+		}
+
 		// Add ships that were not in port before
 		for _, shipID := range shipsInPort {
 			wowsShip, ok := wows.Ships[shipID]
@@ -207,10 +259,10 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 			// Add the ship with empty data to newData,
 			// this means it will be counted as ShipAddition further down
-			newData[shipID] = api.ShipStatistics{
+			newData[shipID] = &api.ShipStatistics{
 				ShipID:         shipID,
 				LastBattleTime: -1,
-				Private: api.ShipStatisticsPrivate{
+				Private: &api.ShipStatisticsPrivate{
 					InGarage: true,
 				},
 			}
@@ -265,7 +317,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 					// Compare against empty statistics to find a win
 					_, winType := getWinType(&storage.StoredShip{
-						ShipStatistics: api.ShipStatistics{},
+						ShipStatistics: &api.ShipStatistics{},
 					}, ship)
 
 					// if win {
@@ -356,7 +408,7 @@ func main() {
 	lambda.Start(Handler)
 }
 
-func getWinType(currentShip *storage.StoredShip, newShip api.ShipStatistics) (win bool, winType string) {
+func getWinType(currentShip *storage.StoredShip, newShip *api.ShipStatistics) (win bool, winType string) {
 	if newShip.Pvp.Wins > currentShip.Pvp.Wins {
 		win = true
 		winType = "pvp"

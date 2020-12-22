@@ -1,12 +1,13 @@
 <script>
   import { derived, writable } from "svelte/store";
   import { onMount } from "svelte";
-  import { accountId, dataUrl, token, shipInfo } from "./store";
+  import { accountId, dataUrl, token, shipInfo, resourceName } from "./store";
   import moment from "moment";
   import axios from "axios";
   import ShipInfo from "./ShipInfo.svelte";
 
   export let isNew;
+  export let eventStarted;
   let retries = 0;
   let reloading = false;
   let withShipsNotInGarage = false;
@@ -118,16 +119,6 @@
     },
     [{}, {}, {}, {}]
   );
-
-  const resourceName = [
-    "Republic Tokens",
-    "Coal",
-    "Steel",
-    "Santa Container",
-    "Super Container",
-    "Anniversary Camouflage",
-    "Anniversary Container",
-  ];
 
   function refresh() {
     axios
@@ -258,7 +249,7 @@
           class="m-2 shadow-xl rounded rounded-b-none bg-gray-800
           overflow-hidden hover:bg-red-800 hover:shadow-md">
           <div class="p-4 pb-2 flex">
-            <div class="w-8">
+            <div class="">
               <img
                 class="h-8 w-auto"
                 alt="resource"
@@ -287,7 +278,7 @@
       <div class="m-2 p-4 shadow-xl rounded-t-none rounded bg-gray-800">
         {#if $resource}
           <div class="flex">
-            <div class="w-7">
+            <div class="">
               <img
                 class="h-8 w-auto"
                 alt="resource"
@@ -297,7 +288,17 @@
               {resourceName[$resource.Type]}
             </div>
           </div>
-          <div class="p-4 text-gray-500">
+          {#if !eventStarted}
+            <div class="p-4">
+              <div class="bg-gray-600 text-gray-200 font-medium rounded p-4">
+                You are preregistered for the tracking, but the event has not
+                started on your server yet. Data will update as soon as the
+                patch is live on your server and you started playing battles.
+              </div>
+            </div>
+          {/if}
+
+          <div class="p-4 text-gray-200">
             You have earned up to
             <span class="text-3xl">{$resource.Earned}</span>
             {resourceName[$resource.Type]}
@@ -308,7 +309,7 @@
             you can earn during the event.
           </div>
           <div class="p-4 pt-0">
-            <label class="md:w-full block text-gray-600 font-bold">
+            <label class="md:w-full block text-gray-400 font-bold">
               <input
                 class="mr-2 leading-tight"
                 type="checkbox"
@@ -320,7 +321,7 @@
           {#if $categories}
             {#each Object.keys($categories[$resource.Type]).reverse() as amount}
               <div class="flex flex-wrap mb-4">
-                <div class="w-full pl-2 text-sm text-gray-600 font-medium">
+                <div class="w-full pl-2 text-sm text-gray-300 font-medium">
                   {amount}
                   {resourceName[$resource.Type]}
                 </div>

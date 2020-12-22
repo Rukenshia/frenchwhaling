@@ -8,4 +8,4 @@ build:
 .PHONY: deploy
 deploy:
 	aws s3 sync public s3://whaling.in.fkn.space
-	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_ID) --paths /index.html /img/* /bundle.css /bundle.js /global.css /warships.min.json
+	aws cloudfront create-invalidation --distribution-id $(CLOUDFRONT_ID) --paths /index.html /img/* /bundle.css /bundle.js /header.jpg /global.css /warships.min.json

@@ -21,3 +21,5 @@ vendor
 *.out
 
 node_modules
+
+backups

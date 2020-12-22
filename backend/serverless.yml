@@ -33,6 +33,12 @@ provider:
         - - Fn::GetAtt: SubscribersBucket.Arn
           - '/*'
     - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:PutObjectAcl
+      Resource:
+        arn:aws:s3:::whaling.in.fkn.space/*
+    - Effect: Allow
       Action: "sns:Publish"
       Resource:
         Ref: SNSTopic
@@ -81,11 +87,11 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    #events:
-    #- http:
-        #cors: true
-        #path: /subscribers/{accountId}/refresh
-        #method: get
+    events:
+    - http:
+        cors: true
+        path: /subscribers/{accountId}/refresh
+        method: get
 
   manualRefresh:
     handler: bin/refresh
@@ -142,8 +148,18 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    #events:
-      #- schedule: rate(2 minutes)
+    events:
+      - schedule: rate(2 minutes)
+  
+  generateGlobalStats:
+    handler: bin/generateGlobalStats
+    memorySize: 2048
+    timeout: 300
+    environment:
+      APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
+    events:
+      - schedule: rate(1 hour)
 
 resources:
   Resources:

@@ -9,6 +9,7 @@ build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/schedule functions/schedule/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/login functions/login/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/click functions/click/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/generateGlobalStats functions/generateGlobalStats/main.go
 
 clean:
 	rm -rf ./bin ./vendor Gopkg.lock
@@ -20,7 +21,7 @@ logs:
 	npx sls logs -f $(FUNCTION_NAME) -t
 
 invoke:
-	npx sls invoke -f $(FUNCTION_NAME) -l --path functions/$(FUNCTION_NAME)/resources/request.json
+	npx sls invoke local -f $(FUNCTION_NAME) -l --path functions/$(FUNCTION_NAME)/resources/request.json
 
 invoke-local: build
 	./invoke.sh $(FUNCTION_NAME)

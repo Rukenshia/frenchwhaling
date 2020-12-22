@@ -16,6 +16,7 @@
   "dependencies": {
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.0",
+    "human-readable-numbers": "^0.9.5",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",

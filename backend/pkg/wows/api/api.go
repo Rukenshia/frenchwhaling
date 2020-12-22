@@ -55,7 +55,7 @@ type PlayerPortResponse struct {
 
 type ShipsStatisticsResponse struct {
 	ApiResponse
-	Data map[string][]ShipStatistics `json:"data"`
+	Data map[string][]*ShipStatistics `json:"data"`
 }
 
 type ShipStatisticsPrivate struct {
@@ -63,10 +63,10 @@ type ShipStatisticsPrivate struct {
 }
 
 type ShipStatistics struct {
-	ShipID         int64                 `json:"ship_id"`
-	LastBattleTime int                   `json:"last_battle_time"`
-	Battles        int                   `json:"battles"`
-	Private        ShipStatisticsPrivate `json:"private"`
+	ShipID         int64                  `json:"ship_id"`
+	LastBattleTime int                    `json:"last_battle_time"`
+	Battles        int                    `json:"battles"`
+	Private        *ShipStatisticsPrivate `json:"private"`
 	Pvp            struct {
 		Wins    int `json:"wins"`
 		Battles int `json:"battles"`
@@ -163,7 +163,7 @@ func GetPlayerPort(realm, accessToken, accountId string) ([]int64, error) {
 	return data.Data[accountId].Private.Port, nil
 }
 
-func GetPlayerShipStatistics(realm, accessToken, accountId string) (map[int64]ShipStatistics, error) {
+func GetPlayerShipStatistics(realm, accessToken, accountId string) (map[int64]*ShipStatistics, error) {
 	client := resty.New()
 
 	log.Printf("GetPlayerShipStatistics: accountId=%s realm=%s", accountId, realm)
@@ -192,11 +192,9 @@ func GetPlayerShipStatistics(realm, accessToken, accountId string) (map[int64]Sh
 		return nil, fmt.Errorf("WG API status: %v", data)
 	}
 
-	entry := data.Data[accountId]
+	shipStatistics := make(map[int64]*ShipStatistics)
 
-	shipStatistics := make(map[int64]ShipStatistics)
-
-	for _, e := range entry {
+	for _, e := range data.Data[accountId] {
 		shipStatistics[e.ShipID] = e
 	}
 
