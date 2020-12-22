@@ -1,6 +1,5 @@
 <script>
   import Whaling from "./Whaling.svelte";
-  export let name;
 </script>
 
 <style global>

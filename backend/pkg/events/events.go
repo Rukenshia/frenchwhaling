@@ -29,6 +29,11 @@ type ShipAddition struct {
 	ShipID int64
 }
 
+type ShipRemoval struct {
+	SubscriberEvent
+	ShipID int64
+}
+
 func NewResourceEarned(accountID string, resource wows.Resource, amount uint, shipID int64, battleType string) ResourceEarned {
 	return ResourceEarned{
 		SubscriberEvent: SubscriberEvent{
@@ -49,6 +54,17 @@ func NewShipAddition(accountID string, shipID int64) ShipAddition {
 			AccountID: accountID,
 			Timestamp: time.Now().UnixNano(),
 			Type:      "ShipAddition",
+		},
+		ShipID: shipID,
+	}
+}
+
+func NewShipRemoval(accountID string, shipID int64) ShipAddition {
+	return ShipAddition{
+		SubscriberEvent: SubscriberEvent{
+			AccountID: accountID,
+			Timestamp: time.Now().UnixNano(),
+			Type:      "ShipRemoval",
 		},
 		ShipID: shipID,
 	}

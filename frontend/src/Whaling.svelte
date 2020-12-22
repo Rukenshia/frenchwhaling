@@ -3,6 +3,7 @@
   import Login from "./Login.svelte";
   import Progress from "./Progress.svelte";
   import * as querystring from "query-string";
+  import HRNumbers from "human-readable-numbers";
   import jwtDecode from "jwt-decode";
   import {
     accountId,
@@ -11,6 +12,8 @@
     nickname,
     realm,
     loggedIn,
+    statistics,
+    resourceName,
   } from "./store";
   import { reportClick } from "./clickEvents";
 
@@ -20,10 +23,10 @@
   let isNew = false;
 
   const eventStartTimes = {
-    eu: 1608768000,
-    com: 1608768000,
-    ru: 1608768000,
-    asia: 1608768000,
+    eu: 1608613200,
+    com: 1608544800,
+    ru: 1608516000,
+    asia: 1608584400,
   };
   const ts = Math.round(+new Date() / 1000);
 
@@ -64,7 +67,7 @@
   function donate() {
     reportClick("Donate");
     alert(
-      'Thanks for clicking on this button! This was a project I built during my free time and I am paying the infrastructure costs myself. While I do not take actual money as donations, I am always happy to read a "Thank you" email or receiving a little gift on EU, my username is Rukenshia.'
+      'Thanks for clicking on this button! This was a project I built during my free time and I am paying the infrastructure costs myself. While I do not take actual money as donations, I am always happy to read a "Thank you" email or receiving a little gift on EU, my username is Rukenshia. You can find my email on the "Contact me" button.'
     );
   }
 
@@ -91,33 +94,33 @@
   }
 </style>
 
-<div class="font-sans w-full h-screen text-white">
+<div class="font-sans w-full h-screen text-white bg-gray-900">
   <div
-    class="w-1/12 invisible md:visible bg-red-900 md:float-left h-0 md:h-screen" />
-  <div
-    class="w-1/12 invisible md:visible bg-red-900 shadow-inner md:float-right
-      h-0 md:h-screen" />
-  <div
-    class="w-auto h-screen bg-gray-900 shadow-md overflow-x-hidden
-      overflow-y-visible">
-    <div class="flex flex-wrap mt-4 p-4">
-      <div class="w-5/5 md:w-2/5 mx-auto h-24 md:h-36">
+    class="relative w-full h-48 z-0"
+    style="background: url(/header.jpg) no-repeat center center fixed; background-size: cover;">
+    <div
+      class="absolute left-0 bottom-0 bg-gradient-to-b from-transparent to-gray-900 w-full h-full z-0" />
+    <div class="flex justify-center p-4 pt-12 z-10">
+      <div class="z-10 flex-shrink-0 hidden sm:block">
         <img
           alt="Logo made by AdonisWerther"
-          class="h-24 md:h-36 w-auto float-right"
-          src="/img/whale.gif" />
+          class="h-24 w-auto"
+          src="/img/christmas.png" />
       </div>
-      <div class="w-5/5 pl-4 md:w-3/5 flex-grow">
-        <h1 class="text-5xl text-gray-300">Steelwhaling</h1>
-        <div class="text-gray-500">
+      <div class="z-10 pl-4">
+        <h1 class="text-5xl text-white">Steelwhaling</h1>
+        <div class="text-gray-200">
           Brought to you by Rukenshia on the EU server, the same idiot that
           built Steelwhaling, Frenchwhaling and
           <a
-            href="https://dashboard.twitch.tv/extensions/1n8nhpxd3p623wla18px8l8smy0ym7-2.2.1">Shipvoting</a>
+            href="https://dashboard.twitch.tv/extensions/1n8nhpxd3p623wla18px8l8smy0ym7-2.2.1"
+            style="color: inherit"
+            class="font-medium underline">Shipvoting</a>
         </div>
       </div>
     </div>
-
+  </div>
+  <div class="bg-gray-900 shadow-md mt-12 sm:mt-0">
     <!-- <div class="mt-12 w-full flex justify-around">
       <div class="flex flex-wrap mt-8 justify-around">
         <div class="w-full mx-auto">
@@ -129,63 +132,68 @@
     </div> -->
 
     {#if $loggedIn}
-      <div class="mt-12 w-full flex justify-around">
+      <div class="p-8 w-full flex justify-around">
         <div class="w-full xl:w-3/4">
-          <div class="float-right h-8">
-            <button
-              on:click={donate}
-              class="mr-4 px-4 font-xs font-medium border-none py-1 rounded
-                bg-orange-400 hover:bg-orange-500 text-gray-900 shadow-xl">
-              Donate
-            </button>
-            <a
-              on:click={contact}
-              style="padding-top: 7px; padding-bottom: 7px;"
-              href="mailto:svc-frenchwhaling@ruken.pw"
-              class="mr-4 p-0 px-4 border-none rounded bg-gray-700
-                hover:no-underline hover:bg-gray-800">
-              Contact me
-            </a>
+          <div class="h-8 flex flex-row-reverse flex-wrap gap-2">
             <button
               on:click={logout}
-              class="mr-4 px-4 font-xs border-none py-1 rounded bg-gray-700
+              class="px-4 font-xs border-none py-1 rounded bg-gray-700
                 hover:bg-gray-800">
               Logout
             </button>
+            <a
+              on:click={contact}
+              href="mailto:svc-frenchwhaling@ruken.pw"
+              class="px-4 font-xs border-none py-1 rounded bg-gray-700
+              hover:bg-gray-800">
+              Contact me
+            </a>
+            <button
+              on:click={donate}
+              class="px-4 font-xs font-medium border-none py-1 rounded
+                bg-yellow-400 hover:bg-yellow-500 text-yellow-900 shadow-xl">
+              Donate
+            </button>
           </div>
-          {#if ts < eventStartTimes[$realm]}
-            <div class="w-full flex justify-around mt-16 mb-8">
-              <div
-                class="w-3/4 bg-blue-300 text-blue-900 font-medium rounded p-4">
-                You are preregistered for the tracking, but the event has not
-                started on your server yet. Data will update as soon as the
-                patch is live on your server and you started playing battles.
-              </div>
-            </div>
-          {/if}
-          <div class="mt-12 mb-8 w-full justify-around flex">
-            <div class="w-3/4 rounded p-2 bg-blue-300 text-white text-blue-900">
+          <div class="mt-16 mb-8 w-full justify-around flex">
+            <div class="w-3/4 rounded p-2 bg-gray-800 text-white text-gray-300">
               If you enjoy using this website, please share the word and link
               your friends to
-              <a href="https://whaling.in.fkn.space">
+              <a
+                href="https://whaling.in.fkn.space"
+                style="color: inherit"
+                class="font-bold">
                 https://whaling.in.fkn.space
               </a>
             </div>
           </div>
 
-          <Progress {isNew} />
+          <Progress {isNew} eventStarted={ts >= eventStartTimes[$realm]} />
         </div>
       </div>
     {:else}
-      <div class="mt-8 mx-auto w-2/3 flex-col flex">
-        <div class="mt-4 text-gray-500">
-          Welcome to your favorite Whaling website! On here, you'll be able to
-          track your progress for various World of Warships events such as the
-          Warships Anniversary 2020 event.
-          <strong>
-            Please note that the website may not work with hidden profiles.
-          </strong>
-        </div>
+      <div class="flex flex-wrap mt-8 gap-4 justify-center">
+        Global Progress
+      </div>
+      <div class="flex flex-wrap mt-2 gap-4 justify-center">
+        {#each $statistics as res}
+          <div class="bg-gray-800 text-gray-200 rounded-sm">
+            <div class="p-4 flex gap-2 items-center">
+              <div class="">
+                <img
+                  class="h-8 w-auto"
+                  alt="resource"
+                  src="/img/resources/{res.Type}.png" />
+              </div>
+              <div>{HRNumbers.toHumanString(res.Earned)}</div>
+            </div>
+            <div class="relative h-2 w-full z-0 bg-gray-700 rounded-b-sm">
+              <div
+                style="width: {(res.Earned / res.Amount) * 100}%"
+                class="absolute bottom-0 h-2 bg-green-900 rounded-b-sm" />
+            </div>
+          </div>
+        {/each}
       </div>
       <div class="flex flex-wrap mt-8 justify-around">
         {#if error}
@@ -208,16 +216,6 @@
         <Login />
       </div>
       <div class="mb-16" />
-      <div class="bg-gray-800 text-gray-300 p-4">
-        <span class="block uppercase text-xs mb-2">Tracking information</span>
-        Wargaming has changed the event rules so that you either need to win a
-        battle or earn 300 base xp to blow off the snowflake. Due to limitations
-        in the Wargaming API, the 300 base xp requirement cannot be tracked by
-        this website. Since I hope that you are not a terrible player, I will
-        assume that
-        <strong>any battle</strong>
-        will blow off a snowflake of your ship.
-      </div>
     {/if}
 
     <div class="mt-8 mb-8 text-gray-400 font-medium text-sm text-center">
