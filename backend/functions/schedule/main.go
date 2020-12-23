@@ -11,7 +11,6 @@ import (
 
 	"github.com/getsentry/sentry-go"
 
-	awsEvents "github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
@@ -25,11 +24,20 @@ func getHub(hub *sentry.Hub, fields map[string]interface{}) *sentry.Hub {
 	return h
 }
 
+// Request is the payload the service gets called with
+type Request struct {
+	RefreshAll bool
+}
+
 // Handler is the lambda handler invoked by the `lambda.Start` function call
-func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (string, error) {
+func Handler(ctx context.Context, request Request) (string, error) {
 	defer sentry.Flush(5 * time.Second)
 	log.Printf("Scheduler started")
 	want := time.Now().Add(-120 * time.Minute)
+
+	if request.RefreshAll {
+		want = time.Now()
+	}
 
 	log.Printf("Finding last scheduled want=%d", want.UnixNano())
 

@@ -21,7 +21,7 @@ logs:
 	npx sls logs -f $(FUNCTION_NAME) -t
 
 invoke:
-	npx sls invoke local -f $(FUNCTION_NAME) -l --path functions/$(FUNCTION_NAME)/resources/request.json
+	npx sls invoke -f $(FUNCTION_NAME) -l --path functions/$(FUNCTION_NAME)/resources/request.json
 
 invoke-local: build
 	./invoke.sh $(FUNCTION_NAME)

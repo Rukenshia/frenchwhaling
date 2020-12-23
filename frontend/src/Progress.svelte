@@ -141,6 +141,13 @@
       });
   }
 
+  function storeWithShipsNotInGarage() {
+    localStorage.setItem(
+      "withShipsNotInGarage",
+      JSON.stringify(withShipsNotInGarage)
+    );
+  }
+
   async function reloadDataWithRetry(tries = 60, done = () => {}) {
     let lastUpdated = undefined;
     if ($data) {
@@ -199,6 +206,13 @@
   onMount(async () => {
     $timestamp = +new Date() * 1000000;
 
+    const storedWithShipsNotInGarage = localStorage.getItem(
+      "withShipsNotInGarage"
+    );
+    if (storedWithShipsNotInGarage !== null) {
+      withShipsNotInGarage = JSON.parse(storedWithShipsNotInGarage);
+    }
+
     await reloadDataWithRetry(60, () => {
       $resource = $data.Resources[1];
       $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
@@ -245,9 +259,9 @@
       <div class="w-1/3" on:click={() => ($resource = res)}>
         <div
           style="transition: background-color .1s"
-          class:bg-red-900={res === $resource}
+          class:bg-purple-800={res === $resource}
           class="m-2 shadow-xl rounded rounded-b-none bg-gray-800
-          overflow-hidden hover:bg-red-800 hover:shadow-md">
+          overflow-hidden hover:bg-purple-900 hover:shadow-md">
           <div class="p-4 pb-2 flex">
             <div class="">
               <img
@@ -255,10 +269,10 @@
                 alt="resource"
                 src="/img/resources/{res.Type}.png" />
             </div>
-            <div class="sm:hidden w-auto ml-2 text-lg text-gray-400">
+            <div class="sm:hidden w-auto ml-2 text-lg text-gray-200">
               {Math.round((res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) * 100)}%
             </div>
-            <div class="hidden sm:block w-auto ml-2 text-lg text-gray-400">
+            <div class="hidden sm:block w-auto ml-2 text-lg text-gray-200">
               {res.Earned}
               of
               {$max[res.Type][withShipsNotInGarage ? 1 : 0]}
@@ -267,7 +281,7 @@
           <div class="relative h-2 w-full z-0 bg-gray-700">
             <div
               style="width: {(res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) * 100}%"
-              class="absolute bottom-0 h-2 bg-green-900" />
+              class="absolute bottom-0 h-2 bg-gray-600" />
           </div>
         </div>
       </div>
@@ -313,7 +327,8 @@
               <input
                 class="mr-2 leading-tight"
                 type="checkbox"
-                bind:checked={withShipsNotInGarage} />
+                bind:checked={withShipsNotInGarage}
+                on:change={storeWithShipsNotInGarage} />
               <span class="text-sm">Include ships I used to have in port</span>
             </label>
           </div>

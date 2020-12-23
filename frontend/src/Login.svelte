@@ -6,7 +6,7 @@
     }
 </script>
 
-<div class="w-full md:w-3/4 mx-auto">
+<div class="w-full md:w-3/4 2xl:w-1/2 mx-auto">
     <div class="bg-gray-800 text-gray-200 rounded-sm text-md p-4">
         <div class="text-left mt-4 text-gray-200">
             Welcome to your favorite Whaling website! On here, you'll be able to
@@ -17,23 +17,23 @@
             </strong>
         </div>
 
-        <div class="flex flex-wrap mt-8">
-            <div class="w-1/4 p-4">
+        <div class="grid grid-cols-4 gap-4 mt-8 justify-center">
+            <div class="p-4">
                 <button
                     on:click={() => login('asia')}
                     class="font-medium px-5 py-2 bg-yellow-200 hover:bg-yellow-300 border-none text-yellow-900 rounded">ASIA</button>
             </div>
-            <div class="w-1/4 p-4">
+            <div class="p-4">
                 <button
                     on:click={() => login('ru')}
                     class="font-medium px-5 py-2 bg-red-200 hover:bg-red-300 border-none text-red-900 rounded">CIS</button>
             </div>
-            <div class="w-1/4 p-4">
+            <div class="p-4">
                 <button
                     on:click={() => login('eu')}
                     class="font-medium px-5 py-2 bg-blue-200 hover:bg-blue-300 border-none text-blue-900 rounded">EU</button>
             </div>
-            <div class="w-1/4 p-4">
+            <div class="p-4">
                 <button
                     on:click={() => login('com')}
                     class="font-medium px-5 py-2 bg-purple-200 hover:bg-purple-300 border-none text-purple-900 rounded">NA</button>

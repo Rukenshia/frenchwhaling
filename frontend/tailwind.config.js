@@ -8,7 +8,7 @@ module.exports = {
 		mode: 'all',
 		content: ['./src/*.svelte'],
 		options: {
-			safelist: ['border-yellow-800', 'border-green-900', 'line-through', 'bg-red-900'],
+			safelist: ['border-yellow-800', 'border-green-900', 'line-through', 'bg-purple-800', 'bg-purple-900'],
 		}
 	},
 	theme: {
