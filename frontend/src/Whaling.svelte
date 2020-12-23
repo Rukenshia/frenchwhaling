@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Login from "./Login.svelte";
+  import Modal from "./Modal.svelte";
   import Progress from "./Progress.svelte";
   import * as querystring from "query-string";
   import HRNumbers from "human-readable-numbers";
@@ -21,6 +22,7 @@
   let error = false;
   let reason = "UNKNOWN";
   let isNew = false;
+  let showDonateModal = false;
 
   const eventStartTimes = {
     eu: 1608613200,
@@ -64,15 +66,13 @@
     reportClick("Logout");
   }
 
-  function donate() {
-    reportClick("Donate");
-    alert(
-      'Thanks for clicking on this button! This was a project I built during my free time and I am paying the infrastructure costs myself. While I do not take actual money as donations, I am always happy to read a "Thank you" email or receiving a little gift on EU, my username is Rukenshia. You can find my email on the "Contact me" button.'
-    );
-  }
-
   function contact() {
     reportClick("Contact");
+  }
+
+  function donate() {
+    reportClick("Donate");
+    showDonateModal = true;
   }
 
   function privacyPolicy() {
@@ -94,6 +94,11 @@
   }
 </style>
 
+<Modal
+  show={showDonateModal}
+  on:close={() => (showDonateModal = false)}
+  title="Thank you!"
+  message="Thanks for clicking on this button!<br /><br />I am always happy to receive gifts on the EU Server to <strong>Rukenshia</strong>, but also appreciate a simple 'thank you' message - I am a Privateer for WoWS and built this project in my spare time. The infrastructure costs for this are also paid out of my pocket.<br /><br />You can contact me as well by clicking on the 'Contact me' button at the top." />
 <div class="font-sans w-full h-screen text-white bg-gray-900">
   <div
     class="relative w-full h-48 z-0"
@@ -120,7 +125,33 @@
       </div>
     </div>
   </div>
-  <div class="bg-gray-900 shadow-md mt-12 sm:mt-0">
+
+  <div class="w-3/4 2xl:w-1/2 mx-auto">
+    <div class="mt-8 h-8 flex flex-row-reverse flex-wrap gap-2">
+      {#if $loggedIn}
+        <button
+          on:click={logout}
+          class="px-4 font-xs border-none py-1 rounded bg-gray-700
+        hover:bg-gray-800">
+          Logout
+        </button>
+      {/if}
+      <a
+        on:click={contact}
+        href="mailto:svc-frenchwhaling@ruken.pw"
+        class="px-4 font-xs border-none py-1 rounded bg-gray-700
+      hover:bg-gray-800">
+        Contact me
+      </a>
+      <button
+        on:click={donate}
+        class="px-4 font-xs font-medium border-none py-1 rounded
+        bg-purple-600 hover:bg-purple-700 text-gray-100 shadow-xl">
+        Donate
+      </button>
+    </div>
+  </div>
+  <div class="bg-gray-900 sm:mt-0">
     <!-- <div class="mt-12 w-full flex justify-around">
       <div class="flex flex-wrap mt-8 justify-around">
         <div class="w-full mx-auto">
@@ -134,28 +165,7 @@
     {#if $loggedIn}
       <div class="p-8 w-full flex justify-around">
         <div class="w-full xl:w-3/4">
-          <div class="h-8 flex flex-row-reverse flex-wrap gap-2">
-            <button
-              on:click={logout}
-              class="px-4 font-xs border-none py-1 rounded bg-gray-700
-                hover:bg-gray-800">
-              Logout
-            </button>
-            <a
-              on:click={contact}
-              href="mailto:svc-frenchwhaling@ruken.pw"
-              class="px-4 font-xs border-none py-1 rounded bg-gray-700
-              hover:bg-gray-800">
-              Contact me
-            </a>
-            <button
-              on:click={donate}
-              class="px-4 font-xs font-medium border-none py-1 rounded
-                bg-yellow-400 hover:bg-yellow-500 text-yellow-900 shadow-xl">
-              Donate
-            </button>
-          </div>
-          <div class="mt-16 mb-8 w-full justify-around flex">
+          <div class="mt-4 mb-8 w-full justify-around flex">
             <div class="w-3/4 rounded p-2 bg-gray-800 text-white text-gray-300">
               If you enjoy using this website, please share the word and link
               your friends to
@@ -172,12 +182,14 @@
         </div>
       </div>
     {:else}
-      <div class="flex flex-wrap mt-8 gap-4 justify-center">
+      <div
+        class="flex flex-wrap mt-8 gap-4 justify-center text-sm uppercase text-gray-400">
         Global Progress
       </div>
-      <div class="flex flex-wrap mt-2 gap-4 justify-center">
+      <div
+        class="w-3/4 2xl:w-1/2 mx-auto grid grid-cols-3 gap-4 mt-2 justify-center">
         {#each $statistics as res}
-          <div class="bg-gray-800 text-gray-200 rounded-sm">
+          <div class="bg-gray-800 text-gray-200 rounded-sm col-span-1">
             <div class="p-4 flex gap-2 items-center">
               <div class="">
                 <img
@@ -185,7 +197,14 @@
                   alt="resource"
                   src="/img/resources/{res.Type}.png" />
               </div>
-              <div>{HRNumbers.toHumanString(res.Earned)}</div>
+              <div>
+                {HRNumbers.toHumanString(res.Earned)}
+
+                <span class="invisible md:visible text-gray-400">
+                  /
+                  {HRNumbers.toHumanString(res.Amount)}
+                </span>
+              </div>
             </div>
             <div class="relative h-2 w-full z-0 bg-gray-700 rounded-b-sm">
               <div
