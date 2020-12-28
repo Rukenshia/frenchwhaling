@@ -220,13 +220,13 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 					if !found {
 						log.Printf("Ship removed from garage ship=%d player=%s", storedShip.ShipID, subscriberData.AccountID)
-						storedShip.Private.InGarage = false
-						sentryShipHub.CaptureMessage("ShipRemoval: no longer in garage")
+						subscriberData.Ships[storedShip.ShipID].Private.InGarage = false
+						//sentryShipHub.CaptureMessage("ShipRemoval: no longer in garage")
 
-						if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
-							getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
-							log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
-						}
+						//if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
+						//getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
+						//log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
+						//}
 					}
 				}
 			}

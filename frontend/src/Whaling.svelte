@@ -98,7 +98,7 @@
   show={showDonateModal}
   on:close={() => (showDonateModal = false)}
   title="Thank you!"
-  message="Thanks for clicking on this button!<br /><br />I am always happy to receive gifts on the EU Server to <strong>Rukenshia</strong>, but also appreciate a simple 'thank you' message - I am a Privateer for WoWS and built this project in my spare time. The infrastructure costs for this are also paid out of my pocket.<br /><br />You can contact me as well by clicking on the 'Contact me' button at the top." />
+  message="I am always happy to receive gifts on the EU Server to <strong>Rukenshia</strong>, but also appreciate a simple 'thank you' message - I am a Privateer(volunteer) for WoWS and built this project in my spare time. The infrastructure costs for this are also paid out of my pocket.<br /><br />You can find my contact information by using the 'Contact me' button." />
 <div class="font-sans w-full h-screen text-white bg-gray-900">
   <div
     class="relative w-full h-48 z-0"
