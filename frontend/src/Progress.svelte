@@ -259,9 +259,10 @@
       <div class="w-1/3" on:click={() => ($resource = res)}>
         <div
           style="transition: background-color .1s"
-          class:bg-purple-800={res === $resource}
-          class="m-2 shadow-xl rounded rounded-b-none bg-gray-800
-          overflow-hidden hover:bg-purple-900 hover:shadow-md">
+          class:bg-gray-700={res === $resource}
+          class:bg-gray-800={res !== $resource}
+          class="m-2 shadow-xl rounded rounded-b-none 
+          overflow-hidden hover:bg-gray-700 hover:shadow-md">
           <div class="p-4 pb-2 flex">
             <div class="">
               <img
@@ -278,10 +279,10 @@
               {$max[res.Type][withShipsNotInGarage ? 1 : 0]}
             </div>
           </div>
-          <div class="relative h-2 w-full z-0 bg-gray-700">
+          <div class="relative h-2 w-full z-0 bg-gray-600">
             <div
               style="width: {(res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) * 100}%"
-              class="absolute bottom-0 h-2 bg-gray-600" />
+              class="absolute bottom-0 h-2 bg-green-900" />
           </div>
         </div>
       </div>
