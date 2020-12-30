@@ -121,7 +121,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 
 					subscriberData = &storage.SubscriberPublicData{
 						AccountID: ev.AccountID,
-						Resources: []storage.EarnableResource{
+						Resources: []*storage.EarnableResource{
 							{Type: wows.RepublicTokens, Amount: 0, Earned: 0},
 							{Type: wows.Coal, Amount: 0, Earned: 0},
 							{Type: wows.Steel, Amount: 0, Earned: 0},
@@ -221,12 +221,16 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 					if !found {
 						log.Printf("Ship removed from garage ship=%d player=%s", storedShip.ShipID, subscriberData.AccountID)
 						subscriberData.Ships[storedShip.ShipID].Private.InGarage = false
-						//sentryShipHub.CaptureMessage("ShipRemoval: no longer in garage")
 
-						//if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
-						//getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
-						//log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
-						//}
+						if _, isInStatistics := newData[storedShip.ShipID]; isInStatistics {
+							newData[storedShip.ShipID].Private.InGarage = false
+						}
+						sentryShipHub.CaptureMessage("ShipRemoval: no longer in garage")
+
+						if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
+							getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
+							log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
+						}
 					}
 				}
 			}
@@ -276,6 +280,7 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 			sentryShipHub.ConfigureScope(func(scope *sentry.Scope) {
 				scope.SetTag("ShipID", fmt.Sprintf("%d", ship.ShipID))
 			})
+			log.Printf("Comparing ship=%d player=%s in_garage=%v", ship.ShipID, subscriberData.AccountID, ship.Private.InGarage)
 
 			wowsShip, ok := wows.Ships[ship.ShipID]
 			if !ok {

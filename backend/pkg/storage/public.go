@@ -33,7 +33,7 @@ type SubscriberPublicData struct {
 	AccountID   string
 	LastUpdated int64
 
-	Resources []EarnableResource
+	Resources []*EarnableResource
 
 	Ships map[int64]*StoredShip
 }
