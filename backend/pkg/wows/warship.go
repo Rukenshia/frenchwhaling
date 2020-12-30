@@ -8,14 +8,15 @@ import (
 
 // Warship represents a WoWS Ship with field relevant to Whaling
 type Warship struct {
-	Name        string           `json:"name"`
-	PriceGold   int              `json:"price_gold"`
-	Nation      string           `json:"nation"`
-	IsPremium   bool             `json:"is_premium"`
-	ShipID      int64            `json:"ship_id"`
-	PriceCredit int              `json:"price_credit"`
-	Tier        int              `json:"tier"`
-	NextShips   map[string]int64 `json:"next_ships"`
+	Name           string           `json:"name"`
+	PriceGold      int              `json:"price_gold"`
+	Nation         string           `json:"nation"`
+	IsPremium      bool             `json:"is_premium"`
+	ShipID         int64            `json:"ship_id"`
+	PriceCredit    int              `json:"price_credit"`
+	Tier           int              `json:"tier"`
+	NextShips      map[string]int64 `json:"next_ships"`
+	HasDemoProfile bool             `json:"has_demo_profile"`
 }
 
 // IsRentalShip returns whether a ship is only available for a limited period of time,
@@ -26,17 +27,7 @@ func (w *Warship) IsRentalShip() bool {
 
 // IsTestShip returns whether the ship is currently in testing (WIP ships)
 func (w *Warship) IsTestShip() bool {
-	for _, ts := range []string{
-		"Dante Alighieri", "Conte di Cavour", "Lepanto", "Fen Yang",
-		"Werner Voss", "Marco Polo", "Andrea Doria", "Francesco Caracciolo",
-		"Vittorio Veneto",
-	} {
-		if w.Name == ts {
-			return true
-		}
-	}
-
-	return false
+	return w.HasDemoProfile
 }
 
 // GetsPremiumTreatment returns whether the ship is a premium or premium in disguise, like Armory ship,

@@ -20,7 +20,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	warshipTpl, err := template.New("warship").Parse("{{.ShipID}}: Warship{Name:\"{{.Name}}\",PriceGold:{{.PriceGold}},Nation:\"{{.Nation}}\",IsPremium:{{.IsPremium}},ShipID:{{.ShipID}},PriceCredit:{{.PriceCredit}},Tier:{{.Tier}},NextShips:map[string]int64{ {{range $i,$e := .NextShips}}\"{{$i}}\": {{$e}},{{end}} }}")
+	warshipTpl, err := template.New("warship").Parse("{{.ShipID}}: Warship{Name:\"{{.Name}}\",PriceGold:{{.PriceGold}},Nation:\"{{.Nation}}\",IsPremium:{{.IsPremium}},ShipID:{{.ShipID}},PriceCredit:{{.PriceCredit}},Tier:{{.Tier}},NextShips:map[string]int64{ {{range $i,$e := .NextShips}}\"{{$i}}\": {{$e}},{{end}} }, HasDemoProfile:{{.HasDemoProfile}}}")
 	if err != nil {
 		log.Fatal(err)
 	}
