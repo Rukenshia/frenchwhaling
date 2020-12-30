@@ -183,13 +183,13 @@
       </div>
     {:else}
       <div
-        class="flex flex-wrap mt-8 gap-4 justify-center text-sm uppercase text-gray-400">
+        class="flex flex-wrap mt-10 gap-4 justify-center text-sm uppercase text-gray-400">
         Global Progress
       </div>
       <div
         class="w-3/4 2xl:w-1/2 mx-auto grid grid-cols-3 gap-4 mt-2 justify-center">
         {#each $statistics as res}
-          <div class="bg-gray-800 text-gray-200 rounded-sm col-span-1">
+          <div class="bg-gray-800 text-gray-200 rounded-sm col-span-3 md:col-span-1">
             <div class="p-4 flex gap-2 items-center">
               <div class="">
                 <img
@@ -200,7 +200,7 @@
               <div>
                 {HRNumbers.toHumanString(res.Earned)}
 
-                <span class="invisible md:visible text-gray-400">
+                <span class="text-gray-400">
                   /
                   {HRNumbers.toHumanString(res.Amount)}
                 </span>
