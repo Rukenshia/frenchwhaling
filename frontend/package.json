@@ -20,7 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
-    "postcss": "^7.0.35",
+    "postcss": "^7.0.36",
     "query-string": "^6.8.1",
     "sirv-cli": "^0.4.4",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1"
