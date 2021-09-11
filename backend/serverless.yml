@@ -1,5 +1,5 @@
 service: whaling
-frameworkVersion: ">=1.28.0 <2.0.0"
+frameworkVersion: '>=1.28.0 <2.0.0'
 
 provider:
   name: aws
@@ -15,42 +15,41 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-      - dynamodb:*Item
-      - dynamodb:Scan
+        - dynamodb:*Item
+        - dynamodb:Scan
       Resource:
-      - Fn::GetAtt: SubscribersTable.Arn
-      - Fn::GetAtt: SubscriberEventsTable.Arn
+        - Fn::GetAtt: SubscribersTable.Arn
+        - Fn::GetAtt: SubscriberEventsTable.Arn
     - Effect: Allow
       Action:
-      - "s3:GetObject"
-      - "s3:PutObject"
-      - "s3:PutObjectAcl"
-      - "s3:ListBucket"
+        - 's3:GetObject'
+        - 's3:PutObject'
+        - 's3:PutObjectAcl'
+        - 's3:ListBucket'
       Resource:
-      - Fn::GetAtt: SubscribersBucket.Arn
-      - Fn::Join:
-        - ''
-        - - Fn::GetAtt: SubscribersBucket.Arn
-          - '/*'
+        - Fn::GetAtt: SubscribersBucket.Arn
+        - Fn::Join:
+            - ''
+            - - Fn::GetAtt: SubscribersBucket.Arn
+              - '/*'
     - Effect: Allow
       Action:
         - s3:PutObject
         - s3:PutObjectAcl
-      Resource:
-        arn:aws:s3:::whaling.in.fkn.space/*
+      Resource: arn:aws:s3:::whaling.in.fkn.space/*
     - Effect: Allow
-      Action: "sns:Publish"
+      Action: 'sns:Publish'
       Resource:
         Ref: SNSTopic
     - Effect: Allow
-      Action: "cloudwatch:PutMetricData"
-      Resource: "*"
+      Action: 'cloudwatch:PutMetricData'
+      Resource: '*'
 
 package:
- exclude:
-   - ./**
- include:
-   - ./bin/**
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
 
 functions:
   login:
@@ -66,7 +65,7 @@ functions:
           cors: true
           path: /login
           method: get
-    
+
   click:
     handler: bin/click
     environment:
@@ -87,11 +86,11 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    events:
-    - http:
-        cors: true
-        path: /subscribers/{accountId}/refresh
-        method: get
+    # events:
+    #   - http:
+    #       cors: true
+    #       path: /subscribers/{accountId}/refresh
+    #       method: get
 
   manualRefresh:
     handler: bin/refresh
@@ -102,19 +101,18 @@ functions:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
     events:
-    - sns:
-        filterPolicy:
-          Type:
-          - ManualRefresh
-        arn:
-          Fn::Join:
-            - ':'
-            - - 'arn:aws:sns'
-              - Ref: 'AWS::Region'
-              - Ref: 'AWS::AccountId'
-              - 'whaling-events'
-        topicName: whaling-events
-
+      - sns:
+          filterPolicy:
+            Type:
+              - ManualRefresh
+          arn:
+            Fn::Join:
+              - ':'
+              - - 'arn:aws:sns'
+                - Ref: 'AWS::Region'
+                - Ref: 'AWS::AccountId'
+                - 'whaling-events'
+          topicName: whaling-events
 
   refresh:
     handler: bin/refresh
@@ -125,19 +123,19 @@ functions:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
     events:
-    - sns:
-        filterPolicy:
-          Type:
-          - Refresh
-        arn:
-          Fn::Join:
-            - ':'
-            - - 'arn:aws:sns'
-              - Ref: 'AWS::Region'
-              - Ref: 'AWS::AccountId'
-              - 'whaling-events'
-        topicName: whaling-events
-  
+      - sns:
+          filterPolicy:
+            Type:
+              - Refresh
+          arn:
+            Fn::Join:
+              - ':'
+              - - 'arn:aws:sns'
+                - Ref: 'AWS::Region'
+                - Ref: 'AWS::AccountId'
+                - 'whaling-events'
+          topicName: whaling-events
+
   schedule:
     handler: bin/schedule
     memorySize: 256
@@ -149,8 +147,8 @@ functions:
       TOPIC_ARN:
         Ref: SNSTopic
     events:
-      - schedule: rate(2 minutes)
-  
+      - schedule: rate(30 minutes)
+
   generateGlobalStats:
     handler: bin/generateGlobalStats
     memorySize: 2048
@@ -159,7 +157,7 @@ functions:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
     events:
-      - schedule: rate(1 hour)
+      - schedule: rate(24 hours)
 
 resources:
   Resources:
@@ -169,13 +167,13 @@ resources:
       Properties:
         TableName: whaling-subscribers
         BillingMode: PAY_PER_REQUEST
-        AttributeDefinitions: 
-        - AttributeName: "AccountID"
-          AttributeType: "S"
-        KeySchema: 
-        - AttributeName: "AccountID"
-          KeyType: "HASH"
-    
+        AttributeDefinitions:
+          - AttributeName: 'AccountID'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'AccountID'
+            KeyType: 'HASH'
+
     SubscriberEventsTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
@@ -183,23 +181,23 @@ resources:
         TableName: whaling-subscribers-events
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
-        - AttributeName: "AccountID"
-          AttributeType: "S"
-        - AttributeName: "Timestamp"
-          AttributeType: "N"
+          - AttributeName: 'AccountID'
+            AttributeType: 'S'
+          - AttributeName: 'Timestamp'
+            AttributeType: 'N'
         KeySchema:
-        - AttributeName: "AccountID"
-          KeyType: "HASH"
-        - AttributeName: "Timestamp"
-          KeyType: "RANGE"
+          - AttributeName: 'AccountID'
+            KeyType: 'HASH'
+          - AttributeName: 'Timestamp'
+            KeyType: 'RANGE'
         GlobalSecondaryIndexes:
-        - IndexName: "AccountID-index"
-          KeySchema:
-          - AttributeName: "AccountID"
-            KeyType: "HASH"
-          Projection:
-            ProjectionType: "KEYS_ONLY"
-    
+          - IndexName: 'AccountID-index'
+            KeySchema:
+              - AttributeName: 'AccountID'
+                KeyType: 'HASH'
+            Projection:
+              ProjectionType: 'KEYS_ONLY'
+
     SubscribersBucket:
       Type: AWS::S3::Bucket
       DeletionPolicy: Retain

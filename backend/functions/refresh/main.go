@@ -129,6 +129,8 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 							{Type: wows.SuperContainer, Amount: 0, Earned: 0},
 							{Type: wows.AnniversaryCamouflages, Amount: 0, Earned: 0},
 							{Type: wows.AnniversaryContainers, Amount: 0, Earned: 0},
+							{Type: wows.FestiveToken, Amount: 0, Earned: 0},
+							{Type: wows.FestiveTokenAndAnniversaryContainer, Amount: 0, Earned: 0},
 						},
 						Ships:       map[int64]*storage.StoredShip{},
 						LastUpdated: time.Now().UnixNano(),

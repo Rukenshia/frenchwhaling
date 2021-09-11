@@ -18,4 +18,9 @@ const (
 	AnniversaryCamouflages Resource = iota
 	// AnniversaryContainers are a special container for the WoWS Anniversary
 	AnniversaryContainers Resource = iota
+	// FestiveToken is a special resource for the 2021 anniversary event
+	FestiveToken = iota
+	// FestiveTokenAndAnniversaryContainer is a composite of one FestiveToken and an AnniversaryContainer
+	// I did this as a quick hack because the entire code relies on only one resource per redeemable
+	FestiveTokenAndAnniversaryContainer = iota
 )
