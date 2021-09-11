@@ -28,9 +28,9 @@ func Handler(ctx context.Context) (*Response, error) {
 
 	// The first is republic tokens which we don't care about :peeposhrug:
 	resources := []*storage.EarnableResource{
-		{Type: wows.Coal},
-		{Type: wows.Steel},
-		{Type: wows.SantaGiftContainer},
+		{Type: wows.FestiveToken},
+		{Type: wows.FestiveTokenAndAnniversaryContainer},
+		{Type: wows.SuperContainer},
 	}
 
 	for _, subscriber := range data {

@@ -1,0 +1,386 @@
+{
+    "widgets": [
+        {
+            "height": 6,
+            "width": 6,
+            "y": 12,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ConsumedWriteCapacityUnits", "TableName", "whaling-subscribers", { "stat": "Sum", "color": "#ff7f0e" } ],
+                    [ ".", "ConsumedReadCapacityUnits", ".", ".", { "stat": "Sum", "color": "#1f77b4" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "title": "subscribers capacity",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SNS", "NumberOfMessagesPublished", "TopicName", "whaling-events", { "stat": "Sum" } ],
+                    [ ".", "NumberOfNotificationsFailed", ".", ".", { "stat": "Sum", "color": "#d62728" } ],
+                    [ ".", "NumberOfNotificationsDelivered", ".", ".", { "stat": "Sum" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "title": "subscriber-events sns",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 21,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Invocations", "FunctionName", "whaling-dev-login", { "stat": "Sum", "color": "#9467bd" } ],
+                    [ ".", "Errors", ".", ".", { "stat": "Sum", "color": "#d62728" } ],
+                    [ ".", "Duration", ".", ".", { "yAxis": "right", "color": "#1f77b4" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "title": "lambda: login",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 15,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Errors", "FunctionName", "whaling-dev-refresh", { "stat": "Sum", "color": "#d62728" } ],
+                    [ ".", "Invocations", ".", ".", { "stat": "Sum", "color": "#9467bd" } ],
+                    [ ".", "Duration", ".", ".", { "yAxis": "right", "color": "#1f77b4" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "title": "lambda: refresh",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 15,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Errors", "FunctionName", "whaling-dev-schedule", { "stat": "Sum", "color": "#d62728" } ],
+                    [ ".", "Invocations", ".", ".", { "stat": "Sum", "color": "#9467bd" } ],
+                    [ ".", "Duration", ".", ".", { "yAxis": "right", "color": "#1f77b4" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "title": "lambda: schedule",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 18,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", "whaling-subscribers-events", { "stat": "Sum", "color": "#1f77b4" } ],
+                    [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "stat": "Sum", "color": "#ff7f0e" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "title": "subscriber-events capacity",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 21,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Errors", "FunctionName", "whaling-dev-requestRefresh", { "color": "#d62728", "stat": "Sum" } ],
+                    [ ".", "Invocations", ".", ".", { "color": "#9467bd", "stat": "Sum" } ],
+                    [ ".", "Duration", ".", ".", { "color": "#1f77b4", "yAxis": "right" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "lambda: requestRefresh",
+                "region": "eu-central-1",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 33,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Errors", "FunctionName", "whaling-dev-generateGlobalStats", { "color": "#d62728" } ],
+                    [ ".", "Invocations", ".", ".", { "color": "#9467bd" } ],
+                    [ ".", "Duration", ".", ".", { "stat": "Average", "color": "#1f77b4", "yAxis": "right" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "lambda: generatePublicStats",
+                "region": "eu-central-1",
+                "period": 300,
+                "stat": "Sum"
+            }
+        },
+        {
+            "height": 6,
+            "width": 12,
+            "y": 9,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/ApiGateway", "5XXError", "ApiName", "dev-whaling", { "stat": "Sum", "color": "#d62728", "yAxis": "left", "id": "m1" } ],
+                    [ ".", "4XXError", ".", ".", { "stat": "Sum", "color": "#ff7f0e", "yAxis": "left", "id": "m2" } ],
+                    [ { "expression": "(m3-m1-m2)", "label": "OK", "id": "e1", "color": "#2ca02c", "region": "eu-central-1" } ],
+                    [ "AWS/ApiGateway", "Count", "ApiName", "dev-whaling", { "stat": "Sum", "color": "#1f77b4", "yAxis": "left", "id": "m3", "visible": false } ]
+                ],
+                "view": "timeSeries",
+                "stacked": true,
+                "region": "eu-central-1",
+                "title": "api gateway",
+                "period": 300,
+                "yAxis": {
+                    "right": {
+                        "showUnits": true
+                    },
+                    "left": {
+                        "showUnits": false,
+                        "label": "Count"
+                    }
+                }
+            }
+        },
+        {
+            "height": 6,
+            "width": 9,
+            "y": 0,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Invocations", "FunctionName", "whaling-dev-login", { "period": 2592000, "stat": "Sum", "label": "total logins" } ],
+                    [ "...", "whaling-dev-requestRefresh", { "period": 2592000, "stat": "Sum", "label": "manual refreshes" } ],
+                    [ "AWS/SNS", "NumberOfMessagesPublished", "TopicName", "whaling-events", { "period": 2592000, "stat": "Sum", "label": "sns messages" } ],
+                    [ "Whaling", "ClickEvent", "Type", "Contact", { "period": 2592000, "stat": "Sum" } ],
+                    [ "...", "Donate", { "period": 2592000, "stat": "Sum" } ],
+                    [ "...", "Logout", { "period": 2592000, "stat": "Sum" } ],
+                    [ "...", "PrivacyPolicy", { "period": 2592000, "stat": "Sum" } ]
+                ],
+                "view": "singleValue",
+                "region": "eu-central-1",
+                "title": "KPI (in timeframe)",
+                "period": 300
+            }
+        },
+        {
+            "height": 3,
+            "width": 3,
+            "y": 6,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/CloudFront", "Requests", "Region", "Global", "DistributionId", "E70E85S3UWCMA", { "stat": "Sum", "yAxis": "right", "id": "m1", "period": 2592000 } ]
+                ],
+                "view": "singleValue",
+                "stacked": false,
+                "region": "us-east-1",
+                "title": "cloudfront requests"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 0,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "whaling-dev-manualRefresh", { "stat": "Average" } ],
+                    [ "...", "whaling-dev-refresh", { "stat": "Average" } ],
+                    [ "...", "whaling-dev-schedule", { "stat": "Average" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "lambda: concurrent exec",
+                "region": "eu-central-1",
+                "period": 300
+            }
+        },
+        {
+            "height": 3,
+            "width": 6,
+            "y": 6,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "m1+m2+m3+m4", "label": "Success", "id": "e1", "region": "eu-central-1" } ],
+                    [ { "expression": "m5+m7+m8+m10", "label": "AuthCancel", "id": "e2", "color": "#ff7f0e", "region": "eu-central-1" } ],
+                    [ { "expression": "m6+m9", "label": "AuthExpired", "id": "e3", "color": "#9467bd", "region": "eu-central-1" } ],
+                    [ { "expression": "m11+m12", "label": "AuthError", "id": "e4" } ],
+                    [ "Whaling", "Login", "Status", "Success", "Realm", "asia", { "id": "m1", "visible": false } ],
+                    [ "...", "com", { "id": "m2", "visible": false } ],
+                    [ "...", "eu", { "id": "m3", "visible": false } ],
+                    [ "...", "ru", { "id": "m4", "visible": false } ],
+                    [ ".", ".", ".", "Failed", ".", "asia", "Reason", "AUTH_CANCEL", { "id": "m5", "visible": false } ],
+                    [ "...", "com", ".", "AUTH_EXPIRED", { "id": "m6", "visible": false } ],
+                    [ "...", "AUTH_CANCEL", { "id": "m7", "visible": false } ],
+                    [ "...", "eu", ".", ".", { "id": "m8", "visible": false } ],
+                    [ "...", "AUTH_EXPIRED", { "id": "m9", "visible": false } ],
+                    [ "...", "ru", ".", "AUTH_CANCEL", { "id": "m10", "visible": false } ],
+                    [ "...", "eu", ".", "AUTH_ERROR", { "id": "m11", "visible": false } ],
+                    [ "...", "asia", ".", ".", { "id": "m12", "visible": false } ]
+                ],
+                "view": "timeSeries",
+                "stacked": true,
+                "region": "eu-central-1",
+                "stat": "Sum",
+                "period": 300,
+                "title": "logins",
+                "yAxis": {
+                    "left": {
+                        "label": "Sum",
+                        "showUnits": false
+                    }
+                }
+            }
+        },
+        {
+            "height": 3,
+            "width": 3,
+            "y": 0,
+            "x": 9,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "m1+m2+m3+m4", "label": "Login", "id": "e1", "region": "eu-central-1" } ],
+                    [ "Whaling", "FirstTimeLogin", "Realm", "com", { "id": "m1", "visible": false } ],
+                    [ "...", "eu", { "id": "m2", "visible": false } ],
+                    [ "...", "asia", { "id": "m3", "visible": false } ],
+                    [ "...", "ru", { "id": "m4", "visible": false } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "new users",
+                "region": "eu-central-1",
+                "stat": "Sum",
+                "period": 300
+            }
+        },
+        {
+            "height": 3,
+            "width": 3,
+            "y": 6,
+            "x": 9,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ { "expression": "m1+m2", "label": "PrematureAccessTokenInvalidation", "id": "e1" } ],
+                    [ { "expression": "m3+m4+m5", "label": "AccountReEnabled", "id": "e2" } ],
+                    [ "Whaling", "PrematureAccessTokenInvalidation", "Realm", "com", { "visible": false, "id": "m1" } ],
+                    [ "...", "eu", { "visible": false, "id": "m2" } ],
+                    [ ".", "AccountReEnabled", ".", "asia", { "visible": false, "id": "m3" } ],
+                    [ "...", "com", { "visible": false, "id": "m4" } ],
+                    [ "...", "eu", { "visible": false, "id": "m5" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "stat": "Sum",
+                "period": 300,
+                "title": "subscriber lifecycle"
+            }
+        },
+        {
+            "height": 3,
+            "width": 3,
+            "y": 3,
+            "x": 9,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "Whaling", "ClickEvent", "Type", "Contact" ],
+                    [ "...", "Donate" ],
+                    [ "...", "Logout" ],
+                    [ "...", "PrivacyPolicy" ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "eu-central-1",
+                "title": "click events",
+                "stat": "Sum",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 27,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Errors", "FunctionName", "whaling-dev-click", { "color": "#d62728" } ],
+                    [ ".", "Invocations", ".", ".", { "color": "#9467bd" } ],
+                    [ ".", "Duration", ".", ".", { "color": "#1f77b4", "yAxis": "right", "stat": "Average" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "lambda: click",
+                "region": "eu-central-1",
+                "stat": "Sum",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 27,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/Lambda", "Duration", "FunctionName", "whaling-dev-manualRefresh", { "yAxis": "right" } ],
+                    [ ".", "Invocations", ".", ".", { "stat": "Sum", "color": "#9467bd" } ],
+                    [ ".", "Errors", ".", ".", { "stat": "Sum", "color": "#d62728" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "title": "lambda: manualRefresh",
+                "region": "eu-central-1",
+                "period": 300
+            }
+        }
+    ]
+}

@@ -1,10 +1,10 @@
 <script>
-  import { derived, writable } from "svelte/store";
-  import { onMount } from "svelte";
-  import { accountId, dataUrl, token, shipInfo, resourceName } from "./store";
-  import moment from "moment";
-  import axios from "axios";
-  import ShipInfo from "./ShipInfo.svelte";
+  import { derived, writable } from 'svelte/store';
+  import { onMount } from 'svelte';
+  import { accountId, dataUrl, token, shipInfo, resourceName } from './store';
+  import moment from 'moment';
+  import axios from 'axios';
+  import ShipInfo from './ShipInfo.svelte';
 
   export let isNew;
   export let eventStarted;
@@ -33,6 +33,8 @@
         [0, 0],
         [0, 0],
         [0, 0],
+        [0, 0],
+        [0, 0],
       ];
       Object.keys(v.Ships).forEach((s) => {
         if (v.Ships[s].private.in_garage) {
@@ -44,6 +46,11 @@
       return newMax;
     },
     [
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
       [0, 0],
       [0, 0],
       [0, 0],
@@ -115,9 +122,11 @@
         getCategory(4),
         getCategory(5),
         getCategory(6),
+        getCategory(7),
+        getCategory(8),
       ];
     },
-    [{}, {}, {}, {}]
+    [{}, {}, {}, {}, {}, {}, {}, {}, {}]
   );
 
   function refresh() {
@@ -136,14 +145,14 @@
       .catch((err) => {
         console.log(err, err.response);
         alert(
-          "Sorry, we could not refresh your data at this time. Please try logging out and in again, if that still does not work please contact me. Your data is also updated automatically every hour"
+          'Sorry, we could not refresh your data at this time. Please try logging out and in again, if that still does not work please contact me. Your data is also updated automatically every hour'
         );
       });
   }
 
   function storeWithShipsNotInGarage() {
     localStorage.setItem(
-      "withShipsNotInGarage",
+      'withShipsNotInGarage',
       JSON.stringify(withShipsNotInGarage)
     );
   }
@@ -163,7 +172,7 @@
 
       if (reloading) {
         if (lastUpdated >= $data.LastUpdated) {
-          throw new Error("Not updated yet");
+          throw new Error('Not updated yet');
         }
       }
       reloading = false;
@@ -172,7 +181,7 @@
       console.log(e);
 
       const intv = setInterval(async () => {
-        console.log("retry");
+        console.log('retry');
         retries++;
 
         if (retries > tries) {
@@ -188,7 +197,7 @@
 
           if (reloading) {
             if (lastUpdated >= $data.LastUpdated) {
-              throw new Error("Not updated yet");
+              throw new Error('Not updated yet');
             }
           }
 
@@ -207,14 +216,14 @@
     $timestamp = +new Date() * 1000000;
 
     const storedWithShipsNotInGarage = localStorage.getItem(
-      "withShipsNotInGarage"
+      'withShipsNotInGarage'
     );
     if (storedWithShipsNotInGarage !== null) {
       withShipsNotInGarage = JSON.parse(storedWithShipsNotInGarage);
     }
 
     await reloadDataWithRetry(60, () => {
-      $resource = $data.Resources[1];
+      $resource = $data.Resources[7];
       $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
 
       setInterval(() => {
@@ -225,12 +234,6 @@
   });
 </script>
 
-<style>
-  button.cursor-not-allowed {
-    @apply bg-gray-900;
-  }
-</style>
-
 {#if $data}
   <div class="ml-4 text-gray-400 font-medium text-sm">
     {#if reloading}
@@ -238,40 +241,48 @@
     {:else}
       Last updated
       {$lastUpdatedMoment}
-      {#if $timestamp - $data.LastUpdated > 10 * 60 * 1000 * 1000000}
+      {#if eventStarted && $timestamp - $data.LastUpdated > 10 * 60 * 1000 * 1000000}
         <button
           on:click={refresh}
           class="text-gray-200 bg-gray-700 hover:bg-gray-800 border-none rounded
-          shadow-md p-2">
+          shadow-md p-2"
+        >
           Refresh now
         </button>
       {:else}
         <button
           disabled
-          class="border-2 border-gray-600 rounded p-2 cursor-not-allowed">
+          class="border-2 border-gray-600 rounded p-2 cursor-not-allowed"
+        >
           Refresh now
         </button>
       {/if}
     {/if}
   </div>
   <div class="w-full flex flex-wrap mt-4 px-2">
-    {#each $data.Resources.slice(1, 4) as res}
+    {#each [7, 8, 4].map((i) => $data.Resources[i]) as res}
       <div class="w-1/3" on:click={() => ($resource = res)}>
         <div
           style="transition: background-color .1s"
           class:bg-gray-700={res === $resource}
           class:bg-gray-800={res !== $resource}
           class="m-2 shadow-xl rounded rounded-b-none 
-          overflow-hidden hover:bg-gray-700 hover:shadow-md">
+          overflow-hidden hover:bg-gray-700 hover:shadow-md"
+        >
           <div class="p-4 pb-2 flex">
             <div class="">
               <img
                 class="h-8 w-auto"
                 alt="resource"
-                src="/img/resources/{res.Type}.png" />
+                src="/img/resources/{res.Type}.png"
+              />
             </div>
             <div class="sm:hidden w-auto ml-2 text-lg text-gray-200">
-              {Math.round((res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) * 100)}%
+              {Math.round(
+                (res.Earned /
+                  Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) *
+                  100
+              )}%
             </div>
             <div class="hidden sm:block w-auto ml-2 text-lg text-gray-200">
               {res.Earned}
@@ -281,8 +292,11 @@
           </div>
           <div class="relative h-2 w-full z-0 bg-gray-600">
             <div
-              style="width: {(res.Earned / Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) * 100}%"
-              class="absolute bottom-0 h-2 bg-green-900" />
+              style="width: {(res.Earned /
+                Math.max(1, $max[res.Type][withShipsNotInGarage ? 1 : 0])) *
+                100}%"
+              class="absolute bottom-0 h-2 bg-green-900"
+            />
           </div>
         </div>
       </div>
@@ -297,7 +311,8 @@
               <img
                 class="h-8 w-auto"
                 alt="resource"
-                src="/img/resources/{$resource.Type}.png" />
+                src="/img/resources/{$resource.Type}.png"
+              />
             </div>
             <div class="w-auto ml-2 text-xl text-gray-400">
               {resourceName[$resource.Type]}
@@ -329,7 +344,8 @@
                 class="mr-2 leading-tight"
                 type="checkbox"
                 bind:checked={withShipsNotInGarage}
-                on:change={storeWithShipsNotInGarage} />
+                on:change={storeWithShipsNotInGarage}
+              />
               <span class="text-sm">Include ships I used to have in port</span>
             </label>
           </div>
@@ -347,7 +363,9 @@
                       <div
                         class="border-2 border-gray-600 rounded"
                         class:border-green-900={ship.Resource.Earned > 0}
-                        class:border-yellow-800={ship.private && !ship.private.in_garage}>
+                        class:border-yellow-800={ship.private &&
+                          !ship.private.in_garage}
+                      >
                         <ShipInfo {ship} />
                       </div>
                     </div>
@@ -370,8 +388,8 @@
         {#if isNew}
           You're apparently new here. That's cool.
         {:else}Welcome back, fellow whale.{/if}
-        Loading your data might take a bit depending on the server load. Just
-        stay put.
+        Loading your data might take a bit depending on the server load. Just stay
+        put.
       </div>
       <div class="w-3/4 text-center text-xs text-gray-500 font-mono">
         attempt
@@ -381,18 +399,25 @@
     {/if}
     {#if error && retries > 9}
       <div
-        class="w-full text-center text-6xl text-red-700 rounded font-mono mt-8">
+        class="w-full text-center text-6xl text-red-700 rounded font-mono mt-8"
+      >
         Big Red Error
       </div>
       <div class="w-3/4 text-center text-2xl text-gray-800 rounded font-mono">
         There are a lot of things that can go wrong. Guess what, you're a lucky
         one. You've caught the big red error. Basically, nothing works.
         <br />
-        A refresh of the page might help. Otherwise, dunno... There's a contact
-        button above and you can also reach me on various discord servers as
-        Rukenshia#4396. I'm happy to try and help out.
+        A refresh of the page might help. Otherwise, dunno... There's a contact button
+        above and you can also reach me on various discord servers as Rukenshia#4396.
+        I'm happy to try and help out.
       </div>
     {/if}
   </div>
   <div class="mb-64" />
 {/if}
+
+<style>
+  button.cursor-not-allowed {
+    @apply bg-gray-900;
+  }
+</style>

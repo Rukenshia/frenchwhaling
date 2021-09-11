@@ -1,11 +1,11 @@
 <script>
-  import { onMount } from "svelte";
-  import Login from "./Login.svelte";
-  import Modal from "./Modal.svelte";
-  import Progress from "./Progress.svelte";
-  import * as querystring from "query-string";
-  import HRNumbers from "human-readable-numbers";
-  import jwtDecode from "jwt-decode";
+  import { onMount } from 'svelte';
+  import Login from './Login.svelte';
+  import Modal from './Modal.svelte';
+  import Progress from './Progress.svelte';
+  import * as querystring from 'query-string';
+  import HRNumbers from 'human-readable-numbers';
+  import jwtDecode from 'jwt-decode';
   import {
     accountId,
     dataUrl,
@@ -15,28 +15,28 @@
     loggedIn,
     statistics,
     resourceName,
-  } from "./store";
-  import { reportClick } from "./clickEvents";
+  } from './store';
+  import { reportClick } from './clickEvents';
 
   let toggle = false;
   let error = false;
-  let reason = "UNKNOWN";
+  let reason = 'UNKNOWN';
   let isNew = false;
   let showDonateModal = false;
 
   const eventStartTimes = {
-    eu: 1608613200,
-    com: 1608544800,
-    ru: 1608516000,
-    asia: 1608584400,
+    eu: 1631880000,
+    com: 1631880000,
+    ru: 1631880000,
+    asia: 1631880000,
   };
   const ts = Math.round(+new Date() / 1000);
 
   onMount(() => {
     const data = querystring.parseUrl(window.location.href);
-    isNew = data.query.isNew === "true";
+    isNew = data.query.isNew === 'true';
 
-    if (data.query && data.query.success === "true") {
+    if (data.query && data.query.success === 'true') {
       try {
         $loggedIn = true;
         const parsed = jwtDecode(data.query.token);
@@ -51,7 +51,7 @@
         error = true;
         $loggedIn = false;
       }
-    } else if (data.query && data.query.success === "false") {
+    } else if (data.query && data.query.success === 'false') {
       $loggedIn = false;
       reason = data.query.reason;
       error = true;
@@ -61,17 +61,17 @@
   function logout() {
     $loggedIn = false;
     $token = undefined;
-    window.history.pushState("", "WoWS Whaling", "/");
+    window.history.pushState('', 'WoWS Whaling', '/');
 
-    reportClick("Logout");
+    reportClick('Logout');
   }
 
   function contact() {
-    reportClick("Contact");
+    reportClick('Contact');
   }
 
   function donate() {
-    reportClick("Donate");
+    reportClick('Donate');
     showDonateModal = true;
   }
 
@@ -79,48 +79,43 @@
     toggle = !toggle;
 
     if (toggle) {
-      reportClick("PrivacyPolicy");
+      reportClick('PrivacyPolicy');
     }
   }
 </script>
-
-<style>
-  a:visited {
-    @apply text-gray-400;
-  }
-
-  body {
-    @apply text-white;
-  }
-</style>
 
 <Modal
   show={showDonateModal}
   on:close={() => (showDonateModal = false)}
   title="Thank you!"
-  message="I am always happy to receive gifts on the EU Server to <strong>Rukenshia</strong>, but also appreciate a simple 'thank you' message - I am a Privateer(volunteer) for WoWS and built this project in my spare time. The infrastructure costs for this are also paid out of my pocket.<br /><br />You can find my contact information by using the 'Contact me' button." />
+  message="I am always happy to receive gifts on the EU Server to <strong>Rukenshia</strong>, but also appreciate a simple 'thank you' message - I am a Privateer(volunteer) for WoWS and built this project in my spare time. The infrastructure costs for this are also paid out of my pocket.<br /><br />You can find my contact information by using the 'Contact me' button."
+/>
 <div class="font-sans w-full h-screen text-white bg-gray-900">
   <div
     class="relative w-full h-48 z-0"
-    style="background: url(/header.jpg) no-repeat center center fixed; background-size: cover;">
+    style="background: url(/header.jpg) no-repeat center center fixed; background-size: cover;"
+  >
     <div
-      class="absolute left-0 bottom-0 bg-gradient-to-b from-transparent to-gray-900 w-full h-full z-0" />
+      class="absolute left-0 bottom-0 bg-gradient-to-b from-transparent to-gray-900 w-full h-full z-0"
+    />
     <div class="flex justify-center p-4 pt-12 z-10">
       <div class="z-10 flex-shrink-0 hidden sm:block">
         <img
           alt="Logo made by AdonisWerther"
           class="h-24 w-auto"
-          src="/img/christmas.png" />
+          src="/img/whale.gif"
+        />
       </div>
       <div class="z-10 pl-4">
-        <h1 class="text-5xl text-white">Steelwhaling</h1>
+        <h1 class="text-5xl text-white">Birthdaywhaling</h1>
         <div class="text-gray-200">
           Brought to you by Rukenshia on the EU server, the same idiot that
           built Steelwhaling, Frenchwhaling and
           <a
             href="https://dashboard.twitch.tv/extensions/1n8nhpxd3p623wla18px8l8smy0ym7-2.2.1"
             style="color: inherit"
-            class="font-medium underline">Shipvoting</a>
+            class="font-medium underline">Shipvoting</a
+          >
         </div>
       </div>
     </div>
@@ -132,7 +127,8 @@
         <button
           on:click={logout}
           class="px-4 font-xs border-none py-1 rounded bg-gray-700
-        hover:bg-gray-800">
+        hover:bg-gray-800"
+        >
           Logout
         </button>
       {/if}
@@ -140,13 +136,15 @@
         on:click={contact}
         href="mailto:svc-frenchwhaling@ruken.pw"
         class="px-4 font-xs border-none py-1 rounded bg-gray-700
-      hover:bg-gray-800">
+      hover:bg-gray-800"
+      >
         Contact me
       </a>
       <button
         on:click={donate}
         class="px-4 font-xs font-medium border-none py-1 rounded
-        bg-purple-600 hover:bg-purple-700 text-gray-100 shadow-xl">
+        bg-purple-600 hover:bg-purple-700 text-gray-100 shadow-xl"
+      >
         Donate
       </button>
     </div>
@@ -172,7 +170,8 @@
               <a
                 href="https://whaling.in.fkn.space"
                 style="color: inherit"
-                class="font-bold">
+                class="font-bold"
+              >
                 https://whaling.in.fkn.space
               </a>
             </div>
@@ -183,19 +182,24 @@
       </div>
     {:else}
       <div
-        class="flex flex-wrap mt-10 gap-4 justify-center text-sm uppercase text-gray-400">
+        class="flex flex-wrap mt-10 gap-4 justify-center text-sm uppercase text-gray-400"
+      >
         Global Progress
       </div>
       <div
-        class="w-3/4 2xl:w-1/2 mx-auto grid grid-cols-3 gap-4 mt-2 justify-center">
+        class="w-3/4 2xl:w-1/2 mx-auto grid grid-cols-3 gap-4 mt-2 justify-center"
+      >
         {#each $statistics as res}
-          <div class="bg-gray-800 text-gray-200 rounded-sm col-span-3 md:col-span-1">
+          <div
+            class="bg-gray-800 text-gray-200 rounded-sm col-span-3 md:col-span-1"
+          >
             <div class="p-4 flex gap-2 items-center">
               <div class="">
                 <img
                   class="h-8 w-auto"
                   alt="resource"
-                  src="/img/resources/{res.Type}.png" />
+                  src="/img/resources/{res.Type}.png"
+                />
               </div>
               <div>
                 {HRNumbers.toHumanString(res.Earned)}
@@ -209,7 +213,8 @@
             <div class="relative h-2 w-full z-0 bg-gray-700 rounded-b-sm">
               <div
                 style="width: {(res.Earned / res.Amount) * 100}%"
-                class="absolute bottom-0 h-2 bg-green-900 rounded-b-sm" />
+                class="absolute bottom-0 h-2 bg-green-900 rounded-b-sm"
+              />
             </div>
           </div>
         {/each}
@@ -221,7 +226,8 @@
               There was an error logging you in. Feel free to contact me
               <a
                 class="font-medium underline"
-                href="mailto:svc-frenchwhaling@ruken.pw">
+                href="mailto:svc-frenchwhaling@ruken.pw"
+              >
                 via Email
               </a>
               or Discord (Rukenshia#4396) if you can't get past this.
@@ -243,15 +249,16 @@
       <a target="_blank" href="https://git.sr.ht/~rukenshia/frenchwhaling">
         Source code
       </a>
-      &bullet; This website is not affiliated with Wargaming &bullet; Thanks to
-      AdonisWerther for the logo ❤️
+      &bullet; This website is not affiliated with Wargaming &bullet; Thanks to AdonisWerther
+      for the logo ❤️
     </div>
 
     {#if toggle}
       <div class="flex justify-around">
         <div
           id="privacy"
-          class="w-3/4 mb-8 pl-8 text-md text-gray-400 text-left">
+          class="w-3/4 mb-8 pl-8 text-md text-gray-400 text-left"
+        >
           <h3 class="text-3xl mb-4">Privacy Policy</h3>
           <p>
             To provide this service to you, the following data will be collected
@@ -278,3 +285,13 @@
     {/if}
   </div>
 </div>
+
+<style>
+  a:visited {
+    @apply text-gray-400;
+  }
+
+  body {
+    @apply text-white;
+  }
+</style>
