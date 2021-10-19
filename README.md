@@ -5,7 +5,7 @@ It has been modified to allow other resources as well, the frontend is currently
 
 ## Architecture
 
-![Architecture diagram](./docs/architecture.png)
+![Architecture diagram](./docs/architecture.drawio.png)
 
 The architecture is built on a serverless project. Users navigate to a single page application, and then have to
 log in to their realm on the Wargaming website.
@@ -24,6 +24,12 @@ The redirect URL is built with several query parameters:
 `success`: whether the login was successful
 `token`: the jwt
 `dataURL`: the data url for a subscribers data
+
+### Global Statistics
+
+Every few hours, a lambda function is invoked by a CloudWatch Event (Scheduled Event). The lambda iterates through all objects in the
+`subscribers` S3 bucket and generates statistics about the resources that can be earned globally and how much was already
+received by players.
 
 ### Refreshing
 
