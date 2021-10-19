@@ -227,12 +227,12 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 						if _, isInStatistics := newData[storedShip.ShipID]; isInStatistics {
 							newData[storedShip.ShipID].Private.InGarage = false
 						}
-						sentryShipHub.CaptureMessage("ShipRemoval: no longer in garage")
+						// sentryShipHub.CaptureMessage("ShipRemoval: no longer in garage")
 
-						if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
-							getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
-							log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
-						}
+						// if err := events.Add(events.NewShipRemoval(ev.AccountID, storedShip.ShipID)); err != nil {
+						// 	getHub(sentryShipHub, E{"error": err.Error()}).CaptureMessage("Could not send ShipRemoval event")
+						// 	log.Printf("WARN: could not send event for removed subscriber ship error=%v", err)
+						// }
 					}
 				}
 			}
@@ -282,7 +282,6 @@ func Handler(ctx context.Context, event awsEvents.SNSEvent) (string, error) {
 			sentryShipHub.ConfigureScope(func(scope *sentry.Scope) {
 				scope.SetTag("ShipID", fmt.Sprintf("%d", ship.ShipID))
 			})
-			log.Printf("Comparing ship=%d player=%s in_garage=%v", ship.ShipID, subscriberData.AccountID, ship.Private.InGarage)
 
 			wowsShip, ok := wows.Ships[ship.ShipID]
 			if !ok {
