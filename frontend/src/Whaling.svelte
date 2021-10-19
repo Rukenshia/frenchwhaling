@@ -6,6 +6,7 @@
   import * as querystring from 'query-string';
   import HRNumbers from 'human-readable-numbers';
   import jwtDecode from 'jwt-decode';
+  import { formatRelative } from 'date-fns';
   import {
     accountId,
     dataUrl,
@@ -31,6 +32,7 @@
     asia: 1631880000,
   };
   const ts = Math.round(+new Date() / 1000);
+  const now = new Date(ts * 1000);
 
   onMount(() => {
     const data = querystring.parseUrl(window.location.href);
@@ -122,31 +124,90 @@
   </div>
 
   <div class="w-3/4 2xl:w-1/2 mx-auto">
-    <div class="mt-8 h-8 flex flex-row-reverse flex-wrap gap-2">
-      {#if $loggedIn}
+    <div class="mt-8 h-8 flex justify-between">
+      <div class="flex items-center">
+        <div class="text-gray-300 text-sm font-medium">
+          {#if $loggedIn}
+            {#if ts < eventStartTimes[$realm]}
+              <a
+                href="https://worldofwarships.ru/en/news/game-updates/update-0108-wows-anniversary/#wows-anniversary"
+                class="hover:text-gray-100 flex items-center gap-2"
+              >
+                Event start: {formatRelative(
+                  new Date(eventStartTimes[$realm] * 1000),
+                  now
+                )}
+                <span class="text-gray-400 font-normal">(local time)</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
+            {/if}
+          {:else if ts < eventStartTimes['eu']}
+            <a
+              href="https://worldofwarships.ru/en/news/game-updates/update-0108-wows-anniversary/#wows-anniversary"
+              class="hover:text-gray-100 flex items-center gap-2"
+            >
+              Event start: {formatRelative(
+                new Date(eventStartTimes['eu'] * 1000),
+                now
+              )}
+              <span class="text-gray-400 font-normal">(local time)</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </a>
+          {/if}
+        </div>
+      </div>
+      <div class="flex justify-end flex-wrap gap-2">
         <button
-          on:click={logout}
+          on:click={donate}
+          class="px-4 font-xs font-medium border-none py-1 rounded
+          bg-purple-600 hover:bg-purple-700 text-gray-100 shadow-xl"
+        >
+          Donate
+        </button>
+        <a
+          on:click={contact}
+          href="mailto:svc-frenchwhaling@ruken.pw"
           class="px-4 font-xs border-none py-1 rounded bg-gray-700
         hover:bg-gray-800"
         >
-          Logout
-        </button>
-      {/if}
-      <a
-        on:click={contact}
-        href="mailto:svc-frenchwhaling@ruken.pw"
-        class="px-4 font-xs border-none py-1 rounded bg-gray-700
-      hover:bg-gray-800"
-      >
-        Contact me
-      </a>
-      <button
-        on:click={donate}
-        class="px-4 font-xs font-medium border-none py-1 rounded
-        bg-purple-600 hover:bg-purple-700 text-gray-100 shadow-xl"
-      >
-        Donate
-      </button>
+          Contact me
+        </a>
+        {#if $loggedIn}
+          <button
+            on:click={logout}
+            class="px-4 font-xs border-none py-1 rounded bg-gray-700
+          hover:bg-gray-800"
+          >
+            Logout
+          </button>
+        {/if}
+      </div>
     </div>
   </div>
   <div class="bg-gray-900 sm:mt-0">
@@ -158,7 +219,8 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
+    -->
 
     {#if $loggedIn}
       <div class="p-8 w-full flex justify-around">
