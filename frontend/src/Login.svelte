@@ -8,7 +8,7 @@
 
 <div class="w-full md:w-3/4 2xl:w-1/2 mx-auto">
   <div class="bg-gray-800 text-gray-200 rounded-sm text-md p-4">
-    <div class="text-left mt-4 text-gray-200">
+    <div class="text-left text-gray-200">
       Welcome to your favorite Whaling website! On here, you'll be able to track
       your progress for the Anniversary event in World of Warships. This website
       will tell you how many resources you can earn, and even help you track
@@ -42,6 +42,7 @@
         >NA</button
       >
     </div>
+
     <div class="mt-16 text-left text-xs">
       <span class="block uppercase text-xs mb-2">Tracking information</span>
       Wargaming has changed the event rules so that you either need to win a battle

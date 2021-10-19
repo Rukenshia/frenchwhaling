@@ -61,7 +61,7 @@
     [data, shipInfo],
     ([v, vs]) => {
       if (v === undefined || vs === undefined) {
-        return [{}, {}, {}, {}];
+        return [{}, {}, {}, {}, {}, {}, {}, {}];
       }
 
       const sort = (a, b) => {

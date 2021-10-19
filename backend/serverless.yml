@@ -5,6 +5,7 @@ provider:
   name: aws
   runtime: go1.x
   region: eu-central-1
+  logRetentionInDays: 7
   deploymentBucket:
     tags:
       Application: whaling
@@ -86,11 +87,11 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    # events:
-    #   - http:
-    #       cors: true
-    #       path: /subscribers/{accountId}/refresh
-    #       method: get
+    events:
+      - http:
+          cors: true
+          path: /subscribers/{accountId}/refresh
+          method: get
 
   manualRefresh:
     handler: bin/refresh
@@ -147,7 +148,7 @@ functions:
       TOPIC_ARN:
         Ref: SNSTopic
     events:
-      - schedule: rate(30 minutes)
+      - schedule: rate(6 hours)
 
   generateGlobalStats:
     handler: bin/generateGlobalStats
@@ -157,7 +158,7 @@ functions:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
     events:
-      - schedule: rate(24 hours)
+      - schedule: rate(12 hours)
 
 resources:
   Resources:
