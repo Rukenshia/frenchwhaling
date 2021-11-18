@@ -23,4 +23,6 @@ const (
 	// FestiveTokenAndAnniversaryContainer is a composite of one FestiveToken and an AnniversaryContainer
 	// I did this as a quick hack because the entire code relies on only one resource per redeemable
 	FestiveTokenAndAnniversaryContainer = iota
+	// NewYearCertificate is a special resource first handed out in 2021 (snowflake)
+	NewYearCertificate = iota
 )

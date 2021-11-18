@@ -26,10 +26,10 @@
   let showDonateModal = false;
 
   const eventStartTimes = {
-    eu: 1631880000,
-    com: 1631880000,
-    ru: 1631880000,
-    asia: 1631880000,
+    eu: 1637132559,
+    com: 1637132559,
+    ru: 1637132559,
+    asia: 1637132559,
   };
   const ts = Math.round(+new Date() / 1000);
   const now = new Date(ts * 1000);
@@ -109,7 +109,7 @@
         />
       </div>
       <div class="z-10 pl-4">
-        <h1 class="text-5xl text-white">Birthdaywhaling</h1>
+        <h1 class="text-5xl text-white">Steelwhaling</h1>
         <div class="text-gray-200">
           Brought to you by Rukenshia on the EU server, the same idiot that
           built Steelwhaling, Frenchwhaling and
@@ -211,7 +211,8 @@
     </div>
   </div>
   <div class="bg-gray-900 sm:mt-0">
-    <!-- <div class="mt-12 w-full flex justify-around">
+    <!--
+    <div class="mt-12 w-full flex justify-around">
       <div class="flex flex-wrap mt-8 justify-around">
         <div class="w-full mx-auto">
           <div class="bg-gray-800 text-gray-400 rounded-sm text-md p-4">

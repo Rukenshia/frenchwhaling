@@ -35,6 +35,7 @@
         [0, 0],
         [0, 0],
         [0, 0],
+        [0, 0],
       ];
       Object.keys(v.Ships).forEach((s) => {
         if (v.Ships[s].private.in_garage) {
@@ -55,13 +56,14 @@
       [0, 0],
       [0, 0],
       [0, 0],
+      [0, 0],
     ]
   );
   const categories = derived(
     [data, shipInfo],
     ([v, vs]) => {
       if (v === undefined || vs === undefined) {
-        return [{}, {}, {}, {}, {}, {}, {}, {}];
+        return [{}, {}, {}, {}, {}, {}, {}, {}, {}];
       }
 
       const sort = (a, b) => {
@@ -124,9 +126,10 @@
         getCategory(6),
         getCategory(7),
         getCategory(8),
+        getCategory(9),
       ];
     },
-    [{}, {}, {}, {}, {}, {}, {}, {}, {}]
+    [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
   );
 
   function refresh() {
@@ -260,7 +263,7 @@
     {/if}
   </div>
   <div class="w-full flex flex-wrap mt-4 px-2">
-    {#each [7, 8, 4].map((i) => $data.Resources[i]) as res}
+    {#each [1, 2, 9].map((i) => $data.Resources[i]) as res}
       <div class="w-1/3" on:click={() => ($resource = res)}>
         <div
           style="transition: background-color .1s"

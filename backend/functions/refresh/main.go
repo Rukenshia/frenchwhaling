@@ -437,7 +437,7 @@ func getWinType(currentShip *storage.StoredShip, newShip *api.ShipStatistics) (w
 func accessTokenExpiresSoon(expiresAt int64) bool {
 	now := time.Now().Unix()
 
-	if expiresAt-now < 3*60*60 {
+	if expiresAt-now < 24*60*60 {
 		return true
 	}
 	return false
