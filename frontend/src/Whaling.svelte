@@ -93,7 +93,7 @@
         <img
           alt="Logo made by AdonisWerther"
           class="h-24 w-auto"
-          src="/img/whale.gif"
+          src="/img/christmas.png"
         />
       </div>
       <div class="z-10 pl-4">
@@ -183,7 +183,7 @@
               class="w-6 h-6"
               alt="buy me a coffee"
             />
-            <span class="text-gray-900"> Donate </span>
+            <span class="text-gray-900">Donate</span>
           </div>
         </a>
         <a
