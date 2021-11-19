@@ -148,7 +148,7 @@ functions:
       TOPIC_ARN:
         Ref: SNSTopic
     events:
-      - schedule: rate(6 hours)
+      - schedule: rate(2 hours)
 
   generateGlobalStats:
     handler: bin/generateGlobalStats

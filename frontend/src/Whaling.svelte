@@ -23,13 +23,12 @@
   let error = false;
   let reason = 'UNKNOWN';
   let isNew = false;
-  let showDonateModal = false;
 
   const eventStartTimes = {
-    eu: 1637132559,
-    com: 1637132559,
-    ru: 1637132559,
-    asia: 1637132559,
+    eu: 1637215200,
+    com: 1637150400,
+    ru: 1637128800,
+    asia: 1637179200,
   };
   const ts = Math.round(+new Date() / 1000);
   const now = new Date(ts * 1000);
@@ -72,11 +71,6 @@
     reportClick('Contact');
   }
 
-  function donate() {
-    reportClick('Donate');
-    showDonateModal = true;
-  }
-
   function privacyPolicy() {
     toggle = !toggle;
 
@@ -86,12 +80,6 @@
   }
 </script>
 
-<Modal
-  show={showDonateModal}
-  on:close={() => (showDonateModal = false)}
-  title="Thank you!"
-  message="I am always happy to receive gifts on the EU Server to <strong>Rukenshia</strong>, but also appreciate a simple 'thank you' message - I am a Privateer(volunteer) for WoWS and built this project in my spare time. The infrastructure costs for this are also paid out of my pocket.<br /><br />You can find my contact information by using the 'Contact me' button."
-/>
 <div class="font-sans w-full h-screen text-white bg-gray-900">
   <div
     class="relative w-full h-48 z-0"
@@ -112,7 +100,7 @@
         <h1 class="text-5xl text-white">Steelwhaling</h1>
         <div class="text-gray-200">
           Brought to you by Rukenshia on the EU server, the same idiot that
-          built Steelwhaling, Frenchwhaling and
+          built the other whaling websites and
           <a
             href="https://dashboard.twitch.tv/extensions/1n8nhpxd3p623wla18px8l8smy0ym7-2.2.1"
             style="color: inherit"
@@ -183,13 +171,21 @@
         </div>
       </div>
       <div class="flex justify-end flex-wrap gap-2">
-        <button
-          on:click={donate}
+        <a
+          href="https://www.buymeacoffee.com/rukenshia"
+          target="_blank"
           class="px-4 font-xs font-medium border-none py-1 rounded
-          bg-purple-600 hover:bg-purple-700 text-gray-100 shadow-xl"
+          bg-gray-50 hover:bg-gray-200 shadow-xl"
         >
-          Donate
-        </button>
+          <div class="flex gap-2">
+            <img
+              src="/img/bmc-logo.svg"
+              class="w-6 h-6"
+              alt="buy me a coffee"
+            />
+            <span class="text-gray-900"> Donate </span>
+          </div>
+        </a>
         <a
           on:click={contact}
           href="mailto:svc-frenchwhaling@ruken.pw"

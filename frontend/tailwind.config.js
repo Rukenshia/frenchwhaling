@@ -10,6 +10,7 @@ module.exports = {
         'line-through',
         'bg-gray-700',
         'bg-gray-800',
+        'text-yellow-600',
       ],
     },
   },

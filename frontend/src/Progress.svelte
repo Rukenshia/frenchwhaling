@@ -226,7 +226,7 @@
     }
 
     await reloadDataWithRetry(60, () => {
-      $resource = $data.Resources[7];
+      $resource = $data.Resources[1];
       $lastUpdatedMoment = moment($data.LastUpdated / 1000000).fromNow();
 
       setInterval(() => {
