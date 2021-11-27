@@ -10,6 +10,7 @@ build:
 	env GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bin/login functions/login/main.go
 	env GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bin/click functions/click/main.go
 	env GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bin/generateGlobalStats functions/generateGlobalStats/main.go
+	env GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bin/markAsPlayed functions/markAsPlayed/main.go
 
 clean:
 	rm -rf ./bin ./vendor Gopkg.lock

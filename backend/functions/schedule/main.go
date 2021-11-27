@@ -33,7 +33,7 @@ type Request struct {
 func Handler(ctx context.Context, request Request) (string, error) {
 	defer sentry.Flush(5 * time.Second)
 	log.Printf("Scheduler started")
-	want := time.Now().Add(-(8) * time.Hour)
+	want := time.Now().Add(-(4) * time.Hour)
 
 	if request.RefreshAll {
 		want = time.Now()

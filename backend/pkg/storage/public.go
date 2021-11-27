@@ -56,7 +56,7 @@ func GetAllPublicSubscriberData() ([]SubscriberPublicData, error) {
 		Bucket: aws.String("whaling-subscribers"),
 		Prefix: aws.String("public/"),
 	}, func(page *s3.ListObjectsV2Output, lastPage bool) bool {
-		log.Printf("GetAllPublicSubscriberData: got page objects=%d last=%v", *page.Name, len(page.Contents), lastPage)
+		log.Printf("GetAllPublicSubscriberData: got page page=%s objects=%d last=%v", *page.Name, len(page.Contents), lastPage)
 		for _, object := range page.Contents {
 			key := object.Key
 			workers.Submit(func() {

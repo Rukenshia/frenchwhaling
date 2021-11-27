@@ -4,11 +4,9 @@ import (
 	"context"
 	"log"
 	"os"
+	"rukenshia/frenchwhaling/pkg/auth"
 	"rukenshia/frenchwhaling/pkg/storage"
-	"strings"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 
 	"github.com/getsentry/sentry-go"
 
@@ -60,69 +58,9 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (Res
 		}
 	}
 
-	// token, err := jwt.Parse(strings.Replace(authz, "Bearer ", "", 1), func(token *jwt.Token) (interface{}, error) {
-	// 	if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-	// 		return Response{
-	// 			StatusCode: 401,
-	// 			Body:       "Invalid signing method",
-	// 			Headers: map[string]string{
-	// 				"Content-Type":                "text/plain",
-	// 				"Access-Control-Allow-Origin": "*",
-	// 			},
-	// 		}, nil
-	// 	}
+	if err := auth.VerifyToken(authz, request.PathParameters["accountId"]); err != nil {
+		getHub(sentryAccountHub, E{"token": authz}).CaptureException(err)
 
-	// 	return []byte(os.Getenv("SIGNING_SECRET")), nil
-	// })
-	// if request.PathParameters["accountId"] == "503857807" {
-	parser := jwt.Parser{}
-
-	claims := jwt.MapClaims{}
-	_, _, err := parser.ParseUnverified(strings.Replace(authz, "Bearer ", "", 1), &claims)
-	if err != nil {
-		log.Printf("WARN: alt parsing error=%v", err)
-		return Response{
-			StatusCode: 401,
-			Body:       "Invalid jwt",
-			Headers: map[string]string{
-				"Content-Type":                "text/plain",
-				"Access-Control-Allow-Origin": "*",
-			},
-		}, nil
-	}
-
-	// } else {
-	// 	if err != nil {
-	// 		log.Printf("Could not parse jwt: %v", err)
-	// 		getHub(sentryAccountHub, E{"authz": authz, "headers": request.Headers}).CaptureMessage("Could not parse jwt")
-	// 		return Response{
-	// 			StatusCode: 401,
-	// 			Body:       "Invalid jwt",
-	// 			Headers: map[string]string{
-	// 				"Content-Type":                "text/plain",
-	// 				"Access-Control-Allow-Origin": "*",
-	// 			},
-	// 		}, nil
-	// 	}
-	// }
-
-	// claims, ok := token.Claims.(jwt.MapClaims)
-
-	// if !ok || !token.Valid {
-	// 	log.Printf("WARN: Invalid token. ok=%t valid=%t", ok, token.Valid)
-	// 	return Response{
-	// 		StatusCode: 401,
-	// 		Body:       "Invalid token",
-	// 		Headers: map[string]string{
-	// 			"Content-Type":                "text/plain",
-	// 			"Access-Control-Allow-Origin": "*",
-	// 		},
-	// 	}, nil
-	// }
-
-	// A valid JWT is supplied, but for another account
-	if claims["sub"] != request.PathParameters["accountId"] {
-		log.Printf("User is unauthorized sub=%s accountId=%s", claims["sub"], request.PathParameters["accountId"])
 		return Response{
 			StatusCode: 401,
 			Body:       "Unauthorized",
@@ -178,23 +116,6 @@ func Handler(ctx context.Context, request awsEvents.APIGatewayProxyRequest) (Res
 			},
 		}, nil
 	}
-
-	// FIXME: Experiment to not set last scheduled, otherwise if you manually refresh you might
-	// end up not being refreshed for another close to 2 hours.
-
-	// if err := storage.SetSubscriberLastScheduled(subscriber.AccountID, time.Now().UnixNano()); err != nil {
-	// 	sentryAccountHub.CaptureMessage("SetSubscriberLastScheduled failed")
-	// 	log.Printf("ERROR: could not update last scheduled error=%v", err)
-
-	// 	return Response{
-	// 		StatusCode: 500,
-	// 		Body:       "Update failed",
-	// 		Headers: map[string]string{
-	// 			"Content-Type":                "text/plain",
-	// 			"Access-Control-Allow-Origin": "*",
-	// 		},
-	// 	}, nil
-	// }
 
 	return Response{
 		StatusCode: 200,

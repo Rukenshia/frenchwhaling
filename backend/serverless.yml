@@ -77,6 +77,20 @@ functions:
           path: /click
           method: post
 
+  markAsPlayed:
+    handler: bin/markAsPlayed
+    memorySize: 256
+    timeout: 3
+    environment:
+      APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
+      SIGNING_SECRET: ${file(.env.live.yml):SigningSecret}
+      SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
+    events:
+      - http:
+          cors: true
+          path: /subscribers/{accountId}/ships/{shipId}
+          method: post
+
   requestRefresh:
     handler: bin/requestRefresh
     memorySize: 256
@@ -158,7 +172,7 @@ functions:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
     events:
-      - schedule: rate(12 hours)
+      - schedule: rate(10 hours)
 
 resources:
   Resources:
