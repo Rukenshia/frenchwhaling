@@ -11,12 +11,16 @@ module.exports = {
         'bg-gray-700',
         'bg-gray-800',
         'text-yellow-600',
+        'group-hover',
+        'group',
       ],
     },
   },
-  theme: {
-    extend: {},
+  theme: {},
+  variants: {
+    extend: {
+      display: ['group-hover'],
+    },
   },
-  variants: {},
   plugins: [],
 };

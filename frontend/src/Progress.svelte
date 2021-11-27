@@ -67,6 +67,14 @@
       }
 
       const sort = (a, b) => {
+        const byTier = () => {
+          if (vs[a.ship_id].tier < vs[b.ship_id].tier) {
+            return -1;
+          } else if (vs[a.ship_id].tier > vs[b.ship_id].tier) {
+            return 1;
+          }
+          return byName();
+        };
         const byName = () => {
           if (vs[a.ship_id].name < vs[b.ship_id].name) {
             return -1;
@@ -78,7 +86,7 @@
         const byInGarage = () => {
           if (a.private.in_garage) {
             if (b.private.in_garage) {
-              return byName();
+              return byTier();
             }
 
             return -1;
@@ -86,7 +94,7 @@
             if (b.private.in_garage) {
               return 1;
             }
-            return byName();
+            return byTier();
           }
         };
         if (a.Resource.Earned) {
@@ -213,6 +221,33 @@
         }
       }, 2500);
     }
+  }
+
+  function markShipAsPlayed(ship) {
+    axios
+      .post(
+        `https://whaling-api.in.fkn.space/subscribers/${$accountId}/ships/${ship.ship_id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${$token}`,
+          },
+        }
+      )
+      .then((res) => {
+        $data.Ships[ship.ship_id].Resource.Earned = ship.Resource.Amount;
+        $data.Resources[ship.Resource.Type].Earned += ship.Resource.Amount;
+
+        if ($resource && $resource.Type == ship.Resource.Type) {
+          $resource.Earned = $data.Resources[ship.Resource.Type].Earned;
+        }
+      })
+      .catch((err) => {
+        console.log(err, err.response);
+        alert(
+          'Sorry, there was an error trying to mark the ship as played. Please contact Rukenshia if this keeps happening.'
+        );
+      });
   }
 
   onMount(async () => {
@@ -362,14 +397,27 @@
                 </div>
                 {#each $categories[$resource.Type][amount].Ships as ship}
                   {#if withShipsNotInGarage || ship.private.in_garage}
-                    <div class="w-1/2 lg:w-1/2 xl:w-1/4 p-1 ">
+                    <div class="w-1/2 lg:w-1/2 xl:w-1/4 p-1">
                       <div
-                        class="border-2 border-gray-600 rounded"
+                        class="border-2 border-gray-600 rounded group relative overflow-hidden"
+                        class:group={ship.Resource.Earned == 0}
                         class:border-green-900={ship.Resource.Earned > 0}
                         class:border-yellow-800={ship.private &&
                           !ship.private.in_garage}
                       >
                         <ShipInfo {ship} />
+                        {#if ship.Resource.Earned == 0}
+                          <div
+                            class="group-hover:opacity-100 opacity-0 absolute inset-0 flex justify-center items-center transition-opacity duration-200"
+                            on:click={() => markShipAsPlayed(ship)}
+                          >
+                            <div
+                              class="bg-gray-600 text-green-400 font-medium h-full pt-0.5 flex-grow text-center items-center cursor-pointer"
+                            >
+                              mark as played
+                            </div>
+                          </div>
+                        {/if}
                       </div>
                     </div>
                   {/if}

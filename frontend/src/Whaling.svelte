@@ -223,7 +223,7 @@
       <div class="p-8 w-full flex justify-around">
         <div class="w-full xl:w-3/4">
           <div class="mt-4 mb-8 w-full justify-around flex">
-            <div class="w-3/4 rounded p-2 bg-gray-800 text-white text-gray-300">
+            <div class="w-3/4 rounded p-2 bg-gray-800 text-gray-300">
               If you enjoy using this website, please share the word and link
               your friends to
               <a
@@ -233,6 +233,13 @@
               >
                 https://whaling.in.fkn.space
               </a>
+            </div>
+          </div>
+          <div class="mt-4 mb-8 w-full justify-around flex">
+            <div class="w-3/4 rounded p-2 bg-green-200 text-gray-800">
+              <strong>New:</strong> You can now click on a ship to mark it as played.
+              This is useful for situations like playing Arms Race, which cannot
+              be tracked because Wargaming's API does not support it.
             </div>
           </div>
 
