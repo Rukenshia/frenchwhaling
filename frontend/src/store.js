@@ -36,6 +36,7 @@ export const resourceName = [
   'Anniversary Container',
   'Festive Token',
   'Festive Token and Anniversary Container',
+  'New Year Certificate',
 ];
 
 axios.get('/warships.min.json').then((res) => {

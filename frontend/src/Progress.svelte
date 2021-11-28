@@ -179,6 +179,12 @@
     try {
       const res = await axios.get(`${$dataUrl}?${+new Date()}`);
       $data = res.data;
+
+      for (const dataResource of $data.Resources) {
+        if ($resource && $resource.Type == dataResource.Type) {
+          $resource.Earned = dataResource.Earned;
+        }
+      }
       done();
 
       if (reloading) {
@@ -224,6 +230,13 @@
   }
 
   function markShipAsPlayed(ship) {
+    $data.Ships[ship.ship_id].Resource.Earned = ship.Resource.Amount;
+    $data.Resources[ship.Resource.Type].Earned += ship.Resource.Amount;
+
+    if ($resource && $resource.Type == ship.Resource.Type) {
+      $resource.Earned = $data.Resources[ship.Resource.Type].Earned;
+    }
+
     axios
       .post(
         `https://whaling-api.in.fkn.space/subscribers/${$accountId}/ships/${ship.ship_id}`,
@@ -234,15 +247,13 @@
           },
         }
       )
-      .then((res) => {
-        $data.Ships[ship.ship_id].Resource.Earned = ship.Resource.Amount;
-        $data.Resources[ship.Resource.Type].Earned += ship.Resource.Amount;
+      .catch((err) => {
+        $data.Ships[ship.ship_id].Resource.Earned = 0;
+        $data.Resources[ship.Resource.Type].Earned -= ship.Resource.Amount;
 
         if ($resource && $resource.Type == ship.Resource.Type) {
           $resource.Earned = $data.Resources[ship.Resource.Type].Earned;
         }
-      })
-      .catch((err) => {
         console.log(err, err.response);
         alert(
           'Sorry, there was an error trying to mark the ship as played. Please contact Rukenshia if this keeps happening.'
@@ -367,14 +378,22 @@
           {/if}
 
           <div class="p-4 text-gray-200">
-            You have earned up to
+            You have earned at least
             <span class="text-3xl">{$resource.Earned}</span>
-            {resourceName[$resource.Type]}
-            out of
+            {resourceName[$resource.Type]} ({Object.values($data.Ships).filter(
+              (ship) =>
+                (withShipsNotInGarage ? true : ship.private.in_garage) &&
+                ship.Resource.Type == $resource.Type &&
+                ship.Resource.Earned > 0
+            ).length} ships) out of
             <span class="text-3xl">
               {$max[$resource.Type][withShipsNotInGarage ? 1 : 0]}
             </span>
-            you can earn during the event.
+            ({Object.values($data.Ships).filter(
+              (ship) =>
+                (withShipsNotInGarage ? true : ship.private.in_garage) &&
+                ship.Resource.Type == $resource.Type
+            ).length} ships) you can earn during the event.
           </div>
           <div class="p-4 pt-0">
             <label class="md:w-full block text-gray-400 font-bold">
