@@ -175,7 +175,7 @@
           href="https://www.buymeacoffee.com/rukenshia"
           target="_blank"
           class="px-4 font-xs font-medium border-none py-1 rounded
-          bg-gray-50 hover:bg-gray-200 shadow-xl"
+          bg-white hover:bg-yellow-200 shadow-xl"
         >
           <div class="flex gap-2">
             <img
@@ -233,13 +233,6 @@
               >
                 https://whaling.in.fkn.space
               </a>
-            </div>
-          </div>
-          <div class="mt-4 mb-8 w-full justify-around flex">
-            <div class="w-3/4 rounded p-2 bg-green-200 text-gray-800">
-              <strong>New:</strong> You can now click on a ship to mark it as played.
-              This is useful for situations like playing Arms Race, which cannot
-              be tracked because Wargaming's API does not support it.
             </div>
           </div>
 

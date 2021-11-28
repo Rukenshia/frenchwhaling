@@ -388,6 +388,16 @@
             </label>
           </div>
 
+          <div class="mt-4 mb-8 w-full justify-around flex">
+            <div
+              class="w-full lg:w-3/4 rounded p-2 bg-green-900 text-green-100"
+            >
+              You can now click on a ship to mark it as played. This is useful
+              for situations like playing Arms Race, which cannot be tracked
+              because Wargaming's API does not support it.
+            </div>
+          </div>
+
           {#if $categories}
             {#each Object.keys($categories[$resource.Type]).reverse() as amount}
               <div class="flex flex-wrap mb-4">
