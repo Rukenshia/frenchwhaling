@@ -1,7 +1,10 @@
 service: whaling
-frameworkVersion: '>=1.28.0 <2.0.0'
+frameworkVersion: '2'
 
 provider:
+  lambdaHashingVersion: '20201221'
+  versionFunctions: false
+
   name: aws
   runtime: go1.x
   region: eu-central-1
@@ -13,38 +16,41 @@ provider:
     Application: whaling
   tags:
     Application: whaling
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:*Item
-        - dynamodb:Scan
-      Resource:
-        - Fn::GetAtt: SubscribersTable.Arn
-        - Fn::GetAtt: SubscriberEventsTable.Arn
-    - Effect: Allow
-      Action:
-        - 's3:GetObject'
-        - 's3:PutObject'
-        - 's3:PutObjectAcl'
-        - 's3:ListBucket'
-      Resource:
-        - Fn::GetAtt: SubscribersBucket.Arn
-        - Fn::Join:
-            - ''
-            - - Fn::GetAtt: SubscribersBucket.Arn
-              - '/*'
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:PutObjectAcl
-      Resource: arn:aws:s3:::whaling.in.fkn.space/*
-    - Effect: Allow
-      Action: 'sns:Publish'
-      Resource:
-        Ref: SNSTopic
-    - Effect: Allow
-      Action: 'cloudwatch:PutMetricData'
-      Resource: '*'
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*Item
+            - dynamodb:Scan
+          Resource:
+            - Fn::GetAtt: [SubscribersTable, Arn]
+            - Fn::GetAtt: [SubscriberEventsTable, Arn]
+        - Effect: Allow
+          Action:
+            - 's3:GetObject'
+            - 's3:PutObject'
+            - 's3:PutObjectAcl'
+            - 's3:ListBucket'
+          Resource:
+            - Fn::GetAtt: [SubscribersBucket, Arn]
+            - Fn::Join:
+                - ''
+                - - Fn::GetAtt: [SubscribersBucket, Arn]
+                  - '/*'
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:PutObjectAcl
+          Resource: arn:aws:s3:::whaling.in.fkn.space/*
+        - Effect: Allow
+          Action: 'sns:Publish'
+          Resource:
+            Ref: SNSTopic
+        - Effect: Allow
+          Action: 'cloudwatch:PutMetricData'
+          Resource: '*'
 
 package:
   exclude:
@@ -162,7 +168,7 @@ functions:
       TOPIC_ARN:
         Ref: SNSTopic
     events:
-      - schedule: rate(2 hours)
+      - schedule: rate(6 hours)
 
   generateGlobalStats:
     handler: bin/generateGlobalStats
@@ -172,7 +178,7 @@ functions:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
     events:
-      - schedule: rate(10 hours)
+      - schedule: rate(12 hours)
 
 resources:
   Resources:
