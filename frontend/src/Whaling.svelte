@@ -207,7 +207,6 @@
     </div>
   </div>
   <div class="bg-gray-900 sm:mt-0">
-    <!--
     <div class="mt-12 w-full flex justify-around">
       <div class="flex flex-wrap mt-8 justify-around">
         <div class="w-full mx-auto">
@@ -217,8 +216,8 @@
         </div>
       </div>
     </div>
-    -->
 
+    <!--
     {#if $loggedIn}
       <div class="p-8 w-full flex justify-around">
         <div class="w-full xl:w-3/4">
@@ -301,6 +300,7 @@
       </div>
       <div class="mb-16" />
     {/if}
+    -->
 
     <div class="mt-8 mb-8 text-gray-400 font-medium text-sm text-center">
       <a href="#privacy" on:click={privacyPolicy}>Privacy Policy</a>

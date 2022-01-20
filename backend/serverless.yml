@@ -67,11 +67,11 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    events:
-      - http:
-          cors: true
-          path: /login
-          method: get
+    # events:
+    #   - http:
+    #       cors: true
+    #       path: /login
+    #       method: get
 
   click:
     handler: bin/click
@@ -91,11 +91,11 @@ functions:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SIGNING_SECRET: ${file(.env.live.yml):SigningSecret}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
-    events:
-      - http:
-          cors: true
-          path: /subscribers/{accountId}/ships/{shipId}
-          method: post
+    # events:
+    #   - http:
+    #       cors: true
+    #       path: /subscribers/{accountId}/ships/{shipId}
+    #       method: post
 
   requestRefresh:
     handler: bin/requestRefresh
@@ -107,11 +107,11 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    events:
-      - http:
-          cors: true
-          path: /subscribers/{accountId}/refresh
-          method: get
+    # events:
+    #   - http:
+    #       cors: true
+    #       path: /subscribers/{accountId}/refresh
+    #       method: get
 
   manualRefresh:
     handler: bin/refresh
@@ -167,8 +167,8 @@ functions:
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
       TOPIC_ARN:
         Ref: SNSTopic
-    events:
-      - schedule: rate(6 hours)
+    # events:
+    #   - schedule: rate(6 hours)
 
   generateGlobalStats:
     handler: bin/generateGlobalStats
@@ -177,8 +177,8 @@ functions:
     environment:
       APPLICATION_ID: ${file(.env.live.yml):ApplicationID}
       SENTRY_DSN: ${file(.env.live.yml):SentryDsn}
-    events:
-      - schedule: rate(12 hours)
+    # events:
+    #   - schedule: rate(12 hours)
 
 resources:
   Resources:
