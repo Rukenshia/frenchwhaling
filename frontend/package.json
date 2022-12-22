@@ -19,7 +19,7 @@
     "axios": "^0.21.4",
     "date-fns": "^2.23.0",
     "human-readable-numbers": "^0.9.5",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.24.0",
     "postcss": "^7.0.39",
